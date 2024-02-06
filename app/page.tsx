@@ -73,6 +73,8 @@ export default function Home() {
     setResult({ text: "", link: "", source: "" });
     setLoading(true);
 
+    console.log('hello there world')
+
     try {
       const response = await fetch("/api/read", {
         method: "POST",
