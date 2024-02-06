@@ -99,7 +99,7 @@ export default function Home() {
         <div className="hero-content text-center">
           <div className="max-w-lg">
             <div className="text-7xl font-semibold text-white drop-shadow">
-              Ne<span className="text-blue-500">x</span>um
+              Ne<span className="text-fuchsia-700">x</span>um <span className="font-thin text-fuchsia-700">GSA</span>
             </div>
             <p className="py-3 text-white text-lg drop-shadow">
               You have questions, we have answers.
@@ -112,7 +112,7 @@ export default function Home() {
                 <input
                   ref={inputRef} // Add the ref to the input element
                   className="w-full focus:outline-none"
-                  placeholder="search for anything..."
+                  placeholder="Search GSA..."
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   onKeyDown={(e) => {
@@ -122,7 +122,7 @@ export default function Home() {
                   }}
                 />
                 <button className="btn btn-primary rounded-l-none hover:shadow" onClick={sendQuery}>
-                  Submit
+                  Search
                 </button>
               </div>
             </div>
@@ -136,7 +136,7 @@ export default function Home() {
         <div className="mb-10">
           {loading && (
             <>
-              <div className="flex flex-col items-center">
+              <div className="flex flex-col items-center pb-10">
                 <div>
                   <LiaCircleNotchSolid className="w-32 h-32 animate-spin" />
                 </div>
@@ -149,7 +149,7 @@ export default function Home() {
           )}
 
           {result.text ? (
-            <div>
+            <div className="pb-10">
               <div className="chat chat-end">
                 <div className="chat-header">Me</div>
                 <div className="chat-bubble bg-purple-500 shadow-lg p-4">
@@ -223,29 +223,15 @@ export default function Home() {
         )} */}
 
         {/* consider removing this button from the UI once the embeddings are created ... */}
-
-
-
-
-        <div className="flex flex-col sm:flex-row gap-2 sm:gap-5  w-full items-center justify-center">
-
-
-
-
-
-
-
-
-
-
+        <div className="flex -mt-10 flex-col sm:flex-row gap-2 sm:gap-5  w-full items-center justify-center">
           <div className="w-full border border-gray-900 rounded">
-            <button className="btn btn-secondary bg-gray-900 hover:bg-purple-500 w-full" onClick={createIndexAndEmbeddings}>
+            <button className="btn btn-ghost w-full" onClick={createIndexAndEmbeddings}>
               Index Docs
             </button>
           </div>
 
           <div className="w-full h-full flex shadow border border-gray-900 rounded">
-            <button className="btn btn-secondary w-full" onClick={getPages}>
+            <button className="btn btn-ghost w-full" onClick={getPages}>
               Get Pages
             </button>
           </div>

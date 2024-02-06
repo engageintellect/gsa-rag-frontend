@@ -5,7 +5,7 @@ function Nav() {
   return (
     <div className="navbar bg-base-100 max-w-3xl mx-auto">
       <div className="flex-1">
-        <a className="normal-case text-xl" href="/">
+        <a className="normal-case text-xl sm:scale-125" href="/">
           <Image src="/ResonantLogic_Logo.svg" alt="logo" width={175} height={175} />
         </a>
       </div>
@@ -19,26 +19,17 @@ function Nav() {
             className="menu menu-sm dropdown-content mt-3 z-[1] shadow bg-base-100 w-52 border border-gray-900"
           >
 
+
             <li>
               <a href="/about">About</a>
             </li>
 
 
-            <li>
-              <a href={process.env.NEXT_PUBLIC_WIKI_URL} target="_blank">
-                Wiki
-              </a>
-            </li>
-
 
             <li>
-              <a
-                href={`${process.env.NEXT_PUBLIC_WIKI_URL}/ai`}
-                target="_blank"
-              >
-                ET-GPT
-              </a>
+              <a href="https://resonantlogic.com/about-us/">Resonant Logic</a>
             </li>
+
           </ul>
         </div>
       </div>
