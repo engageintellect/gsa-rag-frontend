@@ -38,15 +38,18 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
     const concatenatedPageContent = queryResponse.matches
       .map((match) => match.metadata.pageContent)
       .join(" ");
+		console.log('FUCK THIS')
+		console.log('FUCK THIS')
+    console.log('Matches:', queryResponse.matches);
     // 9. Execute the chain with input documents and question
     const result = await chain.call({
       input_documents: [new Document({ pageContent: concatenatedPageContent })],
       question: question,
     });
     // 10. Log the answer
-    // console.log(`Answer: ${JSON.stringify(metadata)}`);
-    // return [result.text, queryResponse.matches[0].metadata.txtPath];
-    // console.log("hehllloooo world", JSON.stringify(queryResponse));
+    console.log(`Answer: ${JSON.stringify(metadata)}`);
+    return [result.text, queryResponse.matches[0].metadata.txtPath];
+    console.log("hehllloooo world", JSON.stringify(queryResponse));
     return {
       text: result.text,
       link: queryResponse.matches[0].metadata.txtPath,
@@ -57,6 +60,14 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
     console.log("Since there are no matches, GPT-3 will not be queried.");
   }
 };
+
+
+
+
+
+
+
+
 export const createPineconeIndex = async (
   client,
   indexName,

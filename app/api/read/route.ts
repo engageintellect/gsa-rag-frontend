@@ -6,6 +6,8 @@ import { indexName } from "../../../config";
 export async function POST(req: NextRequest) {
   const body = await req.json();
   const client = new PineconeClient();
+  console.log("CLIENT")
+  console.log(client)
   await client.init({
     apiKey: process.env.PINECONE_API_KEY || "",
     environment: process.env.PINECONE_ENVIRONMENT || "",
