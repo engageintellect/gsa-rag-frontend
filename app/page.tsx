@@ -95,45 +95,88 @@ export default function Home() {
   return (
     <div>
       <Nav />
-      <div className="hero bg-gradient-to-b from-gray-900 to-gray-600 pb-20 pt-10">
-        <div className="hero-content text-center">
-          <div className="max-w-lg">
-            <div className="text-7xl font-semibold text-white drop-shadow">
-              Ne<span className="text-fuchsia-700">x</span>um <span className="font-thin text-fuchsia-700">GSA</span>
-            </div>
-            <p className="py-3 text-white text-lg drop-shadow">
-              You have questions, we have answers.
-            </p>
-            <div className="bg-white flex gap-2 items-center border border-primary rounded">
-              <div>
-                <FaSearch className="text-primary h-7 w-7 pl-2" />
-              </div>
-              <div className="flex gap-2 w-full">
-                <input
-                  ref={inputRef} // Add the ref to the input element
-                  className="w-full focus:outline-none"
-                  placeholder="Search GSA..."
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      sendQuery();
-                    }
-                  }}
-                />
-                <button className="btn btn-primary rounded-l-none hover:shadow" onClick={sendQuery}>
-                  Search
-                </button>
+
+      <div className="relative -z-[1]">
+        <div className="w-full object-cover h-full relative">
+          <Image src="/tech_network.jpg" alt="logo" className="w-full h-64 sm:h-72 md:h-80" width={200} height={200} />
+        </div>
+
+        <div className="absolute top-0 w-full h-full flex justify-center items-center opacity-50 bg-gradient-to-b from-gray-950 to-gray-700"></div>
+
+        <div className="absolute top-0 w-full h-full flex justify-center items-center pb-10">
+          <div className="hero h-full">
+            <div className="hero-content text-center">
+              <div className="max-w-lg">
+                <div className="text-5xl sm:text-7xl font-semibold text-white drop-shadow">
+                  Se<span className="text-fuchsia-700"></span>arch <span className="font-thin text-blue-400 drop-shadow">GSA</span>
+                </div>
+                <p className="py-3 text-white sm:text-lg drop-shadow">
+                  You have questions, we have answers.
+                </p>
+                {/* <div className="bg-white flex gap-2 items-center border border-primary rounded">
+                  <div>
+                    <FaSearch className="text-primary h-7 w-7 pl-2" />
+                  </div>
+                  <div className="flex gap-2 w-full">
+                    <input
+                      ref={inputRef} // Add the ref to the input element
+                      className="w-full focus:outline-none"
+                      placeholder="Ask a question..."
+                      value={query}
+                      onChange={(e) => setQuery(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          sendQuery();
+                        }
+                      }}
+                    />
+                    <button className="btn btn-primary rounded-l-none hover:shadow" onClick={sendQuery}>
+                      Search
+                    </button>
+                  </div>
+                </div> */}
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="flex justify-center"></div>
 
-      <main className="min-h-screen flex flex-col items-center max-w-3xl mx-auto border border-primary rounded shadow-lg -my-10 p-2 sm:p-10 bg-base-100">
-        <div className="mb-10">
+
+
+
+
+
+      <main className="min-h-screen flex flex-col bg-base-100 items-center max-w-3xl mx-auto border border-primary rounded shadow-lg -my-20 p-5">
+        <div className="mb-10 w-full">
+
+
+                <div className="bg-white flex gap-2 items-center border border-primary rounded mb-5 w-full">
+                  <div>
+                    <FaSearch className="text-primary h-7 w-7 pl-2" />
+                  </div>
+                  <div className="flex gap-2 w-full">
+                    <input
+                      ref={inputRef} // Add the ref to the input element
+                      className="w-full focus:outline-none"
+                      placeholder="Ask a question..."
+                      value={query}
+                      onChange={(e) => setQuery(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          sendQuery();
+                        }
+                      }}
+                    />
+                    <button className="btn btn-primary rounded-l-none hover:shadow" onClick={sendQuery}>
+                      Search
+                    </button>
+                  </div>
+                </div>
+
+
+
+
           {loading && (
             <>
               <div className="flex flex-col items-center pb-10">

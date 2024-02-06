@@ -52,11 +52,6 @@ function Footer() {
             <a className="link link-hover" href="https://maps.app.goo.gl/n1KiwWJDQcUbfcaA8" target="_blank">555 W 5th St. 35th Floor<br></br>Los Angeles, CA 90013</a>
           </div>
 
-
-
-
-
-
         </nav> 
         <nav className="w-full">
           <h6 className="footer-title">Certifications</h6> 
