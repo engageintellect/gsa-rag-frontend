@@ -98,7 +98,7 @@ export default function Home() {
 
       <div className="relative -z-[1]">
         <div className="w-full object-cover h-full relative">
-          <Image src="/tech_network.jpg" alt="logo" className="w-full h-64 sm:h-72 md:h-80" width={200} height={200} />
+          <Image src="/tech_network.jpg" alt="logo" className="w-full h-64 sm:h-72 md:h-80 border border-gray-900" width={200} height={200} />
         </div>
 
         <div className="absolute top-0 w-full h-full flex justify-center items-center opacity-50 bg-gradient-to-b from-gray-950 to-gray-700"></div>
@@ -147,11 +147,11 @@ export default function Home() {
 
 
 
-      <main className="min-h-screen flex flex-col bg-base-100 items-center max-w-3xl mx-auto border border-primary rounded shadow-lg -my-20 p-5">
+      <main className="min-h-screen flex flex-col bg-base-100 items-center max-w-3xl mx-auto border border-primary rounded shadow-lg -mt-20 mb-10 p-5">
         <div className="mb-10 w-full">
 
 
-                <div className="bg-white flex gap-2 items-center border border-primary rounded mb-5 w-full">
+                <div className="bg-white flex gap-2 items-center border border-primary rounded mb-5 w-full max-w-lg mx-auto">
                   <div>
                     <FaSearch className="text-primary h-7 w-7 pl-2" />
                   </div>
@@ -179,7 +179,7 @@ export default function Home() {
 
           {loading && (
             <>
-              <div className="flex flex-col items-center pb-10">
+              <div className="flex flex-col items-center pb-10 bg-red-300">
                 <div>
                   <LiaCircleNotchSolid className="w-32 h-32 animate-spin" />
                 </div>
@@ -266,7 +266,7 @@ export default function Home() {
         )} */}
 
         {/* consider removing this button from the UI once the embeddings are created ... */}
-        <div className="flex -mt-10 flex-col sm:flex-row gap-2 sm:gap-5  w-full items-center justify-center">
+        <div className="flex -mt-10 flex-col sm:flex-row gap-2 sm:gap-5  w-full items-center justify-center max-w-lg">
           <div className="w-full border border-gray-900 rounded">
             <button className="btn btn-ghost w-full" onClick={createIndexAndEmbeddings}>
               Index Docs
