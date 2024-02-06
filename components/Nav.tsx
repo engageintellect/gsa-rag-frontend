@@ -1,13 +1,12 @@
 import { FaBars } from "react-icons/fa";
+import Image from "next/image";
 
 function Nav() {
   return (
     <div className="navbar bg-base-100 max-w-3xl mx-auto">
       <div className="flex-1">
-        <a className="btn btn-outline normal-case text-xl drop-shadow shadow" href="/">
-          <div>
-            Ne<span className="text-purple-500">x</span>um
-          </div>
+        <a className="normal-case text-xl" href="/">
+          <Image src="/ResonantLogic_Logo.svg" alt="logo" width={175} height={175} />
         </a>
       </div>
       <div className="flex-none">
@@ -17,17 +16,21 @@ function Nav() {
           </label>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+            className="menu menu-sm dropdown-content mt-3 z-[1] shadow bg-base-100 w-52 border border-gray-900"
           >
+
+            <li>
+              <a href="/about">About</a>
+            </li>
+
+
             <li>
               <a href={process.env.NEXT_PUBLIC_WIKI_URL} target="_blank">
                 Wiki
               </a>
             </li>
 
-            <li>
-              <a href="/about">About</a>
-            </li>
+
             <li>
               <a
                 href={`${process.env.NEXT_PUBLIC_WIKI_URL}/ai`}

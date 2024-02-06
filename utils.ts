@@ -27,9 +27,9 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
     },
   });
   // 5. Log the number of matches
-  console.log(`Found ${queryResponse.matches.length} matches...`);
+  console.log(`FOUND ${queryResponse.matches.length} MATCHES...`);
   // 6. Log the question being asked
-  console.log(`Asking question: ${question}...`);
+  console.log(`ASKING QUESTION: ${question}...`);
   if (queryResponse.matches.length) {
     // 7. Create an OpenAI instance and load the QAStuffChain
     const llm = new OpenAI({});
@@ -40,20 +40,30 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
       .join(" ");
 		console.log('FUCK THIS')
 		console.log('FUCK THIS')
-    console.log('Matches:', queryResponse.matches);
     // 9. Execute the chain with input documents and question
-    const result = await chain.call({
-      input_documents: [new Document({ pageContent: concatenatedPageContent })],
-      question: question,
-    });
+
+    // console.log("QUERY MATCHES", queryResponse.matches)
+
+    const pageContents = queryResponse.matches;
+
+
+    
+
+    console.log('PAGE CONTENTS:', pageContents);
+
+
+    // const result = await chain.call({
+    //   input_documents: [new Document({ pageContent: concatenatedPageContent })],
+    //   question: question,
+    // });
     // 10. Log the answer
     console.log(`Answer: ${JSON.stringify(metadata)}`);
-    return [result.text, queryResponse.matches[0].metadata.txtPath];
-    console.log("hehllloooo world", JSON.stringify(queryResponse));
+    // return [result.text, queryResponse.matches[0].metadata.txtPath];
+    // console.log("hehllloooo world", JSON.stringify(queryResponse));
     return {
-      text: result.text,
+      // text: result.text,
       link: queryResponse.matches[0].metadata.txtPath,
-      source: queryResponse.matches[0].metadata.pageContent,
+      // source: queryResponse.matches[0].metadata.pageContent,
     };
   } else {
     // 11. Log that there are no matches, so GPT-3 will not be queried

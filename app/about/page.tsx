@@ -6,7 +6,7 @@ export default function About() {
   return (
     <>
       <Nav />
-      <div className="max-w-5xl mx-auto px-4 md:p-10 min-h-screen">
+      <div className="max-w-3xl mx-auto px-4 md:p-10 min-h-screen">
         <div className="text-3xl my-10 font-bold">
           Unleashing the Power of OpenAI: Contextual Search for Web Data and
           Documents

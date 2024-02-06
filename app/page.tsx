@@ -99,7 +99,7 @@ export default function Home() {
         <div className="hero-content text-center">
           <div className="max-w-lg">
             <div className="text-7xl font-semibold text-white drop-shadow">
-              Ne<span className="text-purple-500">x</span>um
+              Ne<span className="text-blue-500">x</span>um
             </div>
             <p className="py-3 text-white text-lg drop-shadow">
               You have questions, we have answers.
@@ -227,27 +227,25 @@ export default function Home() {
 
 
 
-        <div className="flex gap-5  w-full items-center justify-center">
+        <div className="flex flex-col sm:flex-row gap-2 sm:gap-5  w-full items-center justify-center">
+
+
+
+
+
+
+
+
+
 
           <div className="w-full border border-gray-900 rounded">
-            
-             <div className="p-2">
-              <div className="text-lg font-semibold">Hello world</div>
-              <div>Proident eu laboris do qui est commodo duis amet laboris nisi. Ea incididunt officia minim nulla do aliquip ipsum. Exercitation ipsum ad irure aliqua magna minim esse. Cillum officia incididunt eiusmod aliqua magna laborum consequat.  </div>
-            </div>
-            
-            <button className="btn w-full" onClick={createIndexAndEmbeddings}>
+            <button className="btn btn-secondary bg-gray-900 hover:bg-purple-500 w-full" onClick={createIndexAndEmbeddings}>
               Index Docs
             </button>
           </div>
 
-          <div className="w-full shadow border border-gray-900 rounded">
-
-            <div className="p-2">
-              <div className="text-lg font-semibold">Hello world</div>
-              <div>Proident eu laboris do qui est commodo duis amet laboris nisi. Ea incididunt officia minim nulla do aliquip ipsum. Exercitation ipsum ad irure aliqua magna minim esse. Cillum officia incididunt eiusmod aliqua magna laborum consequat.  </div>
-            </div>
-            <button className="btn w-full" onClick={getPages}>
+          <div className="w-full h-full flex shadow border border-gray-900 rounded">
+            <button className="btn btn-secondary w-full" onClick={getPages}>
               Get Pages
             </button>
           </div>
