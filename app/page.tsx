@@ -8,6 +8,11 @@ import Image from "next/image";
 import path from "path";
 import { LiaCircleNotchSolid } from "react-icons/lia";
 import { FaSearch } from "react-icons/fa";
+import { MdGroups } from "react-icons/md";
+import { AiOutlineNodeIndex } from "react-icons/ai";
+import { MdOutlineGetApp } from "react-icons/md";
+import { CiSearch } from "react-icons/ci";
+import { IoIosSend } from "react-icons/io";
 
 export default function Home() {
   const inputRef = useRef<HTMLInputElement>(null); // Add type annotation for inputRef
@@ -101,18 +106,24 @@ export default function Home() {
           <Image src="/tech_network.jpg" alt="logo" className="w-full h-64 sm:h-72 md:h-80 border border-gray-900" width={200} height={200} />
         </div>
 
-        <div className="absolute top-0 w-full h-full flex justify-center items-center opacity-50 bg-gradient-to-b from-gray-950 to-gray-700"></div>
+        <div className="absolute top-0 w-full h-full flex justify-center items-center opacity-70 bg-gradient-to-b from-gray-950 to-gray-700"></div>
 
         <div className="absolute top-0 w-full h-full flex justify-center items-center pb-10">
           <div className="hero h-full">
             <div className="hero-content text-center">
               <div className="max-w-lg">
-                <div className="text-5xl sm:text-7xl font-semibold text-white drop-shadow">
-                  Se<span className="text-fuchsia-700"></span>arch <span className="font-thin text-blue-400 drop-shadow">GSA</span>
+                <div className="font-semibold text-white drop-shadow">
+                  <div className="flex items-center justify-center">
+                    <span><CiSearch className="text-white h-20 w-20" /></span>
+                    {/* <div>Search</div> */}
+                    <div className="font-thin text-blue-400 drop-shadow text-7xl">GSA</div>
+                  </div>
                 </div>
-                <p className="py-3 text-white sm:text-lg drop-shadow">
+                <p className="py-3 text-white font-thin sm:text-lg drop-shadow">
                   You have questions, we have answers.
                 </p>
+
+
                 {/* <div className="bg-white flex gap-2 items-center border border-primary rounded">
                   <div>
                     <FaSearch className="text-primary h-7 w-7 pl-2" />
@@ -147,39 +158,37 @@ export default function Home() {
 
 
 
-      <main className="min-h-screen flex flex-col bg-base-100 items-center max-w-3xl mx-auto border border-primary rounded shadow-lg -mt-20 mb-10 p-5">
+      <main className="min-h-screen flex flex-col bg-gray-200 items-center max-w-3xl mx-auto border border-primary rounded shadow-lg -mt-20 mb-10 p-5">
         <div className="mb-10 w-full">
-
-
-                <div className="bg-white flex gap-2 items-center border border-primary rounded mb-5 w-full max-w-lg mx-auto">
-                  <div>
-                    <FaSearch className="text-primary h-7 w-7 pl-2" />
-                  </div>
-                  <div className="flex gap-2 w-full">
-                    <input
-                      ref={inputRef} // Add the ref to the input element
-                      className="w-full focus:outline-none"
-                      placeholder="Ask a question..."
-                      value={query}
-                      onChange={(e) => setQuery(e.target.value)}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter") {
-                          sendQuery();
-                        }
-                      }}
-                    />
-                    <button className="btn btn-primary rounded-l-none hover:shadow" onClick={sendQuery}>
-                      Search
-                    </button>
-                  </div>
+          <div className="bg-white flex gap-2 items-center border border-primary rounded mb-5 w-full max-w-3xl mx-auto">
+            <div>
+              <FaSearch className="text-primary h-7 w-7 pl-2" />
+            </div>
+            <div className="flex gap-2 w-full">
+              <input
+                ref={inputRef} // Add the ref to the input element
+                className="w-full focus:outline-none"
+                placeholder="Ask a question..."
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    sendQuery();
+                  }
+                }}
+              />
+              <button className="btn btn-primary rounded-l-none hover:shadow group" onClick={sendQuery}>
+                <div className="sm:group-hover:scale-105 transition-all duration-200">
+                  <IoIosSend className="w-7 h-7 text-white" />
                 </div>
-
-
+              </button>
+            </div>
+          </div>
 
 
           {loading && (
             <>
-              <div className="flex flex-col items-center pb-10 bg-red-300">
+              <div className="flex flex-col items-center py-10">
                 <div>
                   <LiaCircleNotchSolid className="w-32 h-32 animate-spin" />
                 </div>
@@ -228,7 +237,7 @@ export default function Home() {
                         target="_blank"
                         className="btn btn-outline"
                       >
-                        {/* {path.basename(result.link)} */}
+                        {path.basename(result.link)}
                         Read More
                       </a>
                     </div>
@@ -266,16 +275,49 @@ export default function Home() {
         )} */}
 
         {/* consider removing this button from the UI once the embeddings are created ... */}
-        <div className="flex -mt-10 flex-col sm:flex-row gap-2 sm:gap-5  w-full items-center justify-center max-w-lg">
-          <div className="w-full border border-gray-900 rounded">
-            <button className="btn btn-ghost w-full" onClick={createIndexAndEmbeddings}>
-              Index Docs
-            </button>
-          </div>
+        <div className="flex -mt-10 flex-col sm:flex-row gap-2 sm:gap-5  w-full items-center justify-center max-w-3xl">
 
-          <div className="w-full h-full flex shadow border border-gray-900 rounded">
+          <a href="/about" className="w-full border border-gray-900 rounded group">
+            <button className="btn btn-ghost w-full">
+              <div className="flex gap-2 items-center">
+                <div>
+                  About
+                </div>
+
+                <div className="sm:group-hover:scale-105 transition-all duration-200">
+                  <MdGroups className="w-6 h-6" />
+                </div>
+              </div>
+            </button>
+          </a>
+
+          <a href="/about" className="w-full border border-gray-900 rounded group">
+            <button className="btn btn-ghost w-full" onClick={createIndexAndEmbeddings}>
+              <div className="flex gap-2 items-center">
+                <div>
+                  Index
+                </div>
+
+                <div className="sm:group-hover:scale-105 transition-all duration-200">
+                  <AiOutlineNodeIndex className="w-6 h-6" />
+                </div>
+              </div>
+            </button>
+          </a>
+
+
+
+          <div className="w-full h-full flex shadow border border-gray-900 rounded group">
             <button className="btn btn-ghost w-full" onClick={getPages}>
-              Get Pages
+              <div className="flex gap-2 items-center">
+                <div>
+                  Get Pages
+                </div>
+
+                <div className="sm:group-hover:scale-105 transition-all duration-200">
+                  <MdOutlineGetApp className="w-6 h-6" />
+                </div>
+              </div>
             </button>
           </div>
         </div>

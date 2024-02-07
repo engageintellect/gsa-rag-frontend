@@ -7,7 +7,7 @@ function Nav() {
 
       <div className="navbar bg-base-100 max-w-3xl mx-auto">
         <div className="flex-1">
-          <a className="normal-case text-xl sm:scale-125" href="/">
+          <a className="normal-case text-xl lg:scale-125" href="/">
             <Image src="/ResonantLogic_Logo.svg" alt="logo" width={175} height={175} />
           </a>
         </div>
