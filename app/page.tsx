@@ -103,10 +103,10 @@ export default function Home() {
 
       <div className="relative -z-[1]">
         <div className="w-full object-cover h-full relative">
-          <Image src="/tech_network.jpg" alt="logo" priority={true} className="w-full h-64 sm:h-72 md:h-80 border border-gray-900" width={200} height={200} />
+          <Image src="/tech_network.jpg" alt="logo" priority={true} className="w-full h-64 sm:h-72 md:h-80 border border-gray-900" width={500} height={500} />
         </div>
 
-        <div className="absolute top-0 w-full h-full flex justify-center items-center opacity-70 bg-gradient-to-b from-gray-950 to-gray-700"></div>
+        <div className="absolute top-0 w-full h-full flex justify-center items-center opacity-80 sm:h-72 md:h-80 bg-gradient-to-b from-gray-950 to-gray-700"></div>
 
         <div className="absolute top-0 w-full h-full flex justify-center items-center pb-10">
           <div className="hero h-full">
