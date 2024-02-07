@@ -64,8 +64,15 @@ function Footer() {
         <nav className="w-full">
           <h6 className="footer-title">Certifications</h6> 
           <div className="w-full flex">
-            <div className="w-full">
-              <Image src="/sdvosb_certified.png" alt="logo" className="bg-info rounded p-2" width={200} height={200} />
+            <div className="w-full flex gap-5 items-center">
+              {/* <Image src="/sdvosb_certified.png" alt="logo" className="bg-info rounded p-2" width={200} height={200} /> */}
+              
+              <div>
+                <Image src="/sba_cert.jpg" alt="logo" className="" width={75} height={75} />
+              </div>
+              <div style={{filter: 'invert(100%)'}}>
+                <Image src="/SDVOSB.svg.png" alt="logo" className="" width={100} height={100} />
+              </div>
 
             </div>
           </div>
