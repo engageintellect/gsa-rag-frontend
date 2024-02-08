@@ -64,13 +64,17 @@ NOTE: This function IS meant to replace a check on follower NFT ownership.
 
 NOTE: It is assumed that not all collect modules are aware of the token ID to pass. In these cases, this should receive a `followNFTTokenId` of 0, which is impossible regardless.
 
-One example of a use case for this would be a subscription-based following system:  
- 1. The collect module:  
- - Decodes a follower NFT token ID from user-passed data.  
- - Fetches the follow module from the hub.  
- - Calls `validateFollow` passing the profile ID, follower & follower token ID.  
- 2. The follow module:  
- - Validates the subscription status for that given NFT, reverting on an invalid subscription.
+One example of a use case for this would be a subscription-based following system:
+
+1.  The collect module:
+
+- Decodes a follower NFT token ID from user-passed data.
+- Fetches the follow module from the hub.
+- Calls `validateFollow` passing the profile ID, follower & follower token ID.
+
+2.  The follow module:
+
+- Validates the subscription status for that given NFT, reverting on an invalid subscription.
 
 # Whitelisted Follow Modules
 

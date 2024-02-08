@@ -21,6 +21,12 @@ export default function Home() {
   const [result, setResult] = useState({ text: "", link: "", source: "" });
   const [loading, setLoading] = useState(false);
 
+  const samplePrompts = [
+    '"How much wood would a woodchuck chuck if a woodchuck could chuck wood?"',
+    '"Why did the chicken cross the road?"',
+    '"A train leaves New York at 3:00 PM traveling at 60 mph. Another train leaves Chicago at 4:00 PM traveling at 80 mph. When do they meet?"',
+  ];
+
   async function getPages() {
     try {
       const testing = await fetch("/api/getPages", {
@@ -107,29 +113,33 @@ export default function Home() {
             src="/tech_network.jpg"
             alt="logo"
             priority={true}
-            className="w-full h-64 sm:h-72 md:h-80 border border-gray-900"
+            className="w-full h-full max-h-72 border border-gray-900"
             width={500}
             height={500}
           />
         </div>
 
-        <div className="absolute top-0 w-full h-full flex justify-center items-center opacity-80 sm:h-72 md:h-80 bg-gradient-to-b from-gray-950 to-gray-700"></div>
+        <div className="absolute top-0 w-full h-full max-h-72 flex justify-center items-center opacity-80 bg-gradient-to-b from-gray-950 to-gray-700"></div>
 
-        <div className="absolute top-0 w-full h-full flex justify-center items-center pb-10">
+        <div className="absolute top-0 w-full h-full flex justify-center items-center py-10">
           <div className="hero h-full">
             <div className="hero-content text-center">
               <div className="max-w-3xl">
                 <div className="font-semibold text-white drop-shadow">
-                  <div className="flex items-center justify-center">
-                    <span>
-                      <CiSearch className="text-white h-20 w-20" />
-                    </span>
-                    {/* <div>Search</div> */}
+                  <div className="flex flex-col sm:flex-row items-center justify-center">
+                    <div className="flex items-center">
+                      <span className="bg-blue-400 rounded -p-2">
+                        <CiSearch className="text-white h-12 w-12 sm:h-16 sm:w-16" />
+                      </span>
+                      {/* <div>Search</div> */}
 
-                    <div className="font-thin text-blue-400 drop-shadow text-7xl">
-                      GSA
+                      <div className="font-thin text-blue-400 drop-shadow text-5xl sm:text-7xl">
+                        GSA
+                      </div>
                     </div>
-                    <div className="text-red-500 text-3xl">eLibrary 2.0</div>
+                    <div className=" text-fuchsia-700 text-2xl">
+                      eLibrary 2.0
+                    </div>
                   </div>
                 </div>
                 <p className="py-3 text-white font-thin sm:text-lg drop-shadow">
@@ -164,10 +174,8 @@ export default function Home() {
         </div>
       </div>
 
-      <main className="min-h-screen flex flex-col bg-gray-200 items-center max-w-3xl mx-auto border border-primary rounded shadow-lg -mt-20 mb-10 p-5">
-
-
-        <div className="bg-white flex gap-2 items-center border border-primary rounded mb-5 w-full max-w-3xl mx-auto">
+      <main className="min-h-screen flex flex-col bg-gray-200 items-center max-w-3xl mx-auto border border-primary rounded shadow-lg sm:-mt-20 mb-10 p-5">
+        <div className="bg-white flex gap-2 items-center border border-primary rounded w-full max-w-3xl mx-auto">
           <div>
             <FaSearch className="text-primary h-7 w-7 pl-2" />
           </div>
@@ -195,39 +203,51 @@ export default function Home() {
           </div>
         </div>
 
-
-
-
+        <div className="mb-10 w-full ">
           {!loading && (
             <>
-              <div className="text-xs pb-2">
-                <strong>Disclaimer:</strong> dolor consectetur velit ut non cillum
-                aliquip tempor cupidatat dolor id pariatur aliqua nulla. Non esse aute
-                et dolore non incididunt aliqua proident. Occaecat cupidatat ex mollit
-                Duis laboris do do dolore eu do esse pariatur tempor.
+              <div className="text-xs py-2">
+                <strong>Disclaimer:</strong>
+                This is a demo application. The purpose of this application is
+                to demonstrate the capabilities of large language models and
+                their potential applications in contextual search and
+                information retrieval.
               </div>
 
-              <div className="text-xs w-full"><strong>Sample Prompts:</strong></div>
-
+              <div className="text-xs w-full">
+                <strong>Sample Prompts:</strong>
+              </div>
 
               <div className="flex flex-col sm:flex-row gap-2 sm:gap-5 w-full text-xs pb-5">
-                <div className="w-full bg-base-200 border border-gray-900 rounded p-2 italic">
-                  "How much wood would a woodchuck chuck if a woodchuck could chuck wood?"
+                <div className="w-full text-left bg-base-100 border rounded-bl-none border-gray-900 rounded p-2 italic">
+                  <button
+                    className="text-left italic"
+                    onClick={() => setQuery(samplePrompts[0])}
+                  >
+                    {samplePrompts[0]}
+                  </button>
                 </div>
-                <div className="w-full border border-gray-900 rounded p-2 italic">
-                  "Amet cupidatat essemagna ipsum qui. Laboris sit voluptate velit qui
-                  ad fugiat nisi eu qui qui commodo anim laboris."
+
+                <div className="w-full text-left bg-base-100 border rounded-bl-none border-gray-900 rounded p-2 italic">
+                  <button
+                    className="text-left italic"
+                    onClick={() => setQuery(samplePrompts[1])}
+                  >
+                    {samplePrompts[1]}
+                  </button>
                 </div>
-                <div className="w-full border border-gray-900 rounded p-2 italic">
-                  "Amet cupidatat esmagna ipsum qui. Laboris sitcommodo anim laboris."
-                </div>{" "}
+                <div className="w-full text-left bg-base-100 border rounded-bl-none border-gray-900 rounded p-2 italic">
+                  <button
+                    className="text-left italic"
+                    onClick={() => setQuery(samplePrompts[2])}
+                  >
+                    {samplePrompts[2]}
+                  </button>
+                </div>
               </div>
             </>
           )}
 
-
-
-        <div className="mb-10 w-full">
           {loading && (
             <>
               <div className="flex flex-col items-center py-10">

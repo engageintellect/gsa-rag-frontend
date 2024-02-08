@@ -291,27 +291,29 @@ Main publication focus is one of the main ways you can add a category for the pu
 
 - to pass validation it must include a video in the `media` property which matches one of our supported formats. If it does not it will be rejected. You can of course have other media items in the array alongside the video. Please note we do not check the headers of these items so make sure your web app does not support anything passed these types.
 
-formats:  
- - video/webm  
- - video/mp4  
- - video/x-m4v  
- - video/ogv  
- - video/quicktime  
- - video/mpeg  
- - video/ogg
+formats:
+
+- video/webm
+- video/mp4
+- video/x-m4v
+- video/ogv
+- video/quicktime
+- video/mpeg
+- video/ogg
 
 #### IMAGE
 
 - to pass validation it must include an image in the `media` property which matches one of our supported formats. If it does not it will be rejected. You can of course have other media items in the array alongside the image. Please note we do not check the headers of these items so make sure your web app does not support anything passed these types.
 
-formats:  
- - image/gif  
- - image/jpeg  
- - image/png  
- - image/tiff  
- - image/x-ms-bmp  
- - image/svg+xml  
- - image/webp
+formats:
+
+- image/gif
+- image/jpeg
+- image/png
+- image/tiff
+- image/x-ms-bmp
+- image/svg+xml
+- image/webp
 
 #### ARTICLE
 
@@ -325,14 +327,15 @@ formats:
 
 - to pass validation it must include an audio file in the `media` property which matches one of our supported formats. You can of course have other media items in the array alongside the audio file. Please note we do not check the headers of these items so make sure your web app does not support anything passed these types.
 
-formats:  
- - audio/wav  
- - audio/mpeg  
- - audio/ogg  
- - audio/mp4  
- - audio/aac  
- - audio/webm  
- - audio/flac
+formats:
+
+- audio/wav
+- audio/mpeg
+- audio/ogg
+- audio/mp4
+- audio/aac
+- audio/webm
+- audio/flac
 
 #### LINK
 
