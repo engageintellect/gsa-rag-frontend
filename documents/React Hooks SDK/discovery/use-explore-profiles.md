@@ -5,25 +5,22 @@ hidden: false
 createdAt: "2022-12-23T17:10:46.544Z"
 updatedAt: "2023-03-20T07:14:46.612Z"
 ---
-`useExploreProfiles` is a React Hook used to query Lens profiles. 
+
+`useExploreProfiles` is a React Hook used to query Lens profiles.
 
 ```typescript
-const { data, loading, hasMore, next } = useExploreProfiles(args)
+const { data, loading, hasMore, next } = useExploreProfiles(args);
 ```
-
-
 
 ## Usage
 
 ```typescript TypeScript
-import { useExploreProfiles } from '@lens-protocol/react-web';
+import { useExploreProfiles } from "@lens-protocol/react-web";
 
 function ExploreProfiles() {
-const { data, loading } = useExploreProfiles();
+  const { data, loading } = useExploreProfiles();
 }
 ```
-
-
 
 ## Reference
 

@@ -5,8 +5,9 @@ hidden: false
 createdAt: "2022-09-23T10:14:23.812Z"
 updatedAt: "2023-03-16T16:10:48.606Z"
 ---
+
 > 📘 Full code example
-> 
+>
 > <https://github.com/lens-protocol/api-examples/blob/master/src/publications/profile-publications-for-sale.ts>
 
 This query returns you all the publications that are on sale for the profile.
@@ -97,7 +98,7 @@ fragment ProfileFields on Profile {
   }
 }
 
-fragment PublicationStatsFields on PublicationStats { 
+fragment PublicationStatsFields on PublicationStats {
   totalAmountOfMirrors
   totalAmountOfCollects
   totalAmountOfComments
@@ -179,10 +180,10 @@ fragment MirrorFields on Mirror {
   ...MirrorBaseFields
   mirrorOf {
    ... on Post {
-      ...PostFields          
+      ...PostFields
    }
    ... on Comment {
-      ...CommentFields          
+      ...CommentFields
    }
   }
 }
@@ -222,10 +223,10 @@ fragment CommentFields on Comment {
       ...MirrorBaseFields
       mirrorOf {
         ... on Post {
-           ...PostFields          
+           ...PostFields
         }
         ... on Comment {
-           ...CommentMirrorOfFields        
+           ...CommentMirrorOfFields
         }
       }
     }
@@ -357,6 +358,7 @@ fragment ReferenceModuleFields on ReferenceModule {
   }
 }
 ```
+
 ```javascript Example response
 {
   "data": {
@@ -433,8 +435,6 @@ fragment ReferenceModuleFields on ReferenceModule {
 }
 ```
 
-
-
 You will see the paging result behavior repeated a lot in the API, this is to allow you to fetch a certain amount and then page it for the most optimal request speed. Every time something is wrapped in a paging result you will always get returned a `pageInfo` which holds the cursors for the previous and next alongside the total count which exists in the database. These cursors are just pointers for the server to get to the next result and do not need to be understood by your client or server. If you ever want to then page to the next result you can pass these previous and next cursor in the request cursor property.
 
 ## Request
@@ -443,9 +443,7 @@ You will see the paging result behavior repeated a lot in the API, this is to al
 
 You must supply the `profileId` you wish to get all the publications they have for sale
 
-
-
-# 
+#
 
 # Using LensClient SDK
 

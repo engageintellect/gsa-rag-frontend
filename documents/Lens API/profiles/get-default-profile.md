@@ -5,11 +5,12 @@ hidden: false
 createdAt: "2022-04-21T11:23:51.427Z"
 updatedAt: "2023-03-15T17:48:03.772Z"
 ---
+
 > 📘 Full code example
-> 
+>
 > <https://github.com/lens-protocol/api-examples/blob/master/src/profile/get-default-profile.ts>
 
-This query returns to you the default profile for the wallet. A wallet can own many profiles but can set a default similar to how ens works with its resolvers. 
+This query returns to you the default profile for the wallet. A wallet can own many profiles but can set a default similar to how ens works with its resolvers.
 
 # API Design
 
@@ -98,6 +99,7 @@ query DefaultProfile {
   }
 }
 ```
+
 ```javascript Example response
 {
   "data": {
@@ -133,15 +135,14 @@ query DefaultProfile {
   }
 }
 ```
+
 ```javascript Query interface
 type Query {
   defaultProfile(request: DefaultProfileRequest!): Profile!
 }
 ```
 
-
-
-# 
+#
 
 # Using LensClient SDK
 

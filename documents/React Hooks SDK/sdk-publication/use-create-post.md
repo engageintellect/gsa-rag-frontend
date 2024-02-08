@@ -5,6 +5,7 @@ hidden: false
 createdAt: "2022-12-23T12:03:19.898Z"
 updatedAt: "2023-05-10T07:52:24.829Z"
 ---
+
 `useCreatePost` is a React Hook that lets you create a post for a Profile you own.
 
 ```typescript
@@ -18,37 +19,47 @@ Define an `upload` function that conforms to the signature:
 ```typescript upload.ts
 export const upload = (data: unknown): Promise<string> => {
   const serialized = JSON.stringify(data);
-  
+
   const url = // upload serialized to a public location
-        
+
   return url;
 }
 ```
 
 > 📘 Looking for an inspiration?
-> 
+>
 > Check the [web-wagmi](https://github.com/lens-protocol/lens-sdk/tree/main/examples/web-wagmi) example in the Lens SDK monorepo. There is an example `upload` function that uses [Bundlr](https://github.com/Bundlr-Network) to upload the file to Aerwave.
 
 You can then wire the `useCreatePost` into your _composer_ component:
 
 ```typescript
-import { ContentFocus, CollectPolicyType, ProfileOwnedByMeFragment, ReferencePolicy, useCreatePost } from '@lens-protocol/react';
-import { upload } from './upload'
+import {
+  ContentFocus,
+  CollectPolicyType,
+  ProfileOwnedByMeFragment,
+  ReferencePolicy,
+  useCreatePost,
+} from "@lens-protocol/react";
+import { upload } from "./upload";
 
 function Composer({ profile }: { profile: ProfileOwnedByMeFragment }) {
-  const { execute: create, error, isPending } = useCreatePost({ publisher: profile, upload });
+  const {
+    execute: create,
+    error,
+    isPending,
+  } = useCreatePost({ publisher: profile, upload });
 
   const onSubmit = async (content: string) => {
     await create({
       content,
       contentFocus: ContentFocus.TEXT,
-      locale: 'en',
+      locale: "en",
       collect: {
-        type: CollectPolicyType.NO_COLLECT
+        type: CollectPolicyType.NO_COLLECT,
       },
       reference: {
-        type: ReferencePolicy.ANYBODY
-      }
+        type: ReferencePolicy.ANYBODY,
+      },
     });
   };
   // ...
@@ -65,7 +76,7 @@ Call `useCreatePost` in the component responsible for submitting the user's inpu
 
 ```typescript
 function Composer({ profile }) {
-  const { execute, error, isPending  } = useCreatePost({ publisher, upload });
+  const { execute, error, isPending } = useCreatePost({ publisher, upload });
   // ...
 }
 ```
@@ -105,7 +116,7 @@ It accepts a complex object with all the required configurations. The TS definit
 where `locale` is a subset of the Locale Identifiers specification. See the full specification [here](https://docs.lens.xyz/docs/metadata-standards#locale---required).
 
 > 📘 Pro tip
-> 
+>
 > Use the TypeScript definition to navigate the possible values for each field and subfields. The type definition provided will guide you through the dependency rules of the [Lens Publication Metadata v2](https://docs.lens.xyz/docs/metadata-standards#metadata-structure) so you don't have to know them.
 
 #### Returns

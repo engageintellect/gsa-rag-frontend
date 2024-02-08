@@ -6,8 +6,8 @@ hidden: false
 createdAt: "2022-01-17T19:08:28.222Z"
 updatedAt: "2022-08-17T17:53:42.067Z"
 ---
-Creating The Custom Task
-------------------------
+
+## Creating The Custom Task
 
 Just like the previous step where we created a Hardhat task to unpause the protocol, we will create another task to create a profile. This allows us to publish new posts, comments, and mirrors on-chain!
 
@@ -38,8 +38,7 @@ We'll need the governance signer because Lens uses a profile creator whitelist. 
 ...
 ```
 
-Creating the Profile
---------------------
+## Creating the Profile
 
 We've whitelisted the user to create profiles; all that's left now is to create the profile itself. Let's first take a look at the input struct required for profile creation (from `contracts/libraries/Datatypes.sol`):
 
@@ -99,8 +98,7 @@ Lastly, we've just got to send the transaction! We will connect the `lensHub` co
 ...
 ```
 
-Recap
------
+## Recap
 
 Create the file `tasks/create-profile.ts` with the following code:
 

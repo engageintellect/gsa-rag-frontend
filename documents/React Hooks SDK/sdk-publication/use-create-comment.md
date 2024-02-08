@@ -5,6 +5,7 @@ hidden: false
 createdAt: "2023-01-03T08:16:54.012Z"
 updatedAt: "2023-05-10T07:58:43.818Z"
 ---
+
 `useCreateComment` is a React Hook that lets you create a comment to a publication using a Profile you own.
 
 ```typescript
@@ -18,15 +19,15 @@ Define an `upload` function that conforms to the signature:
 ```typescript upload.ts
 export const upload = (data: unknown): Promise<string> => {
   const serialized = JSON.stringify(data);
-  
+
   const url = // upload serialized to a public location
-        
+
   return url;
 }
 ```
 
 > 📘 Looking for an inspiration?
-> 
+>
 > Check the [web-wagmi](https://github.com/lens-protocol/lens-sdk/tree/main/examples/web-wagmi) example in the Lens SDK monorepo. There is an example `upload` function that uses [Bundlr](https://github.com/Bundlr-Network) to upload the file to Aerwave.
 
 You can then wire the `useCreateComment` into your _composer_ component:
@@ -110,7 +111,7 @@ where `publicationId` is an id to a publication the comment should be assigned t
 where `locale` is a subset of the Locale Identifiers specification. See the full specification [here](https://docs.lens.xyz/docs/metadata-standards#locale---required).
 
 > 📘 Pro tip
-> 
+>
 > Use the TypeScript definition to navigate the possible values for each field and subfields. The type definition provided will guide you through the dependency rules of the [Lens Publication Metadata v2](https://docs.lens.xyz/docs/metadata-standards#metadata-structure) so you don't have to know them.
 
 #### Returns

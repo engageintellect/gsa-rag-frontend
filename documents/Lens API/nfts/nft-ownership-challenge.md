@@ -5,14 +5,15 @@ hidden: false
 createdAt: "2022-02-18T11:26:13.921Z"
 updatedAt: "2023-03-14T12:44:14.500Z"
 ---
+
 > 📘 Full code example
-> 
+>
 > This is an example of it hooked into the profile image
-> 
+>
 > <https://github.com/lens-protocol/api-examples/blob/master/src/profile/set-profile-image-uri-nft.ts>
 
 > 🚧 This request is protected by authentication
-> 
+>
 > hint: this means it requires an x-access-token header put in the request with your authentication token.
 
 This endpoint allows you to sign some text to prove you own an NFT. This is then used in setting your profile picture to an NFT image which then gets brought back on the `Profile` entity.
@@ -24,7 +25,7 @@ This endpoint goes hand in hand with [Set profile image URI](doc:set-profile-ima
 Note: the challenge will last 20 minutes if it expires you will need to generate a new challenge.
 
 > 🚧 Note when using this for Set profile image URI..
-> 
+>
 > As this is a generic API challenge for NFTs to make sure people do not get confused if you are using this to set a user's profile picture to the NFT then you must only pass in one NFT in the array. If you pass in more than one when you come to calling `createSetProfileImageURITypedData` it will throw.
 
 ```javascript Example operation
@@ -44,6 +45,7 @@ query NftOwnershipChallenge {
   }
 }
 ```
+
 ```javascript Example response
 {
   "data": {
@@ -54,6 +56,7 @@ query NftOwnershipChallenge {
   }
 }
 ```
+
 ```javascript Query interface
 type Query {
   nftOwnershipChallenge(
@@ -61,6 +64,7 @@ type Query {
   ): NftOwnershipChallengeResult!
 }
 ```
+
 ```javascript Request
 input NftOwnershipChallengeRequest {
   # ContractAddress for nft
@@ -78,7 +82,7 @@ input NftOwnershipChallenge {
   # Chain Id
   chainId: ChainId!
 }
-  
+
 # Ethereum address custom scalar type
 scalar EthereumAddress
 
@@ -88,6 +92,7 @@ scalar ContractAddress
 # ChainId custom scalar type
 scalar ChainId
 ```
+
 ```javascript Response
 # NFT ownership challenge result
 type NftOwnershipChallengeResult {
@@ -100,17 +105,15 @@ type NftOwnershipChallengeResult {
 scalar NftOwnershipId
 ```
 
-
-
 ## Request
 
 let's dig into the request a little more so its clear what is going on here
 
 ### ethereumAddress - required
 
-The wallet address which owns the NFTs. 
+The wallet address which owns the NFTs.
 
-Even though this is an authenticated endpoint you could own this NFT on a different wallet and want to sign it through your ledger etc. 
+Even though this is an authenticated endpoint you could own this NFT on a different wallet and want to sign it through your ledger etc.
 
 ### nfts - required
 
@@ -131,9 +134,7 @@ The chain id it is on.
 - If you are using testnet this endpoint will only allow you to pass in chainId `ethereum kovan (chainId: 42)` or `polygon Mumbai (chainId: 80001)`
 - If you are using mainnet this endpoint will only allow you to pass in `ethereum mainnet (chainId: 1)` or `polygon mainnet (chainId: 137)`
 
-
-
-# 
+#
 
 # Using LensClient SDK
 
@@ -141,14 +142,13 @@ Example use.
 
 ```typescript
 const result = await lensClient.nfts.ownershipChallenge({
-  ethereumAddress: '0xa5653e88D9c352387deDdC79bcf99f0ada62e9c6',
+  ethereumAddress: "0xa5653e88D9c352387deDdC79bcf99f0ada62e9c6",
   nfts: [
     {
-      tokenId: '411',
-      contractAddress: '0x7582177F9E536aB0b6c721e11f383C326F2Ad1D5',
+      tokenId: "411",
+      contractAddress: "0x7582177F9E536aB0b6c721e11f383C326F2Ad1D5",
       chainId: 80001,
     },
   ],
 });
-
 ```

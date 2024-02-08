@@ -5,8 +5,9 @@ hidden: false
 createdAt: "2022-04-21T10:57:03.765Z"
 updatedAt: "2023-03-16T16:09:52.455Z"
 ---
+
 > 📘 Full code example
-> 
+>
 > <https://github.com/lens-protocol/api-examples/blob/master/src/publications/who-collected-publication.ts>
 
 This query returns to you all the wallets which collected the publication.
@@ -14,7 +15,7 @@ This query returns to you all the wallets which collected the publication.
 # API Design
 
 > 📘 Did you know...
-> 
+>
 > The publication id is not unique in the smart contract its a counter per each profile. So if @josh posts a publication that will be publication 1 for his profile and then if @josh2 posts a publication that will be publication 1 for his profile. Our backend generates what we call an `InternalPublicationId` which is built up from `{profileId}-{publicationId}` creating a unique ID that can be queried against our database. You will see that `InternalPublicationId` is used on all our responses and also used in any request you which to do.
 
 ```javascript Example operation
@@ -112,6 +113,7 @@ query WhoCollectedPublication {
   }
 }
 ```
+
 ```javascript Example response
 {
   "data": {
@@ -358,9 +360,7 @@ query WhoCollectedPublication {
 }
 ```
 
-
-
-# 
+#
 
 # Using LensClient SDK
 

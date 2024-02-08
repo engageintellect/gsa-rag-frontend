@@ -6,12 +6,12 @@ hidden: false
 createdAt: "2022-01-13T03:52:39.789Z"
 updatedAt: "2022-08-17T17:53:25.288Z"
 ---
-Creating The Custom Task 
-------------------------
+
+## Creating The Custom Task
 
 The repository's `hardhat.config.ts` is set up to import all tasks in the `tasks/` directory, which means all we've got to do to start interacting with our local deployment is create a new task.
 
-Create a file `unpause.ts` in the `tasks/` directory and open it up in your editor of choice. The first thing you'll want to do is import some modules. 
+Create a file `unpause.ts` in the `tasks/` directory and open it up in your editor of choice. The first thing you'll want to do is import some modules.
 
 Since we're working with hardhat tasks, we can use the instance of `ethers` injected into the Hardhat runtime environment, we won't be needing to import it in this specific task, but it's used behind the scenes. We'll also be using [typechain](https://www.npmjs.com/package/typechain), which creates convenient typescript bindings that we can connect to our deployed contracts.
 
@@ -29,14 +29,13 @@ Next, we've got to create the hardhat task (which will automatically be imported
 task('unpause', 'unpauses the protocol').setAction(async ({}, hre) => {});
 ```
 
-Getting Ready to Interact With Our Local Deployment
----------------------------------------------------
+## Getting Ready to Interact With Our Local Deployment
 
-Alright, so we've created our Hardhat task. Now we've got to instantiate our signers (a wallet that can sign and send transactions) and begin interacting with the protocol! Our local deployment uses the default signers connected to the injected `ethers` instance and automatically maps them to different protocol roles. 
+Alright, so we've created our Hardhat task. Now we've got to instantiate our signers (a wallet that can sign and send transactions) and begin interacting with the protocol! Our local deployment uses the default signers connected to the injected `ethers` instance and automatically maps them to different protocol roles.
 
 For our purposes, the 0-indexed account is the deployer, the 1-indexed account is the governance address, the 2-indexed account is the treasury, and the 3-indexed account is our general-purpose user. We also need to know the addresses of our deployed contracts, so let's use [fs](https://nodejs.dev/learn/the-nodejs-fs-module) to read the addresses JSON file and store that too.
 
-The following functions are **not** in the same task file but are imported from the `./tasks/helpers/utils.ts` file. It's just worth noting how it works. 
+The following functions are **not** in the same task file but are imported from the `./tasks/helpers/utils.ts` file. It's just worth noting how it works.
 
 ```
 // NOTE: These functions are in tasks/helpers/utils.ts and imported into our task file!
@@ -54,7 +53,7 @@ export async function initEnv(hre: HardhatRuntimeEnvironment): Promise<SignerWit
 
 export function getAddrs(): any {
   const json = fs.readFileSync('addresses.json', 'utf8'); // Read the 'addresses.json' file
-  const addrs = JSON.parse(json); // Parse the JSON into an object 
+  const addrs = JSON.parse(json); // Parse the JSON into an object
   return addrs;
 }
 ```
@@ -78,12 +77,11 @@ Let's add the following line inside our task's callback function:
 ...
 ```
 
-Executing a Transaction
------------------------
+## Executing a Transaction
 
 So far, we've created a new Hardhat task, instantiated our signers, and instantiated an interface to our contract. We're just about ready to start sending transactions!
 
-Before we start creating a profile, we've got a little housekeeping to do, and this will serve as a great test to see if everything's set up correctly. 
+Before we start creating a profile, we've got a little housekeeping to do, and this will serve as a great test to see if everything's set up correctly.
 
 Upon deployment, the protocol is paused by default. Let's go ahead and unpause it by adding the following lines to our tasks' callback function:
 
@@ -95,12 +93,11 @@ Upon deployment, the protocol is paused by default. Let's go ahead and unpause i
 ...
 ```
 
-Note that we're typically using a wrapper instead of just sending the transaction; this simply ensures that we wait for the transaction to be mined before proceeding. 
+Note that we're typically using a wrapper instead of just sending the transaction; this simply ensures that we wait for the transaction to be mined before proceeding.
 
 As a quick side note, the smart contract ABI (Application Binary Interface) treats enums as regular unsigned integers, which also happens with our JavaScript/typescript code; so the `ProtocolState` enum is just a set of integers behind the scenes!
 
-Recap
------
+## Recap
 
 Create file `tasks/unpause.ts` with the following code:
 

@@ -5,12 +5,13 @@ hidden: false
 createdAt: "2022-02-18T11:29:40.844Z"
 updatedAt: "2023-04-11T17:54:17.809Z"
 ---
+
 > 📘 Full code example
-> 
+>
 > <https://github.com/lens-protocol/api-examples/blob/master/src/notifications/users-notifications.ts>
 
 > 🚧 This request is protected by authentication
-> 
+>
 > hint: this means it requires an x-access-token header put in the request with your authentication token.
 
 Get notifications of actions occurring on Lens Protocol.
@@ -33,22 +34,19 @@ You can also filter by the exact notification type this can be passed into`notif
 
 ```typescript notification type filters
 export enum NotificationTypes {
-  MIRRORED_POST = 'MIRRORED_POST',
-  MIRRORED_COMMENT = 'MIRRORED_COMMENT',
-  MENTION_POST = 'MENTION_POST',
-  MENTION_COMMENT = 'MENTION_COMMENT',
-  COMMENTED_COMMENT = 'COMMENTED_COMMENT',
-  COMMENTED_POST = 'COMMENTED_POST',
-  COLLECTED_POST = 'COLLECTED_POST',
-  COLLECTED_COMMENT = 'COLLECTED_COMMENT',
-  FOLLOWED = 'FOLLOWED',
-  REACTION_POST = 'REACTION_POST',
-  REACTION_COMMENT = 'REACTION_COMMENT',
+  MIRRORED_POST = "MIRRORED_POST",
+  MIRRORED_COMMENT = "MIRRORED_COMMENT",
+  MENTION_POST = "MENTION_POST",
+  MENTION_COMMENT = "MENTION_COMMENT",
+  COMMENTED_COMMENT = "COMMENTED_COMMENT",
+  COMMENTED_POST = "COMMENTED_POST",
+  COLLECTED_POST = "COLLECTED_POST",
+  COLLECTED_COMMENT = "COLLECTED_COMMENT",
+  FOLLOWED = "FOLLOWED",
+  REACTION_POST = "REACTION_POST",
+  REACTION_COMMENT = "REACTION_COMMENT",
 }
-
 ```
-
-
 
 ```javascript Example operation
 query Notifications {
@@ -73,7 +71,7 @@ query Notifications {
         notificationId
         ...NewCommentNotificationFields
       }
-      
+
       ... on NewMentionNotification {
         notificationId
         ...NewMentionNotificationFields
@@ -388,6 +386,7 @@ fragment CompactProfile on Profile {
   }
 }
 ```
+
 ```javascript Example response
 {
   "data": {
@@ -833,17 +832,15 @@ fragment CompactProfile on Profile {
 }
 ```
 
+You will see the paging result behavior repeated a lot in the API. This is to allow you to fetch a certain amount and then page it for the most optimal request speed. Every time something is wrapped in a paging result you will always get returned a `pageInfo` which holds the cursors for the previous and next alongside the total count which exists in the database. These cursors are just pointers for the server to get to the next result and do not need to be understood by your client or server. If you ever want to then page to the next result you can pass the previous and next cursor in the request cursor property.
 
-
-You will see the paging result behavior repeated a lot in the API.  This is to allow you to fetch a certain amount and then page it for the most optimal request speed. Every time something is wrapped in a paging result you will always get returned a `pageInfo` which holds the cursors for the previous and next alongside the total count which exists in the database. These cursors are just pointers for the server to get to the next result and do not need to be understood by your client or server. If you ever want to then page to the next result you can pass the previous and next cursor in the request cursor property.
-
-# 
+#
 
 # Using LensClient SDK
 
 ```typescript
 const result = await lensClient.notifications.fetch({
-  profileId: '0x0185',
+  profileId: "0x0185",
   limit: 10,
 });
 ```

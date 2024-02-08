@@ -5,12 +5,13 @@ hidden: false
 createdAt: "2022-02-17T10:47:07.065Z"
 updatedAt: "2023-03-03T14:30:41.398Z"
 ---
+
 ## Using GraphQL client
 
-If you have used GraphQL endpoints before, then you can skip this section, which explains what GraphQL clients you can use to start querying this data. We will suggest two libraries but of course, there are a lot more and no single one is the best, pick the best one for your solution. 
+If you have used GraphQL endpoints before, then you can skip this section, which explains what GraphQL clients you can use to start querying this data. We will suggest two libraries but of course, there are a lot more and no single one is the best, pick the best one for your solution.
 
-- [Apollo client](doc:apollo-client) 
-- [URQL](doc:urql) 
+- [Apollo client](doc:apollo-client)
+- [URQL](doc:urql)
 
 For all our code demos we will be using Apollo client to show you how you would call this with the client.
 

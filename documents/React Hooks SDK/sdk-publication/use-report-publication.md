@@ -5,13 +5,12 @@ hidden: false
 createdAt: "2023-01-16T10:05:55.977Z"
 updatedAt: "2023-03-20T06:55:54.932Z"
 ---
+
 `useReportPublication` is a React hook that allows you to report a publication with a reason.
 
 ```typescript
-const { report, isPending, error } = useReportPublication()
+const { report, isPending, error } = useReportPublication();
 ```
-
-
 
 ## Usage
 
@@ -40,8 +39,6 @@ export function ReportPublication() {
 }
 
 ```
-
-
 
 ## Reference
 

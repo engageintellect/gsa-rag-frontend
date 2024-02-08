@@ -5,8 +5,9 @@ hidden: false
 createdAt: "2023-04-26T02:55:15.566Z"
 updatedAt: "2023-04-26T16:28:50.003Z"
 ---
+
 > 🚧 This request is protected by authentication
-> 
+>
 > hint: this means it requires an x-access-token header put in the request with your authentication token.
 
 DA transactions allow lens to scale to higher load at cheap costs. It is a great use case for non-financial web3 social transactions like posts, comments, and shares.
@@ -39,6 +40,7 @@ mutation CreateDataAvailabilityCommentViaDispatcher {
   }
 }
 ```
+
 ```javascript Example response
 {
   "data": {
@@ -118,6 +120,7 @@ mutation CreateDataAvailabilityCommentViaDispatcher {
   }
 }
 ```
+
 ```javascript Query interface
 type Mutation {
   createCommentTypedData(
@@ -126,11 +129,9 @@ type Mutation {
 }
 ```
 
-
-
 # API Design - without dispatcher
 
-Any time you do any typed data signing for DA, you need to use the`broadcastDataAvailability`, which will broadcast the transaction for you. 
+Any time you do any typed data signing for DA, you need to use the`broadcastDataAvailability`, which will broadcast the transaction for you.
 
 ```javascript Example operation
 mutation CreateDataAvailabilityCommentTypedData {
@@ -171,6 +172,7 @@ mutation CreateDataAvailabilityCommentTypedData {
   }
 }
 ```
+
 ```javascript Example response
 {
   "data": {
@@ -250,6 +252,7 @@ mutation CreateDataAvailabilityCommentTypedData {
   }
 }
 ```
+
 ```javascript Query interface
 type Mutation {
   createCommentTypedData(

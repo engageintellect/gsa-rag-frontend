@@ -2,15 +2,16 @@
 title: "Profile publication revenue"
 slug: "profile-publication-revenue"
 hidden: false
-metadata: 
+metadata:
 createdAt: "2022-02-18T11:32:18.193Z"
 updatedAt: "2023-03-14T13:47:29.400Z"
 ---
+
 > 📘 Full code example
-> 
+>
 > <https://github.com/lens-protocol/api-examples/blob/master/src/revenue/profile-publications-revenue.ts>
 
-This query returns the amounts earned on the requested profile for all publications. It will only return publications that have earned any fees. 
+This query returns the amounts earned on the requested profile for all publications. It will only return publications that have earned any fees.
 
 # API Design
 
@@ -19,7 +20,7 @@ query Revenue {
   profilePublicationRevenue(request: { profileId: "0x41", limit: 10 }) {
     items {
       publication {
-        __typename 
+        __typename
         ... on Post {
           ...PostFields
         }
@@ -126,7 +127,7 @@ fragment ProfileFields on Profile {
   }
 }
 
-fragment PublicationStatsFields on PublicationStats { 
+fragment PublicationStatsFields on PublicationStats {
   totalAmountOfMirrors
   totalAmountOfCollects
   totalAmountOfComments
@@ -207,10 +208,10 @@ fragment MirrorFields on Mirror {
   ...MirrorBaseFields
   mirrorOf {
    ... on Post {
-      ...PostFields          
+      ...PostFields
    }
    ... on Comment {
-      ...CommentFields          
+      ...CommentFields
    }
   }
 }
@@ -246,10 +247,10 @@ fragment CommentFields on Comment {
       ...MirrorBaseFields
       mirrorOf {
         ... on Post {
-           ...PostFields          
+           ...PostFields
         }
         ... on Comment {
-           ...CommentMirrorOfFields        
+           ...CommentMirrorOfFields
         }
       }
     }
@@ -381,6 +382,7 @@ fragment ReferenceModuleFields on ReferenceModule {
   }
 }
 ```
+
 ```javascript Example response
 {
   "data": {
@@ -512,9 +514,7 @@ fragment ReferenceModuleFields on ReferenceModule {
 }
 ```
 
-
-
-You will see the paging result behavior repeated a lot in the API.  This is to allow you to fetch a certain amount and then page it for the most optimal request speed. Every time something is wrapped in a paging result, you will always get returned a `pageInfo` which holds the cursors for the previous and next alongside the total count which exists in the database. These cursors are just pointers for the server to get to the next result and do not need to be understood by your client or server. If you ever want to then page to the next result you can pass these previous and next cursor in the request cursor property. 
+You will see the paging result behavior repeated a lot in the API. This is to allow you to fetch a certain amount and then page it for the most optimal request speed. Every time something is wrapped in a paging result, you will always get returned a `pageInfo` which holds the cursors for the previous and next alongside the total count which exists in the database. These cursors are just pointers for the server to get to the next result and do not need to be understood by your client or server. If you ever want to then page to the next result you can pass these previous and next cursor in the request cursor property.
 
 The request also takes in:
 
@@ -522,13 +522,15 @@ The request also takes in:
 - `types` which allows you to filter the revenue on `[COMMENT, MIRROR, POST]` aka if you only wanted to get back comments and mirrors you would do `types: [COMMENT, MIRROR]`
 
 > 📘 Did you know...
-> 
+>
 > The publication id is not unique in the smart contract its a counter per each profile. So if @josh posts a publication that will be publication 1 for his profile and then if @josh2 posts a publication that will be publication 1 for his profile. Our backend generates what we call an `InternalPublicationId` which is built up from `{profileId}-{publicationId}` creating a unique ID that can be queried against our database. You will see that `InternalPublicationId` is used on all our responses and also used in any request you which to do.
 
-# 
+#
 
 # Using LensClient SDK
 
 ```typescript
-const result = await lensClient.revenue.profilePublication({ profileId: '0x0185' });
+const result = await lensClient.revenue.profilePublication({
+  profileId: "0x0185",
+});
 ```

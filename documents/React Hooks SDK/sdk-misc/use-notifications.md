@@ -5,33 +5,25 @@ hidden: false
 createdAt: "2022-12-23T17:06:00.737Z"
 updatedAt: "2023-03-20T07:31:24.000Z"
 ---
+
 `useNotifications` is a React Hook used to get all notifications for the authenticated user.
 
 ```typescript
-const { data, loading, hasMore, next } = useNotifications(args)
+const { data, loading, hasMore, next } = useNotifications(args);
 ```
-
-
 
 ## Usage
 
 ```typescript TypeScript
-import { useNotifications } from '@lens-protocol/react-web';
+import { useNotifications } from "@lens-protocol/react-web";
 
 function Notifications() {
-const {
-    data,
-    loading,
-    hasMore,
-    next,
-  } = useNotifications({
-    profileId: '0x77-0x0149',
+  const { data, loading, hasMore, next } = useNotifications({
+    profileId: "0x77-0x0149",
     limit: 10,
   });
 }
 ```
-
-
 
 ## Reference
 

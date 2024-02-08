@@ -5,13 +5,12 @@ hidden: false
 createdAt: "2023-01-12T07:06:41.027Z"
 updatedAt: "2023-03-20T07:14:54.705Z"
 ---
-`useSearchProfiles` is a React Hook used to query Lens profiles based on a query. 
+
+`useSearchProfiles` is a React Hook used to query Lens profiles based on a query.
 
 ```typescript
-const { data, loading, hasMore, next } = useSearchProfiles(args)
+const { data, loading, hasMore, next } = useSearchProfiles(args);
 ```
-
-
 
 ## Usage
 
@@ -21,8 +20,6 @@ import { useSearchProfiles } from "@lens-protocol/react-web"
 function SearchProfiles() {
  const { data, loading } = useSearchProfiles({ query: 'web3'})
 ```
-
-
 
 ## Reference
 

@@ -6,15 +6,14 @@ hidden: false
 createdAt: "2023-01-16T10:40:30.183Z"
 updatedAt: "2023-03-20T07:04:10.122Z"
 ---
+
 > 🚧 Testnet only
-> 
+>
 > Lens Protocol is currently gated and will be opening up soon for anyone to mint a profile, for now only Testnet allows `useCreateProfile` to work.
 
 ```typescript
 const { execute, error, isPending } = useCreateProfile();
 ```
-
-
 
 ## Usage
 
@@ -35,33 +34,26 @@ const onSubmit = async (e: FormEvent) => {
 };
 ```
 
-
-
 ```html JSX
-<form onSubmit={onSubmit}>
+<form onSubmit="{onSubmit}">
   <input
-    minLength={5}
-    maxLength={31}
+    minlength="{5}"
+    maxlength="{31}"
     required
     type="text"
-    disabled={isPending}
-    onChange={(e) => {
-      if (isValidHandle(e.target.value)) {
-        setHandle(e.target.value);
-      } else {
-        setHandle(null);
-      }
-    }}
+    disabled="{isPending}"
+    onChange="{(e)"
+    =""
   />
-  
+  { if (isValidHandle(e.target.value)) { setHandle(e.target.value); } else {
+  setHandle(null); } }} />
+
   <button type="submit">Create</button>
 </form>
 ```
 
-
-
-> 🚧 
-> 
+> 🚧
+>
 > `isValidHandle` is available from 0.3.x onward.
 
 ## Reference

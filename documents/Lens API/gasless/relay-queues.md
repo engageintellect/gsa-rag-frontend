@@ -5,7 +5,8 @@ hidden: false
 createdAt: "2023-04-12T13:04:22.684Z"
 updatedAt: "2023-04-13T12:57:53.955Z"
 ---
-The relay can sometimes get very busy as we scale. We will keep adding new relays to load and balance them out. This query is great for debugging to see the size of each queue if you ever see any delays in it being submitted on-chain. 
+
+The relay can sometimes get very busy as we scale. We will keep adding new relays to load and balance them out. This query is great for debugging to see the size of each queue if you ever see any delays in it being submitted on-chain.
 
 This API call can sometimes take 10-20 seconds if you are not using the cache, as it has to speak to the defender, which is not fast. It will respond instantly if you are saved the cache. This data is cached for 5 minutes at a time.
 
@@ -22,6 +23,7 @@ query RelayQueues {
   }
 }
 ```
+
 ```javascript Example response
 {
   "data": {

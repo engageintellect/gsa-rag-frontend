@@ -6,6 +6,7 @@ hidden: false
 createdAt: "2023-05-25T07:25:39.921Z"
 updatedAt: "2023-05-26T12:14:33.241Z"
 ---
+
 When it comes to follow a Profile there two concepts coming into play. The Follow Policy of the followed Profile and the actual following action performed by the follower. Let's look at them in order.
 
 ## Setup your Follow Policy
@@ -55,7 +56,7 @@ import { FollowTypeOption } from './FollowTypeOption';
 
 function MyFollowPolicy({ profile }: { profile: ProfileOwnedByMe }) {
   const [followType, setFollowType] = useState<FollowPolicyType>(FollowPolicyType.ANYONE)
-  
+
   return (
     <form>
     	<FollowTypeOption
@@ -85,7 +86,7 @@ function MyFollowPolicy({ profile }: { profile: ProfileOwnedByMe }) {
         value={followType}
         onChange={setFollowType}
       />
-          
+
       // to be continued...
     </form>
   )
@@ -190,28 +191,28 @@ import { AmountField } from './AmountField';
 function MyFollowPolicy({ profile }: { profile: ProfileOwnedByMe }) {
   const { execute: updateFollowPolicy, isPending, error } = useUpdateFollowPolicy({ profile });
   const [followType, setFollowType] = useState(FollowPolicyType.ANYONE)
-  
+
   const [fee, setFee] = useState<Erc20Amount | null>(null)
-  
+
   const onSubmit = async () => {
     if (followType === FollowPolicyType.CHARGE) {
       if (fee === null) {
 				window.alert('You must provide a follow fee');
         return;
       }
-      
+
       await updateFollowPolicy({
         type: FollowPolicyType.CHARGE,
         amount: fee,
         recipient: profile.ownedBy
       });
-      
+
       return;
     }
-    
+
     await updateFollowPolicy({ type: followType });
   };
-  
+
   return (
     <form onSubmit={onSubmit}>
     	// .. other options omitted for brevity
@@ -222,7 +223,7 @@ function MyFollowPolicy({ profile }: { profile: ProfileOwnedByMe }) {
         value={followType}
         onChange={setFollowType}
       />
-          
+
       {followType === FollowPolicyType.CHARGE && (
         <AmountField onChange={setFee} />
       )}
@@ -236,26 +237,26 @@ function MyFollowPolicy({ profile }: { profile: ProfileOwnedByMe }) {
 You might have noticed in the `onSubmit` handler that the `FollowPolicyType.CHARGE` also allow to specify a `recipient` (i.e. an address that will receive the fee). In the example we used the Profile owner address (i.e. the current logged-in wallet address). [This example](https://github.com/lens-protocol/lens-sdk/blob/main/examples/web-wagmi/src/profiles/UseUpdateFollowPolicy.tsx) in the Lens SDK monorepo shows how to let the user specify a different recipient address.
 
 > 🚧 What about follow module settings?
-> 
+>
 > If you are already familiar with the Lens Protocol, you might have noticed that Follow Policy sounds relatively familiar and close to the concept of follow module settings.
-> 
+>
 > This because Follow Policy is a powerful abstraction on top of follow module settings. It's provided by the Lens SDK React hooks in order to:
-> 
+>
 > ### Make read/write type-safe
-> 
+>
 > The TypeScript definition for the follow module settings is auto-generated out of GraphQL schema. Although the code generation tools are quite smart the TypeScript type system is significantly more powerful than GraphQL. As result the code generation process inevitably needs to play by the rules of a less capable GraphQL types (this is not a critique, we love GraphQL, it's just an honest assessment).
-> 
+>
 > The resulting TS type definition is not type safe and error prone.
-> 
-> The Follow Policy makes explicit the rules that MUST be observed in order to setup correctly the underlying follow modules. 
-> 
+>
+> The Follow Policy makes explicit the rules that MUST be observed in order to setup correctly the underlying follow modules.
+>
 > ### Decouple consumer's code
-> 
+>
 > By having an abstraction between the consumer's code and the follow module settings, the Lens SDK act as a natural cushion that allow the Lens Protocol to evolve fast. Very, very, very fast!! The Lens SDK will take care of the details. As the time goes by new follow modules will be added and others will be deprecated. The Lens SDK will make your adoption of new feature as simple as updating a package.
 
 ## How to follow a profile
 
-When it comes to build a UX that allows to follow a Profile the first thing is usually exposing to the user the  Follow Policy details.
+When it comes to build a UX that allows to follow a Profile the first thing is usually exposing to the user the Follow Policy details.
 
 All Profiles returned by the Lens SDK React hook have these extra properties:
 
@@ -279,7 +280,7 @@ function formatButtonText(policy: FollowPolicy): string {
 
     case FollowPolicyType.CHARGE:
       return `Pay ${policy.amount.toSignificantDigits(6)} ${policy.amount.asset.symbol} to follow`;
-      
+
     default:
       return `You cannot follow`;
   }
@@ -291,7 +292,7 @@ export function FollowButton({ followee }: FollowButtonProps) {
       <p>You are following {followee.handle}</p>
     )
   }
-  
+
   return (
     <button disabled={!followee.followStatus.canFollow}>
       {formatButtonText(followee.followPolicy)}
@@ -301,9 +302,9 @@ export function FollowButton({ followee }: FollowButtonProps) {
 ```
 
 > 🚧 Why use `followStatus`?
-> 
+>
 > If you are familiar with the Lens API you might already seen other Profile fields that can be used to achieve similar needs. While it's true that one could technically infer `followStatus.isFollowedByMe` and `followStatus.canFollow` from other Profile fields, those **other fields are a frozen snapshot of the Profile** at the time the data was retrieved from the API.
-> 
+>
 > On the other hand **`followStatus` takes into account the dynamic nature of the app**. It takes into account any inflight follow/unfollow requests (e.g. tx that are not mined or indexed yet) and gives you the cohesive state you need to build a solid UX.
 
 Now let's add the actual follow capability via the `useFollow` hook.
@@ -320,13 +321,13 @@ type FollowButtonProps = {
 
 export function FollowButton({ followee, follower }: FollowButtonProps) {
   const { execute: follow, error, isPending } = useFollow({ followee, follower });
-  
+
   return (
     <>
       <button disabled={!followee.followStatus.canFollow || isPending} onClick={follow}>
         {formatButtonText(followee.followPolicy)}
       </button>
-         
+
       {error && <small>{error.message}</small>}
     </>
   );
@@ -334,11 +335,11 @@ export function FollowButton({ followee, follower }: FollowButtonProps) {
 ```
 
 > 👍 `ProfileOwnedByMe`?
-> 
+>
 > You might remember this specialized type of profile from [Profile Management](doc:profile-management) guide.
-> 
+>
 > This is a special type of Profile returned by hooks such as `useActiveProfile` (or `useProfilesOwnedByMe`) so to be used in scenario we have to know the Profile that is the "actor" performing a given operation.
-> 
+>
 > This not only makes the whole SDK more type safe but also promotes an usage of hooks and wrapping component that minimize re-rendering and simplify data flow.
 
 ### Error handling
@@ -360,7 +361,7 @@ function FormatErrorMessage({ error }: { error: FollowOperation['error'] }) {
   if (!error) {
     return null;
   }
-  
+
   switch (error.name) {
     case 'InsufficientAllowanceError':
       return <small>Your wallet does not have enough allowance to perform this transaction.</small>
@@ -373,7 +374,7 @@ function FormatErrorMessage({ error }: { error: FollowOperation['error'] }) {
 
     case 'UserRejectedError':
       return <small>You rejected the signing.</small>
-      
+
     case 'WalletConnectionError':
     case 'BroadcastingError':
     case 'PrematureFollowError':
@@ -383,13 +384,13 @@ function FormatErrorMessage({ error }: { error: FollowOperation['error'] }) {
 
 export function FollowButton({ followee, follower }: FollowButtonProps) {
   const { execute: follow, error, isPending } = useFollow({ followee, follower });
-  
+
   return (
     <>
       <button disabled={!followee.followStatus.canFollow || isPending} onClick={follow}>
         {formatButtonText(followee.followPolicy)}
       </button>
-         
+
       <FormatErrorMessage error={error} />
     </>
   );
@@ -426,7 +427,7 @@ export function FollowButton({ followee, follower }: FollowButtonProps) {
       // other result.error handling as appropriate
     }
   }
-  
+
   return (
     <button disabled={!followee.followStatus.canFollow || isPending} onClick={follow}>
     	{formatButtonText(followee.followPolicy)}
@@ -473,7 +474,7 @@ export function FollowButton({ followee, follower }: FollowButtonProps) {
     if (result.isFailure()) {
       if (result.error instanceof InsufficientFundsError) {
         const amount = result.error.requestedAmount;
-        
+
         toast.error(
           `You don't have enough ${amount.asset.symbol} in your wallet. \n` +
           `Buy ${amount.toSignificantDigits(6)} ${amount.asset.symbol} on an exchange and try again. \n` +
@@ -485,7 +486,7 @@ export function FollowButton({ followee, follower }: FollowButtonProps) {
       // other result.error handling as appropriate
     }
   }
-  
+
   return (
     <button disabled={!followee.followStatus.canFollow || isPending} onClick={follow}>
       {formatButtonText(followee.followPolicy)}
@@ -515,9 +516,9 @@ You might have encountered this concept in other dApps when you are asked to sig
 The underlying idea is that in order for a 3rd party actor (called the "spender") to be able to interact with one's ERC-20 funds, the funds owner needs to provide a pre-authorization (the Allowance "amount"). The Allowance can be for an exact amount or for a larger amount. The Allowance can be revoked by setting it to 0. The Allowance does no constitute per se a final authorization to withdraw the funds. The owner would normally still need to provide a second authorization for the 3rd party to access the funds.
 
 > 🚧 Caveat
-> 
+>
 > At the time of this writing not all ERC-20s supported by the Lens Protocol have facility to make it possible to perform the operation in a [gasless](doc:gasless) fashion.
-> 
+>
 > This imply that the **user's wallet is responsible for signing and paying gas costs for the Approve transaction**.
 
 This is the sequence of events we are going to guide the user through:
@@ -539,14 +540,14 @@ import { ApproveFollowModal } from './ApproveFollowModal';
 
 export function FollowButton({ followee, follower }: FollowButtonProps) {
   let [showApproveModal, setShowApproveModal] = useState(false)
-  
+
   const { execute, isPending } = useFollow({ followee, follower });
 
   const follow = async () => {
     const result = await execute();
 
     if (result.isFailure()) {
-      if (result.error instanceof InsufficientAllowanceError) {       
+      if (result.error instanceof InsufficientAllowanceError) {
         setShowApproveModal(true);
         return;
       }
@@ -554,7 +555,7 @@ export function FollowButton({ followee, follower }: FollowButtonProps) {
       // other result.error handling as appropriate
     }
   }
-  
+
   return (
     <>
       <button disabled={!followee.followStatus.canFollow || isPending} onClick={follow}>
@@ -591,11 +592,11 @@ function noop() {}
 
 export function ApproveFollowModal({ followee, onClose }: ApproveFollowModalProps) {
   const { execute, error, loading } = useApproveModule();
-  
+
   const followPolicy = followee.followPolicy.amount;
-  
+
   invariant(followPolicy.type === FollowPolicyType.CHARGE, 'followee.followPolicy.type must be CHARGE')
-  
+
   const approve = async () => {
     const restult = await execute({
       // The follow fee
@@ -603,16 +604,16 @@ export function ApproveFollowModal({ followee, onClose }: ApproveFollowModalProp
 
       // The follow module contract address
       spender: followPolicy.contractAddress,
-      
+
       // In this case we want to  approve the exact amount, TokenAllowanceLimit.INFINITE is another option
       limit: TokenAllowanceLimit.EXACT
     });
-    
+
     if (result.isSuccess()) {
       onClose();
     }
   };
-  
+
   return (
     <Dialog open onClose={loading ? noop : onClose}>
       <Dialog.Panel>
@@ -638,7 +639,7 @@ export function ApproveFollowModal({ followee, onClose }: ApproveFollowModalProp
 #### What's happening?
 
 - we use the `followPolicy` details to inform the user about the operation they are about to perform
-- we use the  `useApproveModule` to aid the process of signing and sending the Approve transaction. Specifically we call the `execute` callback with: 
+- we use the `useApproveModule` to aid the process of signing and sending the Approve transaction. Specifically we call the `execute` callback with:
   - the follow fee amount
   - the follow module contract address
   - the limit to use, allows just for the exact amount.
@@ -654,7 +655,7 @@ export function ApproveFollowModal({ followee, onClose }: ApproveFollowModalProp
 - We also used [`tiny-invariant`](https://www.npmjs.com/package/tiny-invariant) function to conveniently narrow down the type of `followPolicy` to [`ChargeFollowPolicy`](https://lens-protocol.github.io/lens-sdk/types/_lens_protocol_react_web.ChargeFollowPolicy.html) so to not have to second guess its properties later in the component. This is not the only way to solve this, your call.
 
 > 👍 EIP-1559
-> 
+>
 > The `useApproveModule` hook implements [EIP-1559](https://eips.ethereum.org/EIPS/eip-1559) gas price estimation strategy.
 
 #### One last thing
@@ -673,17 +674,17 @@ function FormatErrorMessage({ error }: { error: ApproveModuleOperation['error'] 
   if (!error) {
     return null;
   }
-  
+
   switch (error.name) {
     case 'InsufficientGasError':
-      return <small>You don't have enough MATIC to cover the gas costs of this transaction</small>      
-      
+      return <small>You don't have enough MATIC to cover the gas costs of this transaction</small>
+
     case 'PendingSigningRequestError':
       return <small>There is a pending signing request in your wallet. Please sign or reject it before proceeding.</small>
 
     case 'UserRejectedError':
       return <small>You rejected the signing.</small>
-      
+
     case 'TransactionError':
     case 'WalletConnectionError':
       return <small>An unexpected error occurred. Please try again.</small>
@@ -692,9 +693,9 @@ function FormatErrorMessage({ error }: { error: ApproveModuleOperation['error'] 
 
 export function ApproveFollowModal({ followee, onClose }: ApproveFollowModalProps) {
   const { execute, error, loading } = useApproveModule();
-  
+
   // omitted for brevity
-  
+
   return (
     <Dialog open onClose={loading ? noop : onClose}>
       <Dialog.Panel>
@@ -708,7 +709,7 @@ export function ApproveFollowModal({ followee, onClose }: ApproveFollowModalProp
         </p>
 
 		<FormatErrorMessage error={error} />
-        
+
         <button disabled={loading} onClick={onClose}>Cancel</button>
         <button disabled={loading} onClick={approve}>Approve</button>
       </Dialog.Panel>
@@ -736,13 +737,13 @@ type UnfollowButtonProps = {
 
 export function UnfollowButton({ followee, follower }: UnfollowButtonProps) {
   const { execute: unfollow, error, isPending } = useUnfollow({ followee, follower });
-  
+
   return (
     <>
       <button disabled={!followee.followStatus.canUnfollow || isPending} onClick={unfollow}>
         Unfollow
       </button>
-         
+
       {error && <small>{error.message}</small>}
     </>
   );
@@ -752,7 +753,7 @@ export function UnfollowButton({ followee, follower }: UnfollowButtonProps) {
 Notice the use of `followee.followStatus.canUnfollow` to determine if at any given point in time the operation can be performed. This accounts for any transient state (for example a pending follow request not yet finalized).
 
 > 👍 Bonus track
-> 
+>
 > The `UnfollowButton` example shown above is great to communicate the essence of the `useUnfollow` hook, but we think it's NOT the most common way to use it.
-> 
+>
 > Check [this example](https://github.com/lens-protocol/lens-sdk/blob/main/examples/web-wagmi/src/profiles/UseFollowAndUnfollow.tsx) in the Lens SDK monorepo that shows you how to build a follow/unfollow feature within the same button component.

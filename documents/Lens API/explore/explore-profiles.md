@@ -5,8 +5,9 @@ hidden: false
 createdAt: "2022-05-30T08:27:37.165Z"
 updatedAt: "2023-03-14T10:18:47.727Z"
 ---
+
 > 📘 Full code example
-> 
+>
 > <https://github.com/lens-protocol/api-examples/blob/master/src/explore/explore-profiles.ts>
 
 This query returns a list of profiles based on the profile sort criteria you pass in.
@@ -14,7 +15,7 @@ This query returns a list of profiles based on the profile sort criteria you pas
 # API Design
 
 > 📘 Use the GraphQL schema...
-> 
+>
 > One of the huge advantages of GraphQL is you have a schema that should explain how the request and response schema should look at what properties exist in that. In these docs we explore code examples and explain key concepts but we will not explain each property that exists in the response for example, as the schema already does that!
 
 The example below uses `MOST_FOLLOWERS` sort criteria but you have many other options which are explained below.
@@ -96,10 +97,10 @@ query ExploreProfiles {
           recipient
         }
         ... on ProfileFollowModuleSettings {
-        type
+          type
         }
         ... on RevertFollowModuleSettings {
-        type
+          type
         }
       }
     }
@@ -111,6 +112,7 @@ query ExploreProfiles {
   }
 }
 ```
+
 ```javascript Example response
 {
   "data": {
@@ -1424,13 +1426,11 @@ query ExploreProfiles {
 }
 ```
 
-
-
-You will see the paging result behavior repeated a lot in the API, this is to allow you to fetch a certain amount and then page it for the most optimal request speed. Every time something is wrapped in a paging result you will always get returned a `pageInfo` which holds the cursors for the previous and next alongside the total count which exists in the database. These cursors are just pointers for the server to get to the next result and do not need to be understood by your client or server. If you ever want to then page to the next result you can pass these previous and next cursor in the request cursor property. 
+You will see the paging result behavior repeated a lot in the API, this is to allow you to fetch a certain amount and then page it for the most optimal request speed. Every time something is wrapped in a paging result you will always get returned a `pageInfo` which holds the cursors for the previous and next alongside the total count which exists in the database. These cursors are just pointers for the server to get to the next result and do not need to be understood by your client or server. If you ever want to then page to the next result you can pass these previous and next cursor in the request cursor property.
 
 ## Request
 
-Let's look at the query options we can use here to get a lot of data for different things. 
+Let's look at the query options we can use here to get a lot of data for different things.
 
 ### sortCriteria
 
@@ -1438,22 +1438,20 @@ You can filter the profiles using any of the below:
 
 ```typescript
 export enum ProfileSortCriteria {
-  CREATED_ON = 'CREATED_ON',
-  MOST_FOLLOWERS = 'MOST_FOLLOWERS',
-  LATEST_CREATED = 'LATEST_CREATED',
-  MOST_POSTS = 'MOST_POSTS',
-  MOST_COMMENTS = 'MOST_COMMENTS',
-  MOST_MIRRORS = 'MOST_MIRRORS',
-  MOST_PUBLICATION = 'MOST_PUBLICATION',
-  MOST_COLLECTS = 'MOST_COLLECTS',
+  CREATED_ON = "CREATED_ON",
+  MOST_FOLLOWERS = "MOST_FOLLOWERS",
+  LATEST_CREATED = "LATEST_CREATED",
+  MOST_POSTS = "MOST_POSTS",
+  MOST_COMMENTS = "MOST_COMMENTS",
+  MOST_MIRRORS = "MOST_MIRRORS",
+  MOST_PUBLICATION = "MOST_PUBLICATION",
+  MOST_COLLECTS = "MOST_COLLECTS",
 }
 ```
 
+##
 
-
-## 
-
-## 
+##
 
 ## Using LensClient SDK
 
@@ -1461,6 +1459,6 @@ export enum ProfileSortCriteria {
 import { ProfileSortCriteria } from "@lens-protocol/client";
 
 lensClient.explore.profiles({
-  sortCriteria: ProfileSortCriteria.MostFollowers
-})
+  sortCriteria: ProfileSortCriteria.MostFollowers,
+});
 ```

@@ -5,34 +5,37 @@ hidden: false
 createdAt: "2022-12-22T21:53:20.983Z"
 updatedAt: "2023-05-17T07:03:36.563Z"
 ---
+
 > 🚧 Having some errors?
-> 
+>
 > Have a look at our [troubleshooting](https://docs.lens.xyz/docs/troubleshooting) section which highlight some well know pain points that can happen during initial setup.
 
 ## Installation
 
 Install `@lens-protocol/react-web` and [ethers](https://ethers.org/) dependency.
 
->  For this configuration of packages we recommend installing using either **yarn** or **pnpm**.
+> For this configuration of packages we recommend installing using either **yarn** or **pnpm**.
 
 ```shell yarn
 yarn add @lens-protocol/react-web ethers@legacy-v5
 ```
+
 ```shell pnpm
 pnpm add @lens-protocol/react-web ethers
 ```
 
 > 🚧 Early adopters
-> 
+>
 > If you are eager to test new coming features offered by the Lens SDK, install the pre-release version via the `next` tag.
-> 
+>
 > ```shell yarn
 > yarn add @lens-protocol/react-web@next
 > ```
+>
 > ```shell pnpm
 > pnpm add @lens-protocol/react-web@next
 > ```
-> 
+>
 > Bear in mind that the pre-releases are not stable for production use and there could be breaking changes between different pre-releases before they get promoted into a stable release version.
 
 ## Integrate with [wagmi](https://wagmi.sh/)
@@ -42,6 +45,7 @@ Although `@lens-protocol/react-web` only depends on [ethers](https://ethers.org/
 ```shell yarn
 yarn add wagmi@0.12.7 @lens-protocol/wagmi
 ```
+
 ```shell pnpm
 pnpm add wagmi@0.12.7 @lens-protocol/wagmi
 ```
@@ -49,10 +53,13 @@ pnpm add wagmi@0.12.7 @lens-protocol/wagmi
 Ensure you have Polygon in the wagmi chains configuration
 
 ```typescript
-import { configureChains, createClient, WagmiConfig } from 'wagmi';
-import { mainnet, polygon } from 'wagmi/chains';
-import { publicProvider } from 'wagmi/providers/public'
-const { provider, webSocketProvider } = configureChains([polygon, mainnet], [publicProvider()]);
+import { configureChains, createClient, WagmiConfig } from "wagmi";
+import { mainnet, polygon } from "wagmi/chains";
+import { publicProvider } from "wagmi/providers/public";
+const { provider, webSocketProvider } = configureChains(
+  [polygon, mainnet],
+  [publicProvider()],
+);
 
 const client = createClient({
   autoConnect: true,
@@ -66,8 +73,8 @@ Refer to [wagmi](https://wagmi.sh/) docs to see how to set up custom chains, pro
 ### Create the `LensConfig`
 
 ```typescript
-import { LensConfig, development } from '@lens-protocol/react-web';
-import { bindings as wagmiBindings } from '@lens-protocol/wagmi';
+import { LensConfig, development } from "@lens-protocol/react-web";
+import { bindings as wagmiBindings } from "@lens-protocol/wagmi";
 
 const lensConfig: LensConfig = {
   bindings: wagmiBindings(),
@@ -89,12 +96,12 @@ See our [react-native integration](doc:cyan-nails-turn-react-native-integration)
 ## Wrap app with `LensProvider`
 
 ```typescript
-import { LensProvider } from '@lens-protocol/react-web';
+import { LensProvider } from "@lens-protocol/react-web";
 ```
 
 ```html JSX
-<WagmiConfig client={client}>
-  <LensProvider config={lensConfig}>
+<WagmiConfig client="{client}">
+  <LensProvider config="{lensConfig}">
     <YourRoutes />
   </LensProvider>
 </WagmiConfig>
@@ -105,7 +112,7 @@ It's not strictly necessary to have the `LensProvider` as a child of the `WagmiC
 You are good to go!
 
 > 📘 Prefer to learn from examples?
-> 
+>
 > That's perfect! We have a fully fledged example app showcasing the integration with wagmi. Our example app has authentication built-in and it's using pretty much all Lens SDK hooks.
-> 
+>
 > You can find it on GitHub: <https://github.com/lens-protocol/lens-sdk/tree/main/examples/web-wagmi>

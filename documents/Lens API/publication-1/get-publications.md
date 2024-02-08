@@ -5,24 +5,25 @@ hidden: false
 createdAt: "2022-02-18T11:30:00.617Z"
 updatedAt: "2023-03-16T15:22:53.990Z"
 ---
+
 > 📘 Full code example
-> 
+>
 > <https://github.com/lens-protocol/api-examples/blob/master/src/publications/get-publications.ts>
 
 > 🚧 If the user is logged in pass in the auth token as it fix some UX issues with comment ordering
 
-This query returns a list of publications based on your request query. Remember, posts, comments and mirrors are all publications. 
+This query returns a list of publications based on your request query. Remember, posts, comments and mirrors are all publications.
 
 # API Design
 
-We have ML ranking on the comments to allow the more relevant comments to appear at the top. By default, this is on, but you can decide to go to normal descending ordering by passing in `commentsOfOrdering`as `DESC`. We will continue improving this ML code to make it better and better. If your app uses this it just inherits this ML work. 
+We have ML ranking on the comments to allow the more relevant comments to appear at the top. By default, this is on, but you can decide to go to normal descending ordering by passing in `commentsOfOrdering`as `DESC`. We will continue improving this ML code to make it better and better. If your app uses this it just inherits this ML work.
 
 > 📘 Did you know...
-> 
+>
 > The publication id is not unique in the smart contract. It is a counter per each profile. So if @josh posts a publication, that will be publication 1 for his profile and then if @josh2 posts a publication that will be publication 1 for his profile. Our backend generates what we call an `InternalPublicationId` which is built up from `{profileId}-{publicationId}` creating a unique ID that can be queried against our database. You will see that `InternalPublicationId` is used on all our responses and also used in any request you which to do.
 
 > 📘 Use the GraphQL schema...
-> 
+>
 > One of the huge advantages of GraphQL is that you have a schema that should explain how the schema should look at what properties exist in that. In these docs, we explore code examples and explain key concepts, but we will not explain each property that exists in the response for example, as the schema already does that!
 
 ```javascript Example operation
@@ -33,7 +34,7 @@ query Publications {
     limit: 10
   }) {
     items {
-      __typename 
+      __typename
       ... on Post {
         ...PostFields
       }
@@ -117,7 +118,7 @@ fragment ProfileFields on Profile {
   }
 }
 
-fragment PublicationStatsFields on PublicationStats { 
+fragment PublicationStatsFields on PublicationStats {
   totalAmountOfMirrors
   totalAmountOfCollects
   totalAmountOfComments
@@ -201,10 +202,10 @@ fragment MirrorFields on Mirror {
   ...MirrorBaseFields
   mirrorOf {
    ... on Post {
-      ...PostFields          
+      ...PostFields
    }
    ... on Comment {
-      ...CommentFields          
+      ...CommentFields
    }
   }
 }
@@ -244,10 +245,10 @@ fragment CommentFields on Comment {
       ...MirrorBaseFields
       mirrorOf {
         ... on Post {
-           ...PostFields          
+           ...PostFields
         }
         ... on Comment {
-           ...CommentMirrorOfFields        
+           ...CommentMirrorOfFields
         }
       }
     }
@@ -380,6 +381,7 @@ fragment ReferenceModuleFields on ReferenceModule {
 }
 
 ```
+
 ```javascript Example response
 {
   "data": {
@@ -455,19 +457,18 @@ fragment ReferenceModuleFields on ReferenceModule {
   }
 }
 ```
+
 ```javascript Query interface
 type Query {
 	publications(request: PublicationsQueryRequest!): PaginatedPublicationResult!
 }
 ```
 
-
-
-You will see the paging result behaviour repeated a lot in the API, this is to allow you to fetch a certain amount and then page it for the most optimal request speed. Every time something is wrapped in a paging result, you will always get returned a `pageInfo` which holds the cursors for the previous and next alongside the total count which exists in the database. These cursors are just pointers for the server to get to the next result and do not need to be understood by your client or server. If you ever want to then page to the next result, you can pass this previous and next cursor in the request cursor property. 
+You will see the paging result behaviour repeated a lot in the API, this is to allow you to fetch a certain amount and then page it for the most optimal request speed. Every time something is wrapped in a paging result, you will always get returned a `pageInfo` which holds the cursors for the previous and next alongside the total count which exists in the database. These cursors are just pointers for the server to get to the next result and do not need to be understood by your client or server. If you ever want to then page to the next result, you can pass this previous and next cursor in the request cursor property.
 
 ## Request
 
-Let's look at the query options we can use here to get a lot of data for different things. 
+Let's look at the query options we can use here to get a lot of data for different things.
 
 ```json Get comments of a publication
 // This returns you the publication comments for publication 0x01-0x01
@@ -483,48 +484,45 @@ Let's look at the query options we can use here to get a lot of data for differe
     // "sources": ["lost-place-dapp"]
  }
 ```
+
 ```json Get publications by profile id
 // This returns you the publications for 0x01 profile filtered by the
 // the publication types you requested - super cool query!
 {
-    "profileId": "0x01",
-     // you can filter the publication types along side it
-    "publicationTypes": ["POST", "COMMENT", "MIRROR"]
-    // also dont forget you can filter these queries on sources (appId) as well
-    // "sources": ["lost-place-dapp"]
- }
+  "profileId": "0x01",
+  // you can filter the publication types along side it
+  "publicationTypes": ["POST", "COMMENT", "MIRROR"]
+  // also dont forget you can filter these queries on sources (appId) as well
+  // "sources": ["lost-place-dapp"]
+}
 ```
+
 ```json Get publications by collected by wallet address
-// This returns you the publications that the `collectedBy` ethereum address 
+// This returns you the publications that the `collectedBy` ethereum address
 // has collected.
 {
-    "collectedBy": "0xD020E01C0c90Ab005A01482d34B808874345FD82",
-    // you can filter the publication types along side it
-    "publicationTypes": ["POST", "COMMENT"],
-    // also dont forget you can filter these queries on sources as well
-    // "sources": ["lost-place-dapp"]
- }
+  "collectedBy": "0xD020E01C0c90Ab005A01482d34B808874345FD82",
+  // you can filter the publication types along side it
+  "publicationTypes": ["POST", "COMMENT"]
+  // also dont forget you can filter these queries on sources as well
+  // "sources": ["lost-place-dapp"]
+}
 ```
+
 ```json Get publications by publication id
 // This returns you the publications for given publication ids.
 {
-    // if you query a internal publication id which does not exist
-    // then it just will not be returned in the response
-    "publicationIds": ["0x12-0x02", "0x12-0x03"],
-    // also dont forget you can filter these queries on sources as well
-    // "sources": ["lost-place-dapp"]
- }
+  // if you query a internal publication id which does not exist
+  // then it just will not be returned in the response
+  "publicationIds": ["0x12-0x02", "0x12-0x03"]
+  // also dont forget you can filter these queries on sources as well
+  // "sources": ["lost-place-dapp"]
+}
 ```
-
-
 
 Please note you can only supply one of these if you supply more than one the API will throw. We have to do it this way with optional parameters as GraphQL does not support unions on request yet.
 
-
-
-
-
-# 
+#
 
 # Using LensClient SDK
 

@@ -5,6 +5,7 @@ hidden: false
 createdAt: "2022-02-07T15:05:22.059Z"
 updatedAt: "2023-03-29T18:34:10.878Z"
 ---
+
 ## Polygon Mainnet Addresses
 
 The official block explorer can be found here:

@@ -6,6 +6,7 @@ hidden: false
 createdAt: "2023-05-10T07:40:41.457Z"
 updatedAt: "2023-05-26T15:13:15.914Z"
 ---
+
 When you create a post, the Lens Protocol requires you to upload the so-called Publication Metadata into a public location. The Lens SDK simplify this process by dealing with the actual Publication Metadata structure so the only thing you need to do is define the content of the publication and the rules around who can interact with your post, read it, and/or collect it.
 
 ## Publication Metadata upload
@@ -22,35 +23,43 @@ The upload handler needs to:
 ```typescript upload.ts
 export const uploadJson = (data: unknown): Promise<string> => {
   const serialized = JSON.stringify(data);
-  
+
   const url = // upload serialized to a public location
-        
+
   return url;
 }
 ```
 
 > 🚧 Metadata as JSON
-> 
+>
 > It's important that the data storage solution you choose is able to serve the file as JSON (i.e. `Content: application/json`) so that later on the Lens API background workers can fetch it and index it correctly.
-> 
+>
 > It's not mandatory but it's a good custom to upload Publication Metadata in a location that is in-line with the Lens ethos: decentalized and immutable. [IPFS](https://ipfs.tech/) and [Arweave](https://www.arweave.org/) are two popular choices in this space.
 
 ## Text-only post
 
-Once you have you Publication Metadata upload handler, let's see what it takes to create a purely textual post.  [Here](https://lens-protocol.github.io/lens-sdk/types/_lens_protocol_react_web.CreatePostArgs.html) is an overview of the metadata values you can pass in to the create function. [Here](https://docs.lens.xyz/docs/metadata-standards#metadata-structure) is an overview of the entire metadata standard.
+Once you have you Publication Metadata upload handler, let's see what it takes to create a purely textual post. [Here](https://lens-protocol.github.io/lens-sdk/types/_lens_protocol_react_web.CreatePostArgs.html) is an overview of the metadata values you can pass in to the create function. [Here](https://docs.lens.xyz/docs/metadata-standards#metadata-structure) is an overview of the entire metadata standard.
 
 ```typescript Composer.tsx
-import { ContentFocus, ProfileOwnedByMe, useCreatePost } from '@lens-protocol/react-web';
-import { uploadJson } from './upload'
+import {
+  ContentFocus,
+  ProfileOwnedByMe,
+  useCreatePost,
+} from "@lens-protocol/react-web";
+import { uploadJson } from "./upload";
 
 function Composer({ publisher }: { publisher: ProfileOwnedByMe }) {
-  const { execute: create, error, isPending } = useCreatePost({ publisher, upload: uploadJson });
+  const {
+    execute: create,
+    error,
+    isPending,
+  } = useCreatePost({ publisher, upload: uploadJson });
 
   const onSubmit = async (content: string) => {
     await create({
       content,
       contentFocus: ContentFocus.TEXT,
-      locale: 'en',
+      locale: "en",
     });
   };
   // ...
@@ -88,7 +97,7 @@ async function uploadJson(data: unknown) {
   try {
     const response = await fetch('/api/upload', {
       method: 'POST',
-      body: JSON.stringify(data), 
+      body: JSON.stringify(data),
     })
     const json = await response.json()
     return json.url
@@ -118,8 +127,8 @@ Occasionally some apps might have the desire to flag publications as being gener
 The Lens SDK approaches this problem at the main configuration level.
 
 ```typescript
-import { LensConfig, development } from '@lens-protocol/react-web';
-import { bindings as wagmiBindings } from '@lens-protocol/wagmi';
+import { LensConfig, development } from "@lens-protocol/react-web";
+import { bindings as wagmiBindings } from "@lens-protocol/wagmi";
 
 const lensConfig: LensConfig = {
   bindings: wagmiBindings(),
@@ -127,14 +136,14 @@ const lensConfig: LensConfig = {
 };
 ```
 
-When you create the `LenConfig`  you can specify an `appId` field. The content of this field will be automatically included as part of the Publication Metadata of any publication (post or comment) created via the SDK. See the [Getting Started](doc:sdk-react-getting-started) to see how the `LensConfig` is then used.
+When you create the `LenConfig` you can specify an `appId` field. The content of this field will be automatically included as part of the Publication Metadata of any publication (post or comment) created via the SDK. See the [Getting Started](doc:sdk-react-getting-started) to see how the `LensConfig` is then used.
 
 ```typescript
-import { appId, LensConfig, development } from '@lens-protocol/react-web';
-import { bindings as wagmiBindings } from '@lens-protocol/wagmi';
+import { appId, LensConfig, development } from "@lens-protocol/react-web";
+import { bindings as wagmiBindings } from "@lens-protocol/wagmi";
 
 const lensConfig: LensConfig = {
-  appId: appId('bob'),
+  appId: appId("bob"),
   bindings: wagmiBindings(),
   environment: development,
 };
@@ -147,12 +156,12 @@ Without further configuration, an instance of the Lens SDK configured as above w
 If you want to filter content returned by all publications related hooks to just the one created by your app you can specify a `sources` array like so.
 
 ```typescript
-import { appId, LensConfig, development } from '@lens-protocol/react-web';
-import { bindings as wagmiBindings } from '@lens-protocol/wagmi';
+import { appId, LensConfig, development } from "@lens-protocol/react-web";
+import { bindings as wagmiBindings } from "@lens-protocol/wagmi";
 
 const lensConfig: LensConfig = {
-  appId: appId('bob'),
-  sources: [appId('bob')],
+  appId: appId("bob"),
+  sources: [appId("bob")],
   bindings: wagmiBindings(),
   environment: development,
 };
@@ -161,11 +170,11 @@ const lensConfig: LensConfig = {
 From now on, all publication hooks will yield publications created by your application.
 
 > 🚧 More than one source
-> 
+>
 > Given the `sources` is an array of `AppId`, you can also provide more than just your own App ID:
-> 
+>
 > ```typescript
-> sources: [appId('bob'), appId('lenster')]
+> sources: [appId("bob"), appId("lenster")];
 > ```
 
 ## The post language
@@ -196,29 +205,38 @@ You can specify the following collect policies:
 The publication cannot be collected (same as default, you can omit it if need to).
 
 ```typescript Composer.tsx
-import { ContentFocus, ProfileOwnedByMe, useCreatePost, CollectPolicyType } from '@lens-protocol/react-web';
-import { uploadJson } from './upload'
+import {
+  ContentFocus,
+  ProfileOwnedByMe,
+  useCreatePost,
+  CollectPolicyType,
+} from "@lens-protocol/react-web";
+import { uploadJson } from "./upload";
 
 function Composer({ publisher }: { publisher: ProfileOwnedByMe }) {
-  const { execute: create, error, isPending } = useCreatePost({ publisher, upload: uploadJson });
+  const {
+    execute: create,
+    error,
+    isPending,
+  } = useCreatePost({ publisher, upload: uploadJson });
 
   const onSubmit = async (content: string) => {
     await create({
       content,
       contentFocus: ContentFocus.TEXT,
-      locale: 'en',
+      locale: "en",
       collect: {
-        type: CollectPolicyType.NO_COLLECT
-      }
+        type: CollectPolicyType.NO_COLLECT,
+      },
     });
-  }
-  
+  };
+
   // ...
 }
 ```
 
 > 🚧 Momoka support
-> 
+>
 > Starting from Lens SDK v1.1.0, all non-collectable post will automatically leverage the Momoka infrastructure.
 
 ### Collectable policies
@@ -234,31 +252,31 @@ All collectable policies requires you to define extra metadata fields that are e
 The Lens SDK accepts type-safe versions of these fields, so that you can focus on the data and the SDK will take care of the correct formatting.
 
 ```typescript
-import { NftAttributeDisplayType, NftMetadata } from '@lens-protocol/react-web'
+import { NftAttributeDisplayType, NftMetadata } from "@lens-protocol/react-web";
 
-const metadata: NftMetadata  = {
-  name: 'The name of the collect NFT', // the NFT title on OpenSea
-  description: 'A short description for the NFT', // also visible on OpenSea NFT details page
-  
+const metadata: NftMetadata = {
+  name: "The name of the collect NFT", // the NFT title on OpenSea
+  description: "A short description for the NFT", // also visible on OpenSea NFT details page
+
   // Visible on OpenSea under traits
-	attributes: [
+  attributes: [
     {
       displayType: NftAttributeDisplayType.Date,
       value: new Date(), // actual Data instance
-      traitType: 'DoB'
+      traitType: "DoB",
     },
     {
       displayType: NftAttributeDisplayType.Number,
       value: 42, // an actual JS number
-      traitType: 'Level'
+      traitType: "Level",
     },
     {
       displayType: NftAttributeDisplayType.String,
-      value: '#ababab', // an arbitrary JS string 
-      traitType: 'Color'
+      value: "#ababab", // an arbitrary JS string
+      traitType: "Color",
     },
-  ]
-}
+  ],
+};
 ```
 
 #### Followers only restriction
@@ -272,25 +290,34 @@ This is possible via the `followersOnly` field. See the following collect polici
 It's a collect policy where the publication can be collected for free. You can restrict the collect to just the followers of your `publisher` profile via the `followersOnly` field.
 
 ```typescript Composer.tsx
-import { ContentFocus, ProfileOwnedByMe, useCreatePost, CollectPolicyType } from '@lens-protocol/react-web';
-import { uploadJson } from './upload'
+import {
+  ContentFocus,
+  ProfileOwnedByMe,
+  useCreatePost,
+  CollectPolicyType,
+} from "@lens-protocol/react-web";
+import { uploadJson } from "./upload";
 
 function Composer({ publisher }: { publisher: ProfileOwnedByMe }) {
-  const { execute: create, error, isPending } = useCreatePost({ publisher, upload: uploadJson });
+  const {
+    execute: create,
+    error,
+    isPending,
+  } = useCreatePost({ publisher, upload: uploadJson });
 
   const onSubmit = async (content: string) => {
     await create({
       content,
       contentFocus: ContentFocus.TEXT,
-      locale: 'en',
+      locale: "en",
       collect: {
         type: CollectPolicyType.FREE,
         metadata, // as defined before
-        followersOnly: true
-      }
+        followersOnly: true,
+      },
     });
-  }
-  
+  };
+
   // ...
 }
 ```
@@ -303,7 +330,7 @@ You can find all ERC-20 currently supported by the Lens Protocol via the `useCur
 
 ```typescript
 import { useCurrencies, Erc20 } from '@lens-protocol/react-web';
- 
+
 function CurrencySelector({ onChange }: { onChange: (currency: Erc20) => void) {
   const { data: currencies, error, loading } = useCurrencies();
 
@@ -355,34 +382,47 @@ You must also provide:
 - `collectLimit`
 
 ```typescript Composer.tsx
-import { Amount, ContentFocus, Erc20, ProfileOwnedByMe, useCreatePost, CollectPolicyType } from '@lens-protocol/react-web';
-import { uploadJson } from './upload'
+import {
+  Amount,
+  ContentFocus,
+  Erc20,
+  ProfileOwnedByMe,
+  useCreatePost,
+  CollectPolicyType,
+} from "@lens-protocol/react-web";
+import { uploadJson } from "./upload";
 
 function Composer({ publisher }: { publisher: ProfileOwnedByMe }) {
-  const [currency, setCurrency] = useState<Erc20 | null>(null); // use setCurrency in your <CurrencySelector onChange /> 
-  const { execute: create, error, isPending } = useCreatePost({ publisher, upload: uploadJson });
+  const [currency, setCurrency] = useState<Erc20 | null>(null); // use setCurrency in your <CurrencySelector onChange />
+  const {
+    execute: create,
+    error,
+    isPending,
+  } = useCreatePost({ publisher, upload: uploadJson });
 
   const onSubmit = async (content: string) => {
     if (!currency) return;
-    
+
     await create({
       content,
       contentFocus: ContentFocus.TEXT,
-      locale: 'en',
+      locale: "en",
       collect: {
         type: CollectPolicyType.CHARGE,
-        metadata: { /* NftMetadata */ },
+        metadata: {
+          /* NftMetadata */
+        },
         followersOnly: true, // only followers can collect
         collectLimit: 100, // only 100 available (this is optional)
         mirrorReward: 5, // 5% goes to the mirror author if collected via a mirror
 
         fee: Amount.erc20(currency, 1),
         recipient: publisher.ownedBy, // or another address the user defines
-        timeLimited: false
-      }
+        timeLimited: false,
+      },
     });
-  }
-  
+  };
+
   // ...
 }
 ```
@@ -397,23 +437,36 @@ The multiple recipient collect policy is very similar to the single recipient co
 Everything else is as per other collect policies: `collectLimit`, `mirrorReward`, `followersOnly` and NFT `metadata`.
 
 ```typescript Composer.tsx
-import { Amount, ContentFocus, Erc20, ProfileOwnedByMe, useCreatePost, CollectPolicyType } from '@lens-protocol/react-web';
-import { uploadJson } from './upload'
+import {
+  Amount,
+  ContentFocus,
+  Erc20,
+  ProfileOwnedByMe,
+  useCreatePost,
+  CollectPolicyType,
+} from "@lens-protocol/react-web";
+import { uploadJson } from "./upload";
 
 function Composer({ publisher }: { publisher: ProfileOwnedByMe }) {
-  const [currency, setCurrency] = useState<Erc20 | null>(null); // use setCurrency in your <CurrencySelector onChange /> 
-  const { execute: create, error, isPending } = useCreatePost({ publisher, upload: uploadJson });
+  const [currency, setCurrency] = useState<Erc20 | null>(null); // use setCurrency in your <CurrencySelector onChange />
+  const {
+    execute: create,
+    error,
+    isPending,
+  } = useCreatePost({ publisher, upload: uploadJson });
 
   const onSubmit = async (content: string) => {
     if (!currency) return;
-    
+
     await create({
       content,
       contentFocus: ContentFocus.TEXT,
-      locale: 'en',
+      locale: "en",
       collect: {
         type: CollectPolicyType.CHARGE,
-        metadata: { /* NftMetadata */ },
+        metadata: {
+          /* NftMetadata */
+        },
         followersOnly: true, // only followers can collect
         collectLimit: 100, // only 100 available (this is optional)
         mirrorReward: 5, // 5% goes to the mirror author if collected via a mirror
@@ -421,19 +474,19 @@ function Composer({ publisher }: { publisher: ProfileOwnedByMe }) {
         fee: Amount.erc20(currency, 10),
         recipients: [
           {
-          	recipient: publisher.ownedBy,
+            recipient: publisher.ownedBy,
             split: 80, // 80%
           },
           {
-            recipient: '0x....',
+            recipient: "0x....",
             split: 20, // 20%
-          }
+          },
         ],
-        endTimestamp: new Date(2023, 11, 25).getTime()
-      }
+        endTimestamp: new Date(2023, 11, 25).getTime(),
+      },
     });
-  }
-  
+  };
+
   // ...
 }
 ```
@@ -453,23 +506,32 @@ You can specify the following reference policies:
 Anybody can reference the post (same as default, you can omit it if need to)
 
 ```typescript Composer.tsx
-import { ContentFocus, ProfileOwnedByMe, useCreatePost, ReferencePolicyType } from '@lens-protocol/react-web';
-import { uploadJson } from './upload'
+import {
+  ContentFocus,
+  ProfileOwnedByMe,
+  useCreatePost,
+  ReferencePolicyType,
+} from "@lens-protocol/react-web";
+import { uploadJson } from "./upload";
 
 function Composer({ publisher }: { publisher: ProfileOwnedByMe }) {
-  const { execute: create, error, isPending } = useCreatePost({ publisher, upload: uploadJson });
+  const {
+    execute: create,
+    error,
+    isPending,
+  } = useCreatePost({ publisher, upload: uploadJson });
 
   const onSubmit = async (content: string) => {
     await create({
       content,
       contentFocus: ContentFocus.TEXT,
-      locale: 'en',
+      locale: "en",
       reference: {
-        type: ReferencePolicyType.ANYONE
-      }
+        type: ReferencePolicyType.ANYONE,
+      },
     });
-  }
-  
+  };
+
   // ...
 }
 ```
@@ -479,23 +541,32 @@ function Composer({ publisher }: { publisher: ProfileOwnedByMe }) {
 Only your followers can comment and/or mirror the post
 
 ```typescript Composer.tsx
-import { ContentFocus, ProfileOwnedByMe, useCreatePost, ReferencePolicyType } from '@lens-protocol/react-web';
-import { uploadJson } from './upload'
+import {
+  ContentFocus,
+  ProfileOwnedByMe,
+  useCreatePost,
+  ReferencePolicyType,
+} from "@lens-protocol/react-web";
+import { uploadJson } from "./upload";
 
 function Composer({ publisher }: { publisher: ProfileOwnedByMe }) {
-  const { execute: create, error, isPending } = useCreatePost({ publisher, upload: uploadJson });
+  const {
+    execute: create,
+    error,
+    isPending,
+  } = useCreatePost({ publisher, upload: uploadJson });
 
   const onSubmit = async (content: string) => {
     await create({
       content,
       contentFocus: ContentFocus.TEXT,
-      locale: 'en',
+      locale: "en",
       reference: {
-        type: ReferencePolicyType.FOLLOWERS_ONLY
-      }
+        type: ReferencePolicyType.FOLLOWERS_ONLY,
+      },
     });
-  }
-  
+  };
+
   // ...
 }
 ```
@@ -509,28 +580,37 @@ You can fine tune what reference operations are restricted (comments and/or mirr
 - N: up to N hops in the followers-of-followers chain can reference the post
 
 ```typescript Composer.tsx
-import { ContentFocus, ProfileOwnedByMe, useCreatePost, ReferencePolicyType } from '@lens-protocol/react-web';
-import { uploadJson } from './upload'
+import {
+  ContentFocus,
+  ProfileOwnedByMe,
+  useCreatePost,
+  ReferencePolicyType,
+} from "@lens-protocol/react-web";
+import { uploadJson } from "./upload";
 
 function Composer({ publisher }: { publisher: ProfileOwnedByMe }) {
-  const { execute: create, error, isPending } = useCreatePost({ publisher, upload: uploadJson });
+  const {
+    execute: create,
+    error,
+    isPending,
+  } = useCreatePost({ publisher, upload: uploadJson });
 
   const onSubmit = async (content: string) => {
     await create({
       content,
       contentFocus: ContentFocus.TEXT,
-      locale: 'en',
+      locale: "en",
       reference: {
         type: ReferencePolicyType.DEGREES_OF_SEPARATION,
         params: {
           degreesOfSeparation: 2, // only direct followers and followers of direct followers can comment
           commentsRestricted: true, //only comments are restricted
           mirrorsRestricted: false, // anybody can mirror
-        }
-      }
+        },
+      },
     });
-  }
-  
+  };
+
   // ...
 }
 ```
@@ -548,31 +628,40 @@ In order to define a media post you must specify a `contentFocus` that is one be
 You need to first upload the files into a public location then provide the media details to the `useCreatePost` callback arguments like so:
 
 ```typescript Composer.tsx
-import { useState } from 'react';
-import { ContentFocus, ImageType, ProfileOwnedByMe, useCreatePost } from '@lens-protocol/react-web';
-import { uploadJson, uploadMediaFile } from './upload'
+import { useState } from "react";
+import {
+  ContentFocus,
+  ImageType,
+  ProfileOwnedByMe,
+  useCreatePost,
+} from "@lens-protocol/react-web";
+import { uploadJson, uploadMediaFile } from "./upload";
 
 function Composer({ publisher }: { publisher: ProfileOwnedByMe }) {
-  const [selectedFile, selectFile] = useState<File | null>(null)
-  const { execute: create, error, isPending } = useCreatePost({ publisher, upload: uploadJson });
+  const [selectedFile, selectFile] = useState<File | null>(null);
+  const {
+    execute: create,
+    error,
+    isPending,
+  } = useCreatePost({ publisher, upload: uploadJson });
 
   const onSubmit = async () => {
-    if (!selectedFile) return
+    if (!selectedFile) return;
 
     const url = await uploadMediaFile(selectedFile);
-    
+
     await create({
       contentFocus: ContentFocus.IMAGE,
-      locale: 'en',
+      locale: "en",
       media: [
         {
           url,
-          mimeType: ImageType.PNG
-        }
-      ]
+          mimeType: ImageType.PNG,
+        },
+      ],
     });
-  }
-  
+  };
+
   // ...
 }
 ```
@@ -586,22 +675,24 @@ You can create a publication that contains multiple media files of the same typo
 ```typescript
 await create({
   contentFocus: ContentFocus.IMAGE,
-  locale: 'en',
-  media: await Promise.all(files.map(async (file) => {
-    const url = await uploadMediaFile(file);
-    
-    return {
-      url,
-      mimeType: ImageType.PNG
-    };
-  }))
+  locale: "en",
+  media: await Promise.all(
+    files.map(async (file) => {
+      const url = await uploadMediaFile(file);
+
+      return {
+        url,
+        mimeType: ImageType.PNG,
+      };
+    }),
+  ),
 });
 ```
 
 Whilst there is almost not virtual limit to the number of media files referenced by the same publication, try to be conscious that Lens publications are portable and might be served by other apps in the Lens ecosystem.
 
 > 🚧 Media file upload
-> 
+>
 > As per Publication Metadata, the Lens SDK does not force you to make any choice on where to upload your media files. We do still recommend to follow the Lens ethos and use a decentralized and possibly immutable data storage solution (e.g. IPFS or Arweave). This is even more true if the publication is a collectable posts. The potential collectors will receive collect NFTs that are truly immutable and decentralized starting from the on-chain data, passing through the NFT metadata, all the way to the referenced media files.
 
 ### Contextual information
@@ -662,16 +753,16 @@ You can do so by uploading an image using the same facilities you used for the m
 const songUrl = await uploadMediaFile(songFile);
 
 const coverUrl = await uploadMediaFile(coverImage);
-    
+
 await create({
   contentFocus: ContentFocus.AUDIO,
-  locale: 'en',
+  locale: "en",
   media: [
     {
       url: songUrl,
       mimeType: AudioType.MP3,
-      cover: coverUrl
-    }
-  ]
-})
+      cover: coverUrl,
+    },
+  ],
+});
 ```

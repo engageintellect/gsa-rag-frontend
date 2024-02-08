@@ -5,6 +5,7 @@ hidden: false
 createdAt: "2023-02-26T15:31:44.661Z"
 updatedAt: "2023-02-26T15:48:26.262Z"
 ---
+
 [Lens Widgets](https://github.com/lens-protocol/lens-widgets) enable developers to easily integrate social features into their web applications with just a few lines of code.
 
 Lens Widgets support both [React](https://github.com/lens-protocol/lens-widgets/tree/main/lens-widgets-react) and [Svelte](https://github.com/lens-protocol/lens-widgets/tree/main/lens-widgets-svelte).
@@ -18,8 +19,6 @@ To view the library on GitHub click [here](https://github.com/lens-protocol/lens
 ```shell
 npm install @lens-protocol/widgets-react
 ```
-
-
 
 ### Share to Lens
 
@@ -41,8 +40,6 @@ theme: Theme (default, dark, light, mint, green, peach, lavender, blonde)
 size: Size (small, medium, large)
 ```
 
-
-
 ### Follow on Lens
 
 ```typescript
@@ -59,8 +56,6 @@ theme: Theme (default, dark, light, mint, green, peach, lavender, blonde)
 size: Size (small, medium, large)
 title: string = "Follow me on Lens"
 ```
-
-
 
 ### Sign in with Lens
 
@@ -84,8 +79,6 @@ title: string
 theme: Theme (default, dark, light, mint, green, peach, lavender, blonde)
 size: Size (small, medium, large)
 ```
-
-
 
 ### Profile
 
@@ -107,8 +100,6 @@ onClick: () => void
 containerStyle: css style
 ```
 
-
-
 ## Lens Widgets Svelte
 
 To view the library on GitHub click [here](https://github.com/lens-protocol/lens-widgets/tree/main/lens-widgets-svelte).
@@ -118,8 +109,6 @@ To view the library on GitHub click [here](https://github.com/lens-protocol/lens
 ```shell
 npm install @lens-protocol/widgets-svelte
 ```
-
-
 
 ### Share to Lens
 
@@ -141,8 +130,6 @@ theme: Theme (default, dark, light, mint, green, peach, lavender, blonde)
 size: Size (small, medium, large)
 ```
 
-
-
 ### Follow on Lens
 
 ```typescript
@@ -159,8 +146,6 @@ theme: Theme (default, dark, light, mint, green, peach, lavender, blonde)
 size: Size (small, medium, large)
 title: string = "Follow me on Lens"
 ```
-
-
 
 ### Sign in with Lens
 
@@ -184,8 +169,6 @@ title: string
 theme: Theme (default, dark, light, mint, green, peach, lavender, blonde)
 size: Size (small, medium, large)
 ```
-
-
 
 ### Profile
 

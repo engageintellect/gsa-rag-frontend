@@ -8,7 +8,14 @@ id: "awpn5gxm052btnj"
 likes: []
 name: "Nexum"
 tagline: "Connecting people and data"
-tags: ["89sfe3no0r6qbqz","yd4ys091kfpxyde","si2fvdks1bj9gza","nw3rul64uhybrfr","8p5fnjif3a2opwb"]
+tags:
+  [
+    "89sfe3no0r6qbqz",
+    "yd4ys091kfpxyde",
+    "si2fvdks1bj9gza",
+    "nw3rul64uhybrfr",
+    "8p5fnjif3a2opwb",
+  ]
 thumbnail: "network_graph_MUJBASsI65.png"
 updated: "2023-07-31 19:01:07.019Z"
 url: "https://google.com"

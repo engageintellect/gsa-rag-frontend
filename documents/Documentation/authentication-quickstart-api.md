@@ -2,10 +2,11 @@
 title: "Authentication Quickstart - Lens API"
 slug: "authentication-quickstart-api"
 hidden: false
-metadata: 
+metadata:
 createdAt: "2022-10-27T22:40:52.852Z"
 updatedAt: "2023-05-25T20:38:42.840Z"
 ---
+
 In this guide you'll learn how to implement user authentication with the Lens API in a full stack web application using React and Next.js.
 
 While this tutorial is written in React and using React APIs, the general concepts should be easy to understand and implement across any JavaScript framework.
@@ -48,14 +49,14 @@ Next, we'd like to configure the GraphQL client. This is what we'll use to send 
 Create a file named `api.js` in the root of the project and add the following code:
 
 ```javascript
-import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
+import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
 
-const API_URL = 'https://api.lens.dev'
+const API_URL = "https://api.lens.dev";
 
 export const client = new ApolloClient({
   uri: API_URL,
-  cache: new InMemoryCache()
-})
+  cache: new InMemoryCache(),
+});
 ```
 
 ### Defining the GraphQL queries and mutations
@@ -75,22 +76,16 @@ export const challenge = gql`
       text
     }
   }
-`
+`;
 
 export const authenticate = gql`
-  mutation Authenticate(
-    $address: EthereumAddress!
-    $signature: Signature!
-  ) {
-    authenticate(request: {
-      address: $address,
-      signature: $signature
-    }) {
+  mutation Authenticate($address: EthereumAddress!, $signature: Signature!) {
+    authenticate(request: { address: $address, signature: $signature }) {
       accessToken
       refreshToken
     }
   }
-`
+`;
 ```
 
 ## Building the authentication flow
@@ -98,31 +93,31 @@ export const authenticate = gql`
 Now that the GraphQL client is configured, let's build out the authentication flow. Update `app/page.js` with the following code:
 
 ```javascript
-'use client' 
-import { useEffect, useState } from 'react'
-import { ethers } from 'ethers'
-import { client, challenge, authenticate } from '../api'
+"use client";
+import { useEffect, useState } from "react";
+import { ethers } from "ethers";
+import { client, challenge, authenticate } from "../api";
 
 export default function Home() {
   /* local state variables to hold user's address and access token */
-  const [address, setAddress] = useState()
-  const [token, setToken] = useState()
+  const [address, setAddress] = useState();
+  const [token, setToken] = useState();
   useEffect(() => {
     /* when the app loads, check to see if the user has already connected their wallet */
-    checkConnection()
-  }, [])
+    checkConnection();
+  }, []);
   async function checkConnection() {
-    const provider = new ethers.providers.Web3Provider(window.ethereum)
-    const accounts = await provider.listAccounts()
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const accounts = await provider.listAccounts();
     if (accounts.length) {
-      setAddress(accounts[0])
+      setAddress(accounts[0]);
     }
   }
   async function connect() {
     /* this allows the user to connect their wallet */
-    const account = await window.ethereum.send('eth_requestAccounts')
+    const account = await window.ethereum.send("eth_requestAccounts");
     if (account.result.length) {
-      setAddress(account.result[0])
+      setAddress(account.result[0]);
     }
   }
   async function login() {
@@ -130,48 +125,49 @@ export default function Home() {
       /* first request the challenge from the API server */
       const challengeInfo = await client.query({
         query: challenge,
-        variables: { address }
-      })
+        variables: { address },
+      });
       const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner()
+      const signer = provider.getSigner();
       /* ask the user to sign a message with the challenge info returned from the server */
-      const signature = await signer.signMessage(challengeInfo.data.challenge.text)
+      const signature = await signer.signMessage(
+        challengeInfo.data.challenge.text,
+      );
       /* authenticate the user */
       const authData = await client.mutate({
         mutation: authenticate,
         variables: {
-          address, signature
-        }
-      })
+          address,
+          signature,
+        },
+      });
       /* if user authentication is successful, you will receive an accessToken and refreshToken */
-      const { data: { authenticate: { accessToken }}} = authData
-      console.log({ accessToken })
-      setToken(accessToken)
+      const {
+        data: {
+          authenticate: { accessToken },
+        },
+      } = authData;
+      console.log({ accessToken });
+      setToken(accessToken);
     } catch (err) {
-      console.log('Error signing in: ', err)
+      console.log("Error signing in: ", err);
     }
   }
 
   return (
     <div>
-      { /* if the user has not yet connected their wallet, show a connect button */ }
-      {
-        !address && <button onClick={connect}>Connect</button>
-      }
-      { /* if the user has connected their wallet but has not yet authenticated, show them a login button */ }
-      {
-        address && !token && (
-          <div onClick={login}>
-            <button>Login</button>
-          </div>
-        )
-      }
-      { /* once the user has authenticated, show them a success message */ }
-      {
-        address && token && <h2>Successfully signed in!</h2>
-      }
+      {/* if the user has not yet connected their wallet, show a connect button */}
+      {!address && <button onClick={connect}>Connect</button>}
+      {/* if the user has connected their wallet but has not yet authenticated, show them a login button */}
+      {address && !token && (
+        <div onClick={login}>
+          <button>Login</button>
+        </div>
+      )}
+      {/* once the user has authenticated, show them a success message */}
+      {address && token && <h2>Successfully signed in!</h2>}
     </div>
-  )
+  );
 }
 ```
 
@@ -199,10 +195,10 @@ const result = await client.mutate({
   },
   context: {
     headers: {
-      Authorization: `Bearer ${token}`
-    }
-  }
-})
+      Authorization: `Bearer ${token}`,
+    },
+  },
+});
 ```
 
 ### Apollo Link
@@ -210,27 +206,32 @@ const result = await client.mutate({
 You can also consider using Apollo Link to automatically add an authorization header to every HTTP request. This would change the way you configure your client:
 
 ```javascript
-import { ApolloClient, InMemoryCache, gql, createHttpLink } from '@apollo/client'
-import { setContext } from '@apollo/client/link/context';
+import {
+  ApolloClient,
+  InMemoryCache,
+  gql,
+  createHttpLink,
+} from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
 
 const authLink = setContext((_, { headers }) => {
-  const token = window.localStorage.getItem('your-storage-key')
+  const token = window.localStorage.getItem("your-storage-key");
   return {
     headers: {
       ...headers,
       authorization: token ? `Bearer ${token}` : "",
-    }
-  }
-})
+    },
+  };
+});
 
 const httpLink = createHttpLink({
-  uri: API_URL
-})
+  uri: API_URL,
+});
 
 export const client = new ApolloClient({
   link: authLink.concat(httpLink),
-  cache: new InMemoryCache()
-})
+  cache: new InMemoryCache(),
+});
 ```
 
 ## Next steps

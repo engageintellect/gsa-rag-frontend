@@ -5,37 +5,34 @@ hidden: false
 createdAt: "2022-12-23T14:31:39.812Z"
 updatedAt: "2023-03-20T06:54:38.841Z"
 ---
+
 > 🚧 Supported Arguments
-> 
+>
 > This hook currently only supports a subset of the arguments exposed by the API. In future releases, all arguments will be supported.
 
 `usePublications` is a React Hook that lets you query for publications that match the criteria that you specify.
 
 ```typescript
-const { data, loading, hasMore, next } = usePublications(args)
+const { data, loading, hasMore, next } = usePublications(args);
 ```
-
-
 
 ## Usage
 
 ```typescript TypeScript
-import { usePublications } from '@lens-protocol/react-web';
+import { usePublications } from "@lens-protocol/react-web";
 
 function Publications() {
-const {
+  const {
     data: publication,
     loading,
     hasMore,
     next,
   } = usePublications({
-    profileId: '0x77-0x0149',
+    profileId: "0x77-0x0149",
     limit: 10,
   });
 }
 ```
-
-
 
 ## Reference
 
@@ -69,8 +66,6 @@ const {
   next(): () => void, // fetches the next publications and appends to the data
 }
 ```
-
-
 
 ### PublicationMetadataFilters
 

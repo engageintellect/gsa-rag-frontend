@@ -5,8 +5,9 @@ hidden: false
 createdAt: "2022-06-20T10:43:22.328Z"
 updatedAt: "2023-03-15T17:50:01.376Z"
 ---
+
 > 📘 Full code example
-> 
+>
 > <https://github.com/lens-protocol/api-examples/blob/master/src/profile/get-profile.ts>
 
 Get a single profile by `id` or `handle`
@@ -14,17 +15,17 @@ Get a single profile by `id` or `handle`
 # API details
 
 > 📘 Hot tip
-> 
+>
 > If you do not know GraphQL that well remember things can be nullable if defined. In the schema how GraphQL knows it's nullable is without the `!` at the end here is an example:
-> 
-> Not nullable: 
-> 
+>
+> Not nullable:
+>
 > ownedBy: EthereumAddress!
-> 
+>
 > Nullable:
-> 
+>
 > ownedBy: EthereumAddress
-> 
+>
 > It's always worth generating the TypeScript types for the schema if your application is TypeScript here is a reference to how you would do that - <https://www.apollographql.com/blog/tooling/apollo-codegen/typescript-graphql-code-generator-generate-graphql-types/>
 
 ```javascript Example response
@@ -100,13 +101,12 @@ Get a single profile by `id` or `handle`
   }
 }
 ```
+
 ```javascript Query interface
-type Query { 
+type Query {
   profile(request: SingleProfileQueryRequest!): Profile!
 }
 ```
-
-
 
 ## Get by profile id
 
@@ -194,6 +194,7 @@ query Profile {
   }
 }
 ```
+
 ```javascript Example response
 {
   "data": {
@@ -267,8 +268,6 @@ query Profile {
   }
 }
 ```
-
-
 
 ## Get by handle
 
@@ -356,6 +355,7 @@ query Profile {
   }
 }
 ```
+
 ```javascript Example response
 {
   "data": {
@@ -430,18 +430,16 @@ query Profile {
 }
 ```
 
-
-
-# 
+#
 
 # Using LensClient SDK
 
 ```typescript
 const profileById = await lensClient.profile.fetch({
-  profileId: '0x0635'
-})
+  profileId: "0x0635",
+});
 
 const profileByHandle = await lensClient.profile.fetch({
-  handle: 'handle.test'
-})
+  handle: "handle.test",
+});
 ```

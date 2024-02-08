@@ -5,6 +5,7 @@ hidden: false
 createdAt: "2023-03-02T14:50:20.282Z"
 updatedAt: "2023-04-11T16:37:58.028Z"
 ---
+
 # LensClient SDK
 
 LensClient SDK is built in TypeScript and it makes the interactions with the API easier. You don't need to worry about GraphQL parts, just call simple methods of the client to achieve what you want with the Lens Protocol.
@@ -17,8 +18,6 @@ Open the terminal and run:
 $ npm install @lens-protocol/client
 ```
 
-
-
 ## Usage
 
 Initialize the client with the preferred environment and storage options.
@@ -27,11 +26,9 @@ Initialize the client with the preferred environment and storage options.
 import { LensClient, development } from "@lens-protocol/client";
 
 const lensClient = new LensClient({
-  environment: development
+  environment: development,
 });
 ```
-
-
 
 ## Reference
 
@@ -46,8 +43,6 @@ type LensConfig = {
 };
 ```
 
-
-
 ### Parameters
 
 `environment: Environment` (required) - possible values `production` or `development`
@@ -56,17 +51,18 @@ type LensConfig = {
 
 `storage: IStorageProvider` (optional)
 
-- LensClient manages the authentication tokens for you, it can also store them for future use if you provide `storage` instance. It could be browser-based LocalStorage or some storage solution in a React-Native environment, or even a file or database, it's up to you as long as it follows the `IStorageProvider` interface. 
+- LensClient manages the authentication tokens for you, it can also store them for future use if you provide `storage` instance. It could be browser-based LocalStorage or some storage solution in a React-Native environment, or even a file or database, it's up to you as long as it follows the `IStorageProvider` interface.
 
 ```typescript
 export interface IStorageProvider {
   getItem(key: string): Promise<string | null> | string | null;
-  setItem(key: string, value: string): Promise<string> | Promise<void> | void | string;
+  setItem(
+    key: string,
+    value: string,
+  ): Promise<string> | Promise<void> | void | string;
   removeItem(key: string): Promise<string> | Promise<void> | void;
 }
 ```
-
-
 
 example implementation for LocalStorage
 

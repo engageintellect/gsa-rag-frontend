@@ -5,7 +5,8 @@ hidden: false
 createdAt: "2022-09-26T14:37:30.355Z"
 updatedAt: "2023-03-16T15:04:31.479Z"
 ---
-Some developers get confused when getting started on what is valid metadata and what is not. They miss a property or pass in a wrong type which is hard to debug if you do this. This endpoint allows you to pass in the metadata and see if it's valid, if it is not valid it tells you why. This is great for debugging when you're getting up and running with the LENS API. 
+
+Some developers get confused when getting started on what is valid metadata and what is not. They miss a property or pass in a wrong type which is hard to debug if you do this. This endpoint allows you to pass in the metadata and see if it's valid, if it is not valid it tells you why. This is great for debugging when you're getting up and running with the LENS API.
 
 # API Design
 
@@ -35,6 +36,7 @@ query ValidatePublicationMetadata {
   }
 }
 ```
+
 ```javascript Example success response
 {
   "data": {
@@ -45,6 +47,7 @@ query ValidatePublicationMetadata {
   }
 }
 ```
+
 ```Text Example fail response
 {
   "data": {
@@ -56,9 +59,7 @@ query ValidatePublicationMetadata {
 }
 ```
 
-
-
-# 
+#
 
 # Using LensClient SDK
 

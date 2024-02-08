@@ -5,13 +5,14 @@ hidden: false
 createdAt: "2022-02-18T11:30:30.783Z"
 updatedAt: "2023-05-12T21:12:08.168Z"
 ---
+
 > 🚧 This request is protected by authentication
-> 
+>
 > hint: this means it requires an x-access-token header put in the request with your authentication token.
 
 Typed data is a way to try to show the users what they are signing in a more readable format. You can read more about it [here](https://eips.ethereum.org/EIPS/eip-712).
 
-Constructing that type of data is normally difficult. On the type data, you also need to get the nonce, deadline, contract version, contract address, chain id, and the name of the contract for the signature to be able to be signed and verified. 
+Constructing that type of data is normally difficult. On the type data, you also need to get the nonce, deadline, contract version, contract address, chain id, and the name of the contract for the signature to be able to be signed and verified.
 
 When using this API, the server checks every detail before it generates the typed data. For example: if you try to create typed data on an always failing transaction the server will throw an error in a human-readable form. This is great for debugging but also saves issues with users sending always failing transactions or a mismatch of a bad request.
 
@@ -20,7 +21,7 @@ We will show you the typed data approach using ethers and the API side by side. 
 # API Design
 
 > 📘 Hot tip
-> 
+>
 > It's super easy to enable modules within your publication using this typed data approach as the server lifts all the encoding and decoding of the modules for you. This allows you to just supply it as you would if you were using a web2 API.
 
 ```javascript Example request
@@ -64,6 +65,7 @@ mutation CreatePostTypedData {
   }
 }
 ```
+
 ```javascript Example response
 {
   "data": {
@@ -147,16 +149,16 @@ See collect module options [here](https://docs.lens.xyz/docs/create-post-typed-d
 
 ## Putting it together
 
-<https://github.com/lens-protocol/api-examples/blob/master/src/publications/post.ts> shows you a live running example of how you would generate the signed typed data from the API and send it through the `withSig` methods. 
+<https://github.com/lens-protocol/api-examples/blob/master/src/publications/post.ts> shows you a live running example of how you would generate the signed typed data from the API and send it through the `withSig` methods.
 
 # Gasless
 
 > 🚧 If you are on mumbai anyone can use gasless but if your on polygon only whitelisted apps can currently use this
 
-You have 2 options when doing gasless you have `broadcast` and also the `dispatcher`. The dispatcher supports a subset of methods that allows you to do actions without signing, these actions are protocol calls that can not drain funds from any wallet making them classed as safe actions, not all methods are supported by the dispatcher. Posting is one of those allowed dispatcher methods. You can set up a dispatcher for the user using <https://docs.lens.xyz/docs/create-set-dispatcher-typed-data> and then broadcast that transaction which is described in that document. 
+You have 2 options when doing gasless you have `broadcast` and also the `dispatcher`. The dispatcher supports a subset of methods that allows you to do actions without signing, these actions are protocol calls that can not drain funds from any wallet making them classed as safe actions, not all methods are supported by the dispatcher. Posting is one of those allowed dispatcher methods. You can set up a dispatcher for the user using <https://docs.lens.xyz/docs/create-set-dispatcher-typed-data> and then broadcast that transaction which is described in that document.
 
 > 📘 Full code example of gasless
-> 
+>
 > <https://github.com/lens-protocol/api-examples/blob/master/src/publications/post-gasless.ts>
 
 ## Broadcast
@@ -187,6 +189,7 @@ mutation CreatePostViaDispatcher {
   }
 }
 ```
+
 ```javascript Example result
 {
   "data": {
@@ -213,16 +216,17 @@ const metadata = {
 const contentURI = await upload(metadata);
 
 // create a post via dispatcher, you need to have the dispatcher enabled for the profile
-const viaDispatcherResult = await lensClient.publication.createPostViaDispatcher({
-  profileId,
-  contentURI,
-  collectModule: {
-    revertCollectModule: true, // collect disabled
-  },
-  referenceModule: {
-    followerOnlyReferenceModule: false, // anybody can comment or mirror
-  },
-});
+const viaDispatcherResult =
+  await lensClient.publication.createPostViaDispatcher({
+    profileId,
+    contentURI,
+    collectModule: {
+      revertCollectModule: true, // collect disabled
+    },
+    referenceModule: {
+      followerOnlyReferenceModule: false, // anybody can comment or mirror
+    },
+  });
 
 // or with typedData that require signature and broadcasting
 const typedDataResult = await lensClient.publication.createPostTypedData({
@@ -237,7 +241,6 @@ const typedDataResult = await lensClient.publication.createPostTypedData({
 });
 
 // sign and broadcast
-
 ```
 
 The `contentURI` can be either an IPFS or Arweave hash formatted in the following way:
@@ -256,7 +259,7 @@ contentURI: ar://your-arweave-hash
 
 ### Collect Modules
 
-Modules are quite complex, each module needs to be encoded in the correct way for the contracts not to throw. We tried to abstract any complex stuff out for you here and allow you to just pass in the params in web2 style. 
+Modules are quite complex, each module needs to be encoded in the correct way for the contracts not to throw. We tried to abstract any complex stuff out for you here and allow you to just pass in the params in web2 style.
 
 ```js
 input CollectModuleParams {
@@ -277,19 +280,19 @@ input CollectModuleParams {
 
   # The collect timed fee collect module
   timedFeeCollectModule: TimedFeeCollectModuleParams
-  
+
   # The new simple collect module that covers most usecases
   simpleCollectModule: SimpleCollectModuleParams
 
   # The multirecipient fee collect module
   multirecipientFeeCollectModule: MultirecipientFeeCollectModuleParams
-  
+
   # The erc4626 vault fee collect module
   erc4626FeeCollectModule: Erc4626FeeCollectModuleParams
-  
+
   # The aave fee collect module
   aaveFeeCollectModule: AaveFeeCollectModuleParams
-  
+
   # unknown collect module only use if you know what your doing
   unknownCollectModule: UnknownCollectModuleParams
 }
@@ -302,7 +305,7 @@ Please note you can only supply one of these if you supply more than one the API
 This is the latest collect module that supports most use cases, including paid collects, limited and timed free collects and more!
 
 > 📘 Hot tip
-> 
+>
 > We highly recommend you to migrate to this collect module as it provides the most straightforward integration!
 
 Some examples:
@@ -311,106 +314,106 @@ Some examples:
 
 ```json
 {
-    "profileId": "0x03",
-    "contentURI": "ipfs://QmPogtffEF3oAbKERsoR4Ky8aTvLgBF5totp5AuF8YN6vl",
-    "collectModule": {
-        "simpleCollectModule":  {
-            "collectLimit": "100",
-            "followerOnly": false,
-        }
-    },
-    referenceModule: {
-        "followerOnlyReferenceModule": false
+  "profileId": "0x03",
+  "contentURI": "ipfs://QmPogtffEF3oAbKERsoR4Ky8aTvLgBF5totp5AuF8YN6vl",
+  "collectModule": {
+    "simpleCollectModule": {
+      "collectLimit": "100",
+      "followerOnly": false
     }
- }
+  },
+  "referenceModule": {
+    "followerOnlyReferenceModule": false
+  }
+}
 ```
 
 ###### Now same as above but only for your followers
 
 ```json
 {
-    "profileId": "0x03",
-    "contentURI": "ipfs://QmPogtffEF3oAbKERsoR4Ky8aTvLgBF5totp5AuF8YN6vl",
-    "collectModule": {
-        "simpleCollectModule":  {
-            "collectLimit": "100",
-            "followerOnly": true,
-         }
-    },
-    referenceModule: {
-        "followerOnlyReferenceModule": false
+  "profileId": "0x03",
+  "contentURI": "ipfs://QmPogtffEF3oAbKERsoR4Ky8aTvLgBF5totp5AuF8YN6vl",
+  "collectModule": {
+    "simpleCollectModule": {
+      "collectLimit": "100",
+      "followerOnly": true
     }
- }
+  },
+  "referenceModule": {
+    "followerOnlyReferenceModule": false
+  }
+}
 ```
 
 ###### Plain old free collect for your followers
 
 ```json
 {
-    "profileId": "0x03",
-    "contentURI": "ipfs://QmPogtffEF3oAbKERsoR4Ky8aTvLgBF5totp5AuF8YN6vl",
-    "collectModule": {
-        "simpleCollectModule":  {
-            "followerOnly": true,
-         }
-    },
-    referenceModule: {
-        "followerOnlyReferenceModule": false
+  "profileId": "0x03",
+  "contentURI": "ipfs://QmPogtffEF3oAbKERsoR4Ky8aTvLgBF5totp5AuF8YN6vl",
+  "collectModule": {
+    "simpleCollectModule": {
+      "followerOnly": true
     }
- }
+  },
+  "referenceModule": {
+    "followerOnlyReferenceModule": false
+  }
+}
 ```
 
 ###### Post collectible for 1 MATIC until 1/1/2024 by everyone with no limit, includes 10% referral fee
 
 ```json
 {
-    "profileId": "0x03",
-    "contentURI": "ipfs://QmPogtffEF3oAbKERsoR4Ky8aTvLgBF5totp5AuF8YN6vl",
-    "collectModule": {
-        "simpleCollectModule": {
-        	"fee": {
-        		"amount": {
-               		"currency": "0xD40282e050723Ae26Aeb0F77022dB14470f4e011",
-               		"value": "1"
-        		},
-        		"referralFee": 10,
-        		"recipient": "0xEEA0C1f5ab0159dba749Dc0BAee462E5e293daaF"
-        	},
-        	"endTimestamp": "2024-01-01T00:00:00",
-                "followerOnly": false
-         }
-    },
-    referenceModule: {
-        "followerOnlyReferenceModule": false
+  "profileId": "0x03",
+  "contentURI": "ipfs://QmPogtffEF3oAbKERsoR4Ky8aTvLgBF5totp5AuF8YN6vl",
+  "collectModule": {
+    "simpleCollectModule": {
+      "fee": {
+        "amount": {
+          "currency": "0xD40282e050723Ae26Aeb0F77022dB14470f4e011",
+          "value": "1"
+        },
+        "referralFee": 10,
+        "recipient": "0xEEA0C1f5ab0159dba749Dc0BAee462E5e293daaF"
+      },
+      "endTimestamp": "2024-01-01T00:00:00",
+      "followerOnly": false
     }
- }
+  },
+  "referenceModule": {
+    "followerOnlyReferenceModule": false
+  }
+}
 ```
 
 ###### Post collectible for 1 MATIC 100 times until 1/1/2024 by your followers, no referral fee
 
 ```json
 {
-    "profileId": "0x03",
-    "contentURI": "ipfs://QmPogtffEF3oAbKERsoR4Ky8aTvLgBF5totp5AuF8YN6vl",
-    "collectModule": {
-        "simpleCollectModule": {
-            "fee": {
-                "amount": {
-               	    "currency": "0xD40282e050723Ae26Aeb0F77022dB14470f4e011",
-               	    "value": "1"
-                },
-                "referralFee": 0,
-                "recipient": "0xEEA0C1f5ab0159dba749Dc0BAee462E5e293daaF"
-            },
-            "collectLimit": "100",
-            "endTimestamp": "2024-01-01T00:00:00",
-            "followerOnly": true
-         }
-    },
-    referenceModule: {
-        "followerOnlyReferenceModule": false
+  "profileId": "0x03",
+  "contentURI": "ipfs://QmPogtffEF3oAbKERsoR4Ky8aTvLgBF5totp5AuF8YN6vl",
+  "collectModule": {
+    "simpleCollectModule": {
+      "fee": {
+        "amount": {
+          "currency": "0xD40282e050723Ae26Aeb0F77022dB14470f4e011",
+          "value": "1"
+        },
+        "referralFee": 0,
+        "recipient": "0xEEA0C1f5ab0159dba749Dc0BAee462E5e293daaF"
+      },
+      "collectLimit": "100",
+      "endTimestamp": "2024-01-01T00:00:00",
+      "followerOnly": true
     }
- }
+  },
+  "referenceModule": {
+    "followerOnlyReferenceModule": false
+  }
+}
 ```
 
 ##### freeCollectModule
@@ -418,24 +421,24 @@ Some examples:
 This module works by allowing anyone to collect with no fee or no limit or no time. It just allows anyone to collect your publication.
 
 > 📘 freeCollectModule object constraints
-> 
+>
 > - followerOnly allow or disable the ability to collect by all profiles or only the followers.
 
 Usage:
 
 ```json
 {
-    "profileId": "0x03",
-    "contentURI": "ipfs://QmPogtffEF3oAbKERsoR4Ky8aTvLgBF5totp5AuF8YN6vl",
-    "collectModule": {
-        "freeCollectModule":  {
-            "followerOnly": true
-         }
-    },
-    referenceModule: {
-        "followerOnlyReferenceModule": false
+  "profileId": "0x03",
+  "contentURI": "ipfs://QmPogtffEF3oAbKERsoR4Ky8aTvLgBF5totp5AuF8YN6vl",
+  "collectModule": {
+    "freeCollectModule": {
+      "followerOnly": true
     }
- }
+  },
+  "referenceModule": {
+    "followerOnlyReferenceModule": false
+  }
+}
 ```
 
 ##### revertCollectModule
@@ -446,27 +449,27 @@ Usage:
 
 ```json
 {
-    "profileId": "0x03",
-    "contentURI": "ipfs://QmPogtffEF3oAbKERsoR4Ky8aTvLgBF5totp5AuF8YN6vl",
-    "collectModule": {
-        "revertCollectModule": true
-    },
-    "referenceModule": {
-        "followerOnlyReferenceModule": false
-    }
- }
+  "profileId": "0x03",
+  "contentURI": "ipfs://QmPogtffEF3oAbKERsoR4Ky8aTvLgBF5totp5AuF8YN6vl",
+  "collectModule": {
+    "revertCollectModule": true
+  },
+  "referenceModule": {
+    "followerOnlyReferenceModule": false
+  }
+}
 ```
 
 ##### feeCollectModule
 
-This collect module has no time limit, followers only unlimited mints, and an optional referral fee. 
+This collect module has no time limit, followers only unlimited mints, and an optional referral fee.
 
 > 📘 feeCollectModule object constraints
-> 
+>
 > - unlimited collects can be done
 > - currency must be a whitelisted module currency or it will throw
 > - value which should be passed in as the normal amount not shifted to the decimal places as our server does this for you. So if you want 1 WETH you would enter 1 as a value
-> - recipient is where do you want the funds to go to 
+> - recipient is where do you want the funds to go to
 > - referralFee is forced here for a clear interface, if you do not want any referral fee put 0. The referral fee is a percent out of 100 so a number is fine but it only supports 2 decimal places aka 10.45 is fine but 10.234 is not. The max amount is 100 you can enter
 > - followerOnly allow or disable the ability to collect by all profiles or only the followers.
 
@@ -474,23 +477,23 @@ Usage:
 
 ```json
 {
-    "profileId": "0x03",
-    "contentURI": "ipfs://QmPogtffEF3oAbKERsoR4Ky8aTvLgBF5totp5AuF8YN6vl",
-    "collectModule": {
-        "feeCollectModule": {
-            "amount": {
-               "currency": "0xD40282e050723Ae26Aeb0F77022dB14470f4e011",
-               "value": "0.01"
-             },
-             "recipient": "0xEEA0C1f5ab0159dba749Dc0BAee462E5e293daaF",
-             "referralFee": 10.5,
-             "followerOnly": false 
-         }
-    },
-    "referenceModule": {
-        "followerOnlyReferenceModule": false
+  "profileId": "0x03",
+  "contentURI": "ipfs://QmPogtffEF3oAbKERsoR4Ky8aTvLgBF5totp5AuF8YN6vl",
+  "collectModule": {
+    "feeCollectModule": {
+      "amount": {
+        "currency": "0xD40282e050723Ae26Aeb0F77022dB14470f4e011",
+        "value": "0.01"
+      },
+      "recipient": "0xEEA0C1f5ab0159dba749Dc0BAee462E5e293daaF",
+      "referralFee": 10.5,
+      "followerOnly": false
     }
- }
+  },
+  "referenceModule": {
+    "followerOnlyReferenceModule": false
+  }
+}
 ```
 
 ##### limitedFeeCollectModule
@@ -498,11 +501,11 @@ Usage:
 This collect module has no time limit, follower only limited mints, and an optional referral fee.
 
 > 📘 limitedFeeCollectModule object constraints
-> 
-> - collect limit is how many you want the max amount to be collected, this is a string number because it can overflow in javascript. 
+>
+> - collect limit is how many you want the max amount to be collected, this is a string number because it can overflow in javascript.
 > - currency must be a whitelisted module currency or it will throw
 > - value which should be passed in as the normal amount not shifted to the decimal places as our server does this for you. So if you want 1 WETH you would enter 1 as a value.
-> - recipient is where do you want the funds to go to 
+> - recipient is where do you want the funds to go to
 > - referralFee is forced here for a clear interface, if you do not want any referral fee put 0. The referral fee is a percent out of 100 so a number is fine but it only supports 2 decimal places aka 10.45 is fine but 10.234 is not. The max amount is 100 you can enter.
 > - followerOnly allow or disable the ability to collect by all profiles or only the followers.
 
@@ -510,24 +513,24 @@ Usage:
 
 ```json
 {
-    "profileId": "0x03",
-    "contentURI": "ipfs://QmPogtffEF3oAbKERsoR4Ky8aTvLgBF5totp5AuF8YN6vl",
-    "collectModule": {
-        "limitedFeeCollectModule": {
-            "collectLimit": "100000",
-            "amount": {
-               "currency": "0xD40282e050723Ae26Aeb0F77022dB14470f4e011",
-               "value": "0.01"
-             },
-             "recipient": "0xEEA0C1f5ab0159dba749Dc0BAee462E5e293daaF",
-             "referralFee": 10.5,
-            "followerOnly": false 
-         }
-    },
-    "referenceModule": {
-        "followerOnlyReferenceModule": false
+  "profileId": "0x03",
+  "contentURI": "ipfs://QmPogtffEF3oAbKERsoR4Ky8aTvLgBF5totp5AuF8YN6vl",
+  "collectModule": {
+    "limitedFeeCollectModule": {
+      "collectLimit": "100000",
+      "amount": {
+        "currency": "0xD40282e050723Ae26Aeb0F77022dB14470f4e011",
+        "value": "0.01"
+      },
+      "recipient": "0xEEA0C1f5ab0159dba749Dc0BAee462E5e293daaF",
+      "referralFee": 10.5,
+      "followerOnly": false
     }
- }
+  },
+  "referenceModule": {
+    "followerOnlyReferenceModule": false
+  }
+}
 ```
 
 ##### limitedTimedFeeCollectModule
@@ -535,12 +538,12 @@ Usage:
 This collect module has 24 hours with a fee and optional referral fee, follower only limited mints
 
 > 📘 limitedTimedFeeCollectModule object constraints
-> 
+>
 > - time is hardcoded in the contract as 24 hours you can not edit this time
 > - collect limit is how many you want the max amount to be collected, this is a string number because it can overflow in javascript
 > - currency must be a whitelisted module currency or it will throw
 > - value which should be passed in as the normal amount not shifted to the decimal places as our server does this for you. So if you want 1 WETH you would enter 1 as a value
-> - recipient is where do you want the funds to go to 
+> - recipient is where do you want the funds to go to
 > - referralFee is forced here for a clear interface, if you do not want any referral fee put 0. The referral fee is a percent out of 100 so a number is fine but it only supports 2 decimal places aka 10.45 is fine but 10.234 is not. The max amount is 100 you can enter
 > - followerOnly allow or disable the ability to collect by all profiles or only the followers.
 
@@ -548,24 +551,24 @@ Usage:
 
 ```json
 {
-    "profileId": "0x03",
-    "contentURI": "ipfs://QmPogtffEF3oAbKERsoR4Ky8aTvLgBF5totp5AuF8YN6vl",
-    "collectModule": {
-        "limitedTimedFeeCollectModule": {
-            "collectLimit": "100000",
-            "amount": {
-               "currency": "0xD40282e050723Ae26Aeb0F77022dB14470f4e011",
-               "value": "0.01"
-             },
-             "recipient": "0xEEA0C1f5ab0159dba749Dc0BAee462E5e293daaF",
-             "referralFee": 10.5,
-            "followerOnly": false 
-         }
-    },
-    "referenceModule": {
-        "followerOnlyReferenceModule": false
+  "profileId": "0x03",
+  "contentURI": "ipfs://QmPogtffEF3oAbKERsoR4Ky8aTvLgBF5totp5AuF8YN6vl",
+  "collectModule": {
+    "limitedTimedFeeCollectModule": {
+      "collectLimit": "100000",
+      "amount": {
+        "currency": "0xD40282e050723Ae26Aeb0F77022dB14470f4e011",
+        "value": "0.01"
+      },
+      "recipient": "0xEEA0C1f5ab0159dba749Dc0BAee462E5e293daaF",
+      "referralFee": 10.5,
+      "followerOnly": false
     }
- }
+  },
+  "referenceModule": {
+    "followerOnlyReferenceModule": false
+  }
+}
 ```
 
 ##### timedFeeCollectModule
@@ -573,12 +576,12 @@ Usage:
 This collect module has 24 hours with a fee and optional referral fee, follower only unlimited mints
 
 > 📘 timedFeeCollectModule object constraints
-> 
+>
 > - time is hardcoded in the contract as 24 hours you can not edit this time
 > - unlimited collects can be done within the time period
 > - currency must be a whitelisted module currency or it will throw
 > - value which should be passed in as the normal amount not shifted to the decimal places as our server does this for you. So if you want 1 WETH you would enter 1 as a value.
-> - recipient is where do you want the funds to go to 
+> - recipient is where do you want the funds to go to
 > - referralFee is forced here for a clear interface, if you do not want any referral fee put 0. The referral fee is a percent out of 100 so a number is fine but it only supports 2 decimal places aka 10.45 is fine but 10.234 is not. The max amount is 100 you can enter.
 > - followerOnly allow or disable the ability to collect by all profiles or only the followers.
 
@@ -586,23 +589,23 @@ Usage:
 
 ```json
 {
-    "profileId": "0x03",
-    "contentURI": "ipfs://QmPogtffEF3oAbKERsoR4Ky8aTvLgBF5totp5AuF8YN6vl",
-    "collectModule": {
-        "timedFeeCollectModule": {
-            "amount": {
-               "currency": "0xD40282e050723Ae26Aeb0F77022dB14470f4e011",
-               "value": "0.01"
-             },
-             "recipient": "0xEEA0C1f5ab0159dba749Dc0BAee462E5e293daaF",
-             "referralFee": 10.5,
-            "followerOnly": false 
-         }
-    },
-    "referenceModule": {
-        "followerOnlyReferenceModule": false
+  "profileId": "0x03",
+  "contentURI": "ipfs://QmPogtffEF3oAbKERsoR4Ky8aTvLgBF5totp5AuF8YN6vl",
+  "collectModule": {
+    "timedFeeCollectModule": {
+      "amount": {
+        "currency": "0xD40282e050723Ae26Aeb0F77022dB14470f4e011",
+        "value": "0.01"
+      },
+      "recipient": "0xEEA0C1f5ab0159dba749Dc0BAee462E5e293daaF",
+      "referralFee": 10.5,
+      "followerOnly": false
     }
- }
+  },
+  "referenceModule": {
+    "followerOnlyReferenceModule": false
+  }
+}
 ```
 
 ##### multirecipientFeeCollectModule
@@ -610,8 +613,8 @@ Usage:
 This module supports splitting the collect fees between multiple recipients. It also supports timed _and_ limited fee collects optionally, so you can use it to support almost every use case.
 
 > 📘 multirecipientFeeCollectModule object constraints
-> 
-> - You **must** set at least 1 recipient and a positive collect fee. 
+>
+> - You **must** set at least 1 recipient and a positive collect fee.
 > - You can split the amount between up to 5 recipients.
 > - Every recipient splits the amount based on the `split` property, which takes values from 1-100 and the total **must** add up to 100.
 > - Limited collects are _optional_ and apply only if you set a value to property `collectLimit`. Otherwise leave unset.
@@ -620,34 +623,34 @@ This module supports splitting the collect fees between multiple recipients. It 
 
 ```json JSON
 {
-    "profileId": "0x03",
-    "contentURI": "ipfs://QmPogtffEF3oAbKERsoR4Ky8aTvLgBF5totp5AuF8YN6vl",
-    "collectModule": {
-        "multirecipientFeeCollectModule": {
-            "amount": {
-               "currency": "0xD40282e050723Ae26Aeb0F77022dB14470f4e011",
-               "value": "0.01"
-             },
-             "recipients": [
-               {
-                 "recipient": "0xEEA0C1f5ab0159dba749Dc0BAee462E5e293daaF",
-                 "split": 50
-               }, 
-               { 
-                 "recipient": "0xEEA0C1f5ab0159dba749Dc0BAee462E5e293daaB",
-                 "split": 50
-               }
-             ],
-             "referralFee": 10,
-             "followerOnly": false,
-						 // "collectLimit": 5 -- if set, will end up in a limited collect
-             // "endTimestamp": "2024-01-01T00:00:00" -- if set will set a timestamp after which, attempted collects will revert
-         }
-    },
-    "referenceModule": {
-        "followerOnlyReferenceModule": false
+  "profileId": "0x03",
+  "contentURI": "ipfs://QmPogtffEF3oAbKERsoR4Ky8aTvLgBF5totp5AuF8YN6vl",
+  "collectModule": {
+    "multirecipientFeeCollectModule": {
+      "amount": {
+        "currency": "0xD40282e050723Ae26Aeb0F77022dB14470f4e011",
+        "value": "0.01"
+      },
+      "recipients": [
+        {
+          "recipient": "0xEEA0C1f5ab0159dba749Dc0BAee462E5e293daaF",
+          "split": 50
+        },
+        {
+          "recipient": "0xEEA0C1f5ab0159dba749Dc0BAee462E5e293daaB",
+          "split": 50
+        }
+      ],
+      "referralFee": 10,
+      "followerOnly": false
+      // "collectLimit": 5 -- if set, will end up in a limited collect
+      // "endTimestamp": "2024-01-01T00:00:00" -- if set will set a timestamp after which, attempted collects will revert
     }
- }
+  },
+  "referenceModule": {
+    "followerOnlyReferenceModule": false
+  }
+}
 ```
 
 ##### erc4626FeeCollectModule
@@ -655,7 +658,7 @@ This module supports splitting the collect fees between multiple recipients. It 
 This module can be used when you want to set the fees to an ERC4626-compatible vault contract, generates receipt shares and forwards these to a given recipient, also supports optional timed and limited collects, exactly the same way as Multirecipient Fee Collect Module does.
 
 > 📘 erc4626FeeCollectModule object constraints
-> 
+>
 > - `vault` and `recipient`properties are required. `vault` must be a valid erc4626 contract address, while recipient must be a wallet address belonging to the user who will receive the generated shares after depositing to the vault.
 > - `amount` is also required
 > - All other properties apply as in the remaining
@@ -689,52 +692,52 @@ This module can be used when you want to set the fees to an ERC4626-compatible v
 This collect module receives the fees and instantly deposits them on Aave v3 on Polygon. Also optionally supports timed and limited collects.
 
 > 📘 aaveFeeCollectModule
-> 
+>
 > - You don't need to know the contract address for the pool you want to deposit too. You just need to supply the address of the whitelisted currency in the `amount` property and the API will try to find the contract and error out if the pool does not exist.
 > - You also need to supply a `recipient` who will receive the aTokens after depositing to Aave v3.
 
 ```json
 {
-    "profileId": "0x03",
-    "contentURI": "ipfs://QmPogtffEF3oAbKERsoR4Ky8aTvLgBF5totp5AuF8YN6vl",
-    "collectModule": {
-        "aaveFeeCollectModule": {
-            "amount": {
-               "currency": "0xD40282e050723Ae26Aeb0F77022dB14470f4e011", // must be supported by polygon aave v3
-               "value": "0.01"
-             },
-             "recipient": "0xEEA0C1f5ab0159dba749Dc0BAee462E5e293daaF",
-             "referralFee": 10,
-             "followerOnly": false,
-						 // collectLimit: 5 -- if set, will end up in a limited collect
-             // endTimestamp: "2024-01-01T00:00:00" -- if set will set a timestamp after which, attempted collects will revert
-        }
-    },
-    "referenceModule": {
-        "followerOnlyReferenceModule": false
+  "profileId": "0x03",
+  "contentURI": "ipfs://QmPogtffEF3oAbKERsoR4Ky8aTvLgBF5totp5AuF8YN6vl",
+  "collectModule": {
+    "aaveFeeCollectModule": {
+      "amount": {
+        "currency": "0xD40282e050723Ae26Aeb0F77022dB14470f4e011", // must be supported by polygon aave v3
+        "value": "0.01"
+      },
+      "recipient": "0xEEA0C1f5ab0159dba749Dc0BAee462E5e293daaF",
+      "referralFee": 10,
+      "followerOnly": false
+      // collectLimit: 5 -- if set, will end up in a limited collect
+      // endTimestamp: "2024-01-01T00:00:00" -- if set will set a timestamp after which, attempted collects will revert
     }
+  },
+  "referenceModule": {
+    "followerOnlyReferenceModule": false
+  }
 }
 ```
 
 ##### unknownCollectModule
 
-This collect module is unknown and not type supported in the API. This means if you use this you have to encode and supply the data yourself to the API, the API will still allow you to use an unknown collect module but it won't validate it. Only use unknown collect modules if you can trust the collect module and know what you're doing. 
+This collect module is unknown and not type supported in the API. This means if you use this you have to encode and supply the data yourself to the API, the API will still allow you to use an unknown collect module but it won't validate it. Only use unknown collect modules if you can trust the collect module and know what you're doing.
 
 ```json
 {
-    "profileId": "0x03",
-    "publicationId": "0x01-0x01",
-    "contentURI": "ipfs://QmPogtffEF3oAbKERsoR4Ky8aTvLgBF5totp5AuF8YN6vl",
-    "collectModule": {
-       "unknownCollectModule": {
-         "contractAddress": "0x1F68931Bc4C77b2D394Bf23cb1A45842501da10e",
-         "data": "0x01"
-      }
-    },
-    "referenceModule": {
-        "followerOnlyReferenceModule": false
+  "profileId": "0x03",
+  "publicationId": "0x01-0x01",
+  "contentURI": "ipfs://QmPogtffEF3oAbKERsoR4Ky8aTvLgBF5totp5AuF8YN6vl",
+  "collectModule": {
+    "unknownCollectModule": {
+      "contractAddress": "0x1F68931Bc4C77b2D394Bf23cb1A45842501da10e",
+      "data": "0x01"
     }
- }
+  },
+  "referenceModule": {
+    "followerOnlyReferenceModule": false
+  }
+}
 ```
 
 #### referenceModule - required
@@ -745,10 +748,10 @@ Modules are quite complex, each module needs to be encoded in the correct way fo
 input ReferenceModuleParams {
  # The follower only reference module
  followerOnlyReferenceModule: Boolean
- 
+
  # The degree of seperation for who can comment and mirror your stuff
  degreesOfSeparationReferenceModule: DegreesOfSeparationReferenceModuleParams
- 
+
  # unknown reference module
  unknownReferenceModule: UnknownReferenceModuleParams
 }
@@ -758,32 +761,32 @@ input ReferenceModuleParams {
 
 A simple reference module that validates that comments or mirrors originate from a profile owned by a follower.
 
-This is super easy to toggle just pass in the boolean in the `followerOnlyReferenceModule` property and it turns it on and off for that publication. 
+This is super easy to toggle just pass in the boolean in the `followerOnlyReferenceModule` property and it turns it on and off for that publication.
 
 Usage:
 
 ```json
 {
-    "profileId": "0x03",
-    "contentURI": "ipfs://QmPogtffEF3oAbKERsoR4Ky8aTvLgBF5totp5AuF8YN6vl",
-    "collectModule": {
-        "freeCollectModule": { "followerOnly": false }
-    },
-    referenceModule: {
-        "followerOnlyReferenceModule": true
-    }
- }
+  "profileId": "0x03",
+  "contentURI": "ipfs://QmPogtffEF3oAbKERsoR4Ky8aTvLgBF5totp5AuF8YN6vl",
+  "collectModule": {
+    "freeCollectModule": { "followerOnly": false }
+  },
+  "referenceModule": {
+    "followerOnlyReferenceModule": true
+  }
+}
 ```
 
 ##### degreesOfSeparationReferenceModule
 
-This reference module allows you to set the degrees of separation in who can comment or mirror. If you do not know what degrees of separation you may have heard of the rule that with up to 6 links you can connect people together. With the protocol being open bots and spam is a things we want to handle and this tackles this. 
+This reference module allows you to set the degrees of separation in who can comment or mirror. If you do not know what degrees of separation you may have heard of the rule that with up to 6 links you can connect people together. With the protocol being open bots and spam is a things we want to handle and this tackles this.
 
 settings:
 
-`commentsRestricted` -  Boolean - if it's set to true the degree of separation is applied if false it is not which means anyone can comment.
+`commentsRestricted` - Boolean - if it's set to true the degree of separation is applied if false it is not which means anyone can comment.
 
-`mirrorsRestricted` -  Boolean - if it's set to true the degree of separation is applied if false it is not which means anyone can mirror.
+`mirrorsRestricted` - Boolean - if it's set to true the degree of separation is applied if false it is not which means anyone can mirror.
 
 `degreesOfSeparation` - Int - Max 4 degrees
 
@@ -795,43 +798,43 @@ settings:
 
 ```json
 {
-    "profileId": "0x03",
-    "publicationId": "0x01-0x01",
-    "contentURI": "ipfs://QmPogtffEF3oAbKERsoR4Ky8aTvLgBF5totp5AuF8YN6vl",
-    "collectModule": {
-       "emptyCollectModule": true
-    },
-    "referenceModule": {
-       "degreesOfSeparationReferenceModule": {
-         "commentsRestricted": true,
-         "mirrorsRestricted": true,
-         "degreesOfSeparation": 2
-      }
+  "profileId": "0x03",
+  "publicationId": "0x01-0x01",
+  "contentURI": "ipfs://QmPogtffEF3oAbKERsoR4Ky8aTvLgBF5totp5AuF8YN6vl",
+  "collectModule": {
+    "emptyCollectModule": true
+  },
+  "referenceModule": {
+    "degreesOfSeparationReferenceModule": {
+      "commentsRestricted": true,
+      "mirrorsRestricted": true,
+      "degreesOfSeparation": 2
     }
- }
+  }
+}
 ```
 
 ##### unknownReferenceModule
 
-This reference module is unknown and not type supported in the API. This means if you use this you have to encode and supply the data yourself to the API, the API will still allow you to use the unknown reference module but it won't validate it. Only use unknown reference modules if you can trust the reference module and know what you're doing. 
+This reference module is unknown and not type supported in the API. This means if you use this you have to encode and supply the data yourself to the API, the API will still allow you to use the unknown reference module but it won't validate it. Only use unknown reference modules if you can trust the reference module and know what you're doing.
 
 ```json
 {
-    "profileId": "0x03",
-    "publicationId": "0x01-0x01",
-    "contentURI": "ipfs://QmPogtffEF3oAbKERsoR4Ky8aTvLgBF5totp5AuF8YN6vl",
-    "collectModule": {
-       "emptyCollectModule": true
-    },
-    "referenceModule": {
-       "unknownReferenceModule": {
-         "contractAddress": "0x1F68931Bc4C77b2D394Bf23cb1A45842501da10e",
-         "data": "0x01"
-      }
+  "profileId": "0x03",
+  "publicationId": "0x01-0x01",
+  "contentURI": "ipfs://QmPogtffEF3oAbKERsoR4Ky8aTvLgBF5totp5AuF8YN6vl",
+  "collectModule": {
+    "emptyCollectModule": true
+  },
+  "referenceModule": {
+    "unknownReferenceModule": {
+      "contractAddress": "0x1F68931Bc4C77b2D394Bf23cb1A45842501da10e",
+      "data": "0x01"
     }
- }
+  }
+}
 ```
 
 > 📘 The API will support more modules which get whitelisted as they get approved.
-> 
+>
 > as they do this doc will be updated alongside it.

@@ -5,23 +5,22 @@ hidden: false
 createdAt: "2022-02-18T08:42:28.223Z"
 updatedAt: "2023-03-14T10:21:56.884Z"
 ---
+
 > 📘 Full code example
-> 
+>
 > <https://github.com/lens-protocol/api-examples/blob/master/src/indexer/has-transaction-been-indexed.ts>
 
 > 🚧 This request is protected by authentication
-> 
+>
 > hint: this means it requires an x-access-token header put in the request with your authentication token.
 
-Normally when you broadcast transactions to the blockchain you wait for the receipt to know the transaction has been completed fully. The transaction is in a pending state until you have a receipt. If you use `ethers.js` you normally use their method to wait to get the receipt. 
+Normally when you broadcast transactions to the blockchain you wait for the receipt to know the transaction has been completed fully. The transaction is in a pending state until you have a receipt. If you use `ethers.js` you normally use their method to wait to get the receipt.
 
 ```js
 await tx.wait();
 ```
 
-
-
-As this is slightly different your source of truth is actually the API's indexer and database. So this method allows you to swap out the wait method from `ethers.js` and use this API query as a source of truth for when it is complete. 
+As this is slightly different your source of truth is actually the API's indexer and database. So this method allows you to swap out the wait method from `ethers.js` and use this API query as a source of truth for when it is complete.
 
 The indexer tracks all transaction hashes to allow you to easily query to work out if the indexer has now broadcasted it. Please note there is a 2 stage process when you do a publication:
 
@@ -31,7 +30,7 @@ The indexer tracks all transaction hashes to allow you to easily query to work o
 # API details
 
 > 📘 If your using gasless
-> 
+>
 > When using gasless you must use the `txId` over the `txHash` as the gasless would bump up the transaction if the gas prices move meaning a new `txHash` will be generated.
 
 ```javascript Example operation
@@ -109,6 +108,7 @@ query HasTxHashBeenIndexed {
   }
 }
 ```
+
 ```javascript Example response success
 {
   "data": {
@@ -173,6 +173,7 @@ query HasTxHashBeenIndexed {
   }
 }
 ```
+
 ```javascript Example response revert
 {
   "data": {
@@ -234,19 +235,13 @@ query HasTxHashBeenIndexed {
 }
 ```
 
-
-
 ## Request
 
 you may see that the request takes in a nullable `txHash` or a nullable `txId` if you are not using the server relay `txHash` you should always use the `txHash` when doing this query. Please note if the user upgrades the gas price the `txHash` changes so your client should handle that on those edge cases to avoid being stuck in a loop until that `txHash` is dropped (sometimes can take a long time).
 
+##
 
-
-
-
-## 
-
-## 
+##
 
 ## Using LensClient SDK
 

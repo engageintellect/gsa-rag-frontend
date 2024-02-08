@@ -5,10 +5,11 @@ hidden: false
 createdAt: "2022-09-23T12:04:57.484Z"
 updatedAt: "2023-05-24T15:06:57.118Z"
 ---
+
 > 🚧 Please note you can use broadcast freely on mumbai but if you want to use it on polygon you need to be whitelisted.
 
 > 📘 Full code example
-> 
+>
 > <https://github.com/lens-protocol/api-examples/blob/master/src/broadcast/broadcast-follow-example.ts>
 
 Using `broadcast`, you can enable gasless transactions in your Lens application.
@@ -51,10 +52,10 @@ The response will either give you back a RelayerResult which holds the `txHash` 
 
 ```typescript
 export enum RelayErrorReasons {
-  REJECTED = 'REJECTED',
-  EXPIRED = 'EXPIRED',
-  WRONG_WALLET_SIGNED = 'WRONG_WALLET_SIGNED',
-  NOT_ALLOWED = 'NOT_ALLOWED',
+  REJECTED = "REJECTED",
+  EXPIRED = "EXPIRED",
+  WRONG_WALLET_SIGNED = "WRONG_WALLET_SIGNED",
+  NOT_ALLOWED = "NOT_ALLOWED",
 }
 ```
 
@@ -85,7 +86,7 @@ const data = typedDataResult.unwrap();
 const signedTypedData = await wallet._signTypedData(
   data.typedData.domain,
   data.typedData.types,
-  data.typedData.value
+  data.typedData.value,
 );
 
 // broadcast
@@ -103,9 +104,8 @@ if (!isRelayerResult(broadcastResultValue)) {
 }
 
 console.log(
-  `Transaction was successfuly broadcasted with txId ${broadcastResultValue.txId}`
+  `Transaction was successfuly broadcasted with txId ${broadcastResultValue.txId}`,
 );
-
 ```
 
 You can also check the status of the transaction with

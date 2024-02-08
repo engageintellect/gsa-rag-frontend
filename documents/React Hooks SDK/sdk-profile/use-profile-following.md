@@ -5,53 +5,47 @@ hidden: false
 createdAt: "2022-12-23T17:14:00.803Z"
 updatedAt: "2023-03-20T07:04:24.495Z"
 ---
+
 `useProfileFollowing` is a React Hook that lets you query the profiles that a wallet is following.
 
 ```typescript
-const { data, loading, hasMore, next } = useProfileFollowing(args)
+const { data, loading, hasMore, next } = useProfileFollowing(args);
 ```
-
-
 
 ## Usage
 
 ```typescript TypeScript
-import { useProfileFollowing } from '@lens-protocol/react-web';
+import { useProfileFollowing } from "@lens-protocol/react-web";
 
 function Followers() {
-const {
+  const {
     data: following,
     loading,
     hasMore,
     next,
   } = useProfileFollowing({
-    walletAddress: '0xD28E808647D596F33Dcc3436E193A9566fc7aC07',
+    walletAddress: "0xD28E808647D596F33Dcc3436E193A9566fc7aC07",
     limit: 10,
   });
 }
 ```
-
-
 
 ## Reference
 
 ### `useProfileFollowing(args)`
 
 ```typescript
-
 const {
-    data: following,
-    loading,
-    hasMore,
-    next,
-  } = useProfileFollowing({
-    walletAddress,
-    limit,
-    observerId
- });
+  data: following,
+  loading,
+  hasMore,
+  next,
+} = useProfileFollowing({
+  walletAddress,
+  limit,
+  observerId,
+});
 ```
-
-
 
 ### Parameters
 

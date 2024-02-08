@@ -5,8 +5,9 @@ hidden: false
 createdAt: "2022-02-17T11:38:16.384Z"
 updatedAt: "2023-03-15T17:42:45.547Z"
 ---
+
 > 📘 Full code example
-> 
+>
 > <https://github.com/lens-protocol/api-examples/blob/master/src/profile/get-profiles.ts>
 
 The profile query has a few different ways you can query the profiles. Using the power of GraphQL is super flexible and allows the same endpoint to be used in many different cases.
@@ -16,17 +17,17 @@ The profile query has a few different ways you can query the profiles. Using the
 Below is the overview of the entire interface but we dig into specific queries below.
 
 > 📘 Hot tip
-> 
+>
 > If you do not know GraphQL that well remember things can be nullable if defined. In the schema how GraphQL knows it's nullable is without the `!` at the end here is an example:
-> 
-> Not nullable: 
-> 
+>
+> Not nullable:
+>
 > ownedBy: EthereumAddress!
-> 
+>
 > Nullable:
-> 
+>
 > ownedBy: EthereumAddress
-> 
+>
 > It's always worth generating the TypeScript types for the schema if your application is TypeScript here is a reference to how you would do that - <https://www.apollographql.com/blog/tooling/apollo-codegen/typescript-graphql-code-generator-generate-graphql-types/>
 
 ```javascript Example response
@@ -77,11 +78,13 @@ Below is the overview of the entire interface but we dig into specific queries b
   }
 }
 ```
+
 ```javascript Query interface
-type Query { 
+type Query {
   profiles(request: ProfileQueryRequest!): PaginatedProfileResult!
 }
 ```
+
 ```javascript Request
 input ProfileQueryRequest {
   limit: Int
@@ -101,11 +104,9 @@ input ProfileQueryRequest {
 }
 ```
 
+You will see the paging result behavior repeated a lot in the API; this is to allow you to fetch a certain amount and then page it for the most optimal request speed. Every time something is wrapped in a paging result you will always get returned a `pageInfo` which holds the cursors for the previous and next alongside the total count which exists in the database. These cursors are just pointers for the server to get to the next result and do not need to be understood by your client or server. If you ever want to then page to the next result you can pass these previous and next cursor in the request cursor property.
 
-
-You will see the paging result behavior repeated a lot in the API; this is to allow you to fetch a certain amount and then page it for the most optimal request speed. Every time something is wrapped in a paging result you will always get returned a `pageInfo` which holds the cursors for the previous and next alongside the total count which exists in the database. These cursors are just pointers for the server to get to the next result and do not need to be understood by your client or server. If you ever want to then page to the next result you can pass these previous and next cursor in the request cursor property. 
-
-Now you see the base query let's look at how we can use different request parameters to request profiles. 
+Now you see the base query let's look at how we can use different request parameters to request profiles.
 
 ## Get by profile ids
 
@@ -202,6 +203,7 @@ query Profiles {
   }
 }
 ```
+
 ```javascript Example response
 {
   "data": {
@@ -250,8 +252,6 @@ query Profiles {
   }
 }
 ```
-
-
 
 ## Get by owned by
 
@@ -348,6 +348,7 @@ query Profiles {
   }
 }
 ```
+
 ```javascript Example response
 {
   "data": {
@@ -396,8 +397,6 @@ query Profiles {
   }
 }
 ```
-
-
 
 ## Get by handles
 
@@ -494,6 +493,7 @@ query Profiles {
   }
 }
 ```
+
 ```javascript Example response
 {
   "data": {
@@ -543,14 +543,12 @@ query Profiles {
 }
 ```
 
-
-
 ## Get by who has mirrored a publication
 
-You can get the profiles of who mirrored a publication using the `whoMirroredPublicationId`, please note if you try to pass in the `profileIds` or `ownedBy or `handles`alongside this you will get a`ValidationError\` thrown. 
+You can get the profiles of who mirrored a publication using the `whoMirroredPublicationId`, please note if you try to pass in the `profileIds` or `ownedBy or `handles`alongside this you will get a`ValidationError\` thrown.
 
 > 📘 Did you know...
-> 
+>
 > The publication id is not unique in the smart contract its a counter per each profile. So if @josh posts a publication that will be publication 1 for his profile and then if @josh2 posts a publication that will be publication 1 for his profile. The backend generates what we call an `InternalPublicationId` which is built up from `{profileId}-{publicationId}` creating a unique ID that can be queried against our database. You will see that `InternalPublicationId` is used on all responses and also used in any request you which to do.
 
 ```javascript Example operation
@@ -639,6 +637,7 @@ query Profiles {
   }
 }
 ```
+
 ```javascript Example response
 {
   "data": {
@@ -688,11 +687,7 @@ query Profiles {
 }
 ```
 
-
-
-
-
-# 
+#
 
 # Using LensClient SDK
 
@@ -704,7 +699,7 @@ const profilesById = await lensClient.profile.fetchAll({
 
 console.log(
   `Profiles fetched by ids: `,
-  profilesById.items.map((i) => ({ id: i.id, handle: i.handle }))
+  profilesById.items.map((i) => ({ id: i.id, handle: i.handle })),
 );
 
 // by ownedBy
@@ -715,7 +710,7 @@ const allOwnedProfiles = await lensClient.profile.fetchAll({
 
 console.log(
   `Profiles owned by ${address}: `,
-  allOwnedProfiles.items.map((i) => ({ id: i.id, handle: i.handle }))
+  allOwnedProfiles.items.map((i) => ({ id: i.id, handle: i.handle })),
 );
 
 // by handles
@@ -725,7 +720,7 @@ const profilesByHandle = await lensClient.profile.fetchAll({
 
 console.log(
   `Profiles fetched by handles: `,
-  profilesByHandle.items.map((i) => ({ id: i.id, handle: i.handle }))
+  profilesByHandle.items.map((i) => ({ id: i.id, handle: i.handle })),
 );
 
 // by whoMirroredPublicationId
@@ -735,7 +730,9 @@ const profilesWhoMirroredPublicationId = await lensClient.profile.fetchAll({
 
 console.log(
   `Profiles who mirrored publication: `,
-  profilesWhoMirroredPublicationId.items.map((i) => ({ id: i.id, handle: i.handle }))
+  profilesWhoMirroredPublicationId.items.map((i) => ({
+    id: i.id,
+    handle: i.handle,
+  })),
 );
-
 ```

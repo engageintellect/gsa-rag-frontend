@@ -5,6 +5,7 @@ hidden: false
 createdAt: "2023-05-22T22:58:56.135Z"
 updatedAt: "2023-05-25T20:39:07.091Z"
 ---
+
 This tutorial walks you through the recommended way to build on Lens, leveraging the [Lens React Hooks SDK](https://docs.lens.xyz/docs/sdk-react-intro).
 
 The Lens React Hooks SDK abstracts away the need to write a lot of lower level GraphQL boilerplate for API calls to Lens, making it much easier to build web and mobile apps on Lens.
@@ -48,7 +49,7 @@ npm install @lens-protocol/react-web ethers@legacy-v5 wagmi@0.12.7 @lens-protoco
 
 ## app/layout.tsx
 
-Next, we want to configure our app to use the Lens SDK. 
+Next, we want to configure our app to use the Lens SDK.
 
 This is typically done at the entrypoint of the app, and only needs to be done once.
 
@@ -103,18 +104,24 @@ In the root directory, create a file named `utils.ts` and add the following code
 ```typescript
 // utils.ts
 export function formatPicture(picture: any) {
-  if (picture.__typename === 'MediaSet') {
-    if (picture.original.url.startsWith('ipfs://')) {
-      let result = picture.original.url.substring(7, picture.original.url.length)
-      return `http://lens.infura-ipfs.io/ipfs/${result}`
-    } else if (picture.original.url.startsWith('ar://')) {
-      let result = picture.original.url.substring(4, picture.original.url.length)
-      return `http://arweave.net/${result}`
+  if (picture.__typename === "MediaSet") {
+    if (picture.original.url.startsWith("ipfs://")) {
+      let result = picture.original.url.substring(
+        7,
+        picture.original.url.length,
+      );
+      return `http://lens.infura-ipfs.io/ipfs/${result}`;
+    } else if (picture.original.url.startsWith("ar://")) {
+      let result = picture.original.url.substring(
+        4,
+        picture.original.url.length,
+      );
+      return `http://arweave.net/${result}`;
     } else {
-      return picture.original.url
+      return picture.original.url;
     }
   } else {
-    return picture
+    return picture;
   }
 }
 ```
@@ -136,7 +143,7 @@ export default function Home() {
   const { data: profiles } = useExploreProfiles({
     limit: 25
   })
-  
+
   return (
     <div className='p-20'>
       <h1 className='text-5xl'>My Lens App</h1>
@@ -281,7 +288,7 @@ function Publications({
 
 `useProfile` allows you to get a user's profile details by passing in a Lens handle or profile ID
 
-`usePublications`  allows you to fetch a user's publications by passing in a profile
+`usePublications` allows you to fetch a user's publications by passing in a profile
 
 ### Testing it out
 
@@ -317,7 +324,7 @@ export default function Profile() {
   const { data: wallet } = useActiveProfile();
   const { isConnected } = useAccount();
   const { disconnectAsync } = useDisconnect();
-  
+
   const pathName = usePathname()
   const handle = pathName?.split('/')[2]
 
@@ -326,7 +333,7 @@ export default function Profile() {
   const { connectAsync } = useConnect({
     connector: new InjectedConnector(),
   });
-  
+
   // new login function
   const onLoginClick = async () => {
     if (isConnected) {

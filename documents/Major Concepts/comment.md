@@ -5,19 +5,20 @@ hidden: false
 createdAt: "2022-01-25T21:56:48.157Z"
 updatedAt: "2022-02-06T18:20:40.770Z"
 ---
+
 [block:image]
 {
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/6527e50-illustration_comment.svg",
-        "illustration_comment.svg",
-        328,
-        240,
-        "#00501e"
-      ]
-    }
-  ]
+"images": [
+{
+"image": [
+"https://files.readme.io/6527e50-illustration_comment.svg",
+"illustration_comment.svg",
+328,
+240,
+"#00501e"
+]
+}
+]
 }
 [/block]
 Comments allow users to provide additional commentary on other publications. They are treated the same as base [Publications](doc:publication) with extra checks and features. Like publications, comments live in the user's [Profile NFT](doc:profile) and therefore are wholly owned by the user.

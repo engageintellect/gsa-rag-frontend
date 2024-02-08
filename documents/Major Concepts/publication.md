@@ -5,9 +5,8 @@ hidden: false
 createdAt: "2022-01-25T21:55:19.920Z"
 updatedAt: "2022-10-02T16:15:13.149Z"
 ---
+
 ![](https://files.readme.io/bf7d31b-illustration_post.svg "illustration_post.svg")
-
-
 
 Publications are the lifeblood of the Lens Protocol. They are all of the original content, comments, and mirrors produced by creators, curators, and users alike. Publications come in three primary types: posts, comments, and mirrors. Posts are the base object, with mirror and comment providing additional functionality. To learn more about [Mirrors](doc:mirror) and [Comments](doc:comment) please go to their respective documentation pages.
 

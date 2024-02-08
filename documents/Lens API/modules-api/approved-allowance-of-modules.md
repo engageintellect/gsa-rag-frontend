@@ -5,15 +5,16 @@ hidden: false
 createdAt: "2022-02-24T12:32:51.716Z"
 updatedAt: "2023-03-14T12:42:33.952Z"
 ---
+
 > 📘 Full code example
-> 
+>
 > <https://github.com/lens-protocol/api-examples/blob/master/src/module/approved-allowance-of-modules.ts>
 
 > 🚧 This request is protected by authentication
-> 
+>
 > hint: this means it requires an x-access-token header put in the request with your authentication token.
 
-Each [Enabled modules currencies](doc:enabled-modules-currencies) needs to have approval greater than the amount of the collect module. If it is not then an API request will throw an error as the module will not be able to move funds on your behalf. 
+Each [Enabled modules currencies](doc:enabled-modules-currencies) needs to have approval greater than the amount of the collect module. If it is not then an API request will throw an error as the module will not be able to move funds on your behalf.
 
 This query returns you the amount approved that the modules can move on your behalf for the array of currencies you supply.
 
@@ -34,6 +35,7 @@ query ApprovedModuleAllowanceAmount {
   }
 }
 ```
+
 ```javascript Example response
 {
   "data": {
@@ -84,6 +86,7 @@ query ApprovedModuleAllowanceAmount {
   }
 }
 ```
+
 ```javascript Query interface
 type Query {
   approvedModuleAllowanceAmount(
@@ -91,6 +94,7 @@ type Query {
   ): [ApprovedAllowanceAmount!]!
 }
 ```
+
 ```javascript Request
 input ApprovedModuleAllowanceAmountRequest {
   # The contract addresses for the module approved currencies you want to find information on about the user
@@ -99,7 +103,7 @@ input ApprovedModuleAllowanceAmountRequest {
   followModules: [FollowModules!]!
   referenceModules: [ReferenceModules!]!
 }
-  
+
 # The collect module types
 enum CollectModules {
   LimitedFeeCollectModule
@@ -109,20 +113,21 @@ enum CollectModules {
   RevertCollectModule
   EmptyCollectModule
 }
-   
+
 # The follow module types
 enum FollowModules {
   FeeFollowModule
 }
-   
+
 # The reference module types
 enum ReferenceModules {
   FollowerOnlyReferenceModule
 }
-   
+
 # Contract address custom scalar type
 scalar ContractAddress
 ```
+
 ```javascript Response
 # remember it returns an array of this
 type ApprovedAllowanceAmount {
@@ -131,27 +136,28 @@ type ApprovedAllowanceAmount {
   contractAddress: ContractAddress!
   allowance: String!
 }
-  
+
 # Contract address custom scalar type
 scalar ContractAddress
 ```
 
-
-
-# 
+#
 
 # Using LensClient SDK
 
 Example use.
 
 ```typescript
-import { CollectModules, FollowModules, ReferenceModules } from "@lens-protocol/client";
+import {
+  CollectModules,
+  FollowModules,
+  ReferenceModules,
+} from "@lens-protocol/client";
 
 const result = await lensClient.modules.approvedAllowanceAmount({
-  currencies: ['0x3C68CE8504087f89c640D02d133646d98e64ddd9'],
+  currencies: ["0x3C68CE8504087f89c640D02d133646d98e64ddd9"],
   collectModules: [CollectModules.LimitedFeeCollectModule],
   followModules: [FollowModules.FeeFollowModule],
   referenceModules: [ReferenceModules.FollowerOnlyReferenceModule],
 });
-
 ```

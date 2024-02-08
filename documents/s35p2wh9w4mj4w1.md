@@ -8,7 +8,7 @@ id: "s35p2wh9w4mj4w1"
 likes: []
 name: "Tailwind"
 tagline: "CSS for people who hate css"
-tags: ["yd4ys091kfpxyde","8p5fnjif3a2opwb"]
+tags: ["yd4ys091kfpxyde", "8p5fnjif3a2opwb"]
 thumbnail: "tailwindcss_iogTG59At1.png"
 updated: "2023-08-11 16:44:16.736Z"
 url: "https://google.com"

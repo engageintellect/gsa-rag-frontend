@@ -5,33 +5,30 @@ hidden: false
 createdAt: "2022-12-23T16:45:44.413Z"
 updatedAt: "2023-03-20T06:54:45.618Z"
 ---
+
 `useComments` is a React Hook that lets you query the comments for a given publication.
 
 ```typescript
-const { data, loading, hasMore, next } = useComments(args)
+const { data, loading, hasMore, next } = useComments(args);
 ```
-
-
 
 ## Usage
 
 ```typescript TypeScript
-import { useComments } from '@lens-protocol/react-web';
+import { useComments } from "@lens-protocol/react-web";
 
 function Comments() {
-const {
+  const {
     data: comments,
     loading,
     hasMore,
     next,
   } = useComments({
-    commentsOf: '0x77-0x0149',
+    commentsOf: "0x77-0x0149",
     limit: 10,
   });
 }
 ```
-
-
 
 ## Reference
 

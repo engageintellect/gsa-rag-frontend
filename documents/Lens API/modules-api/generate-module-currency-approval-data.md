@@ -5,15 +5,16 @@ hidden: false
 createdAt: "2022-02-24T15:16:55.820Z"
 updatedAt: "2023-03-14T12:38:55.132Z"
 ---
+
 > 📘 Full code example
-> 
+>
 > <https://github.com/lens-protocol/api-examples/blob/master/src/module/approve-module.ts>
 
 > 🚧 This request is protected by authentication
-> 
+>
 > hint: this means it requires an x-access-token header put in the request with your authentication token.
 
-This query encodes the `allowance` ERC-20 data for you for the module. This allows you to just call this without any context of the modules contracts or how to construct the approval and it will return you the partial transaction you just need to give it a gas price, estimate the gas and send it. 
+This query encodes the `allowance` ERC-20 data for you for the module. This allows you to just call this without any context of the modules contracts or how to construct the approval and it will return you the partial transaction you just need to give it a gas price, estimate the gas and send it.
 
 # API Design
 
@@ -30,6 +31,7 @@ query GenerateModuleCurrencyApprovalData {
   }
 }
 ```
+
 ```javascript Example response
 {
   "data": {
@@ -41,6 +43,7 @@ query GenerateModuleCurrencyApprovalData {
   }
 }
 ```
+
 ```javascript Query interface
 type Query {
   generateModuleCurrencyApprovalData(
@@ -48,6 +51,7 @@ type Query {
   ): GenerateModuleCurrencyApproval!
 }
 ```
+
 ```javascript Request
 input GenerateModuleCurrencyApprovalDataRequest {
   currency: ContractAddress!
@@ -68,27 +72,28 @@ enum CollectModules {
   RevertCollectModule
   EmptyCollectModule
 }
-   
+
 # The follow module types
 enum FollowModules {
   FeeFollowModule
 }
-   
+
 # The reference module types
 enum ReferenceModules {
   FollowerOnlyReferenceModule
 }
-   
+
 # Contract address custom scalar type
 scalar ContractAddress
 ```
+
 ```javascript Response
 type GenerateModuleCurrencyApproval {
   to: ContractAddress!
   from: EthereumAddress!
   data: BlockchainData!
 }
-  
+
 # Contract address custom scalar type
 scalar ContractAddress
 
@@ -98,8 +103,6 @@ scalar EthereumAddress
 # Blockchain data scalar type
 scalar BlockchainData
 ```
-
-
 
 ## Request
 
@@ -111,11 +114,11 @@ This is the module currency you wish to approve for the user
 
 #### value - required
 
-This is the value you want the user to approve this module with. It can be a high amount if you do not want them to keep approving it, but that tends to be up to the user to pick. It should be supplied in the normal formatted UI amount so if you want to approve 10 ETH you pass in "10" not the wei equivalent. It is a string number because of the overflows a JS number can have. 
+This is the value you want the user to approve this module with. It can be a high amount if you do not want them to keep approving it, but that tends to be up to the user to pick. It should be supplied in the normal formatted UI amount so if you want to approve 10 ETH you pass in "10" not the wei equivalent. It is a string number because of the overflows a JS number can have.
 
 #### collectModule - you must give a collect module or a followModule or a referenceModule
 
-This is the collect module you wish to approve. You can just pass in the enum value and the server will map the rest for you. This can not be used alongside the other modules it should only be supplied by itself. 
+This is the collect module you wish to approve. You can just pass in the enum value and the server will map the rest for you. This can not be used alongside the other modules it should only be supplied by itself.
 
 ```js
 query GenerateModuleCurrencyApprovalData {
@@ -131,11 +134,9 @@ query GenerateModuleCurrencyApprovalData {
 }
 ```
 
-
-
 #### followModule - you must give a collect module or a collectModule or a referenceModule
 
-This is the follow module you wish to approve. You can just pass in the enum value and the server will map the rest for you. This can not be used alongside the other modules it should only be supplied by itself. 
+This is the follow module you wish to approve. You can just pass in the enum value and the server will map the rest for you. This can not be used alongside the other modules it should only be supplied by itself.
 
 ```js
 query GenerateModuleCurrencyApprovalData {
@@ -151,11 +152,9 @@ query GenerateModuleCurrencyApprovalData {
 }
 ```
 
-
-
 #### referenceModule - you must give a collect module or a collectModule or a followModule
 
-This is the reference module you wish to approve. You can just pass in the enum value and the server will map the rest for you. This can not be used alongside the other modules it should only be supplied by itself. 
+This is the reference module you wish to approve. You can just pass in the enum value and the server will map the rest for you. This can not be used alongside the other modules it should only be supplied by itself.
 
 ```js
 query GenerateModuleCurrencyApprovalData {
@@ -171,9 +170,7 @@ query GenerateModuleCurrencyApprovalData {
 }
 ```
 
-
-
-# 
+#
 
 # Using LensClient SDK
 
@@ -183,9 +180,8 @@ Example use.
 import { CollectModules } from "@lens-protocol/client";
 
 const result = await lensClient.modules.generateCurrencyApprovalData({
-  currency: '0xD40282e050723Ae26Aeb0F77022dB14470f4e011',
-  value: '10',
+  currency: "0xD40282e050723Ae26Aeb0F77022dB14470f4e011",
+  value: "10",
   collectModule: CollectModules.LimitedFeeCollectModule,
 });
-
 ```

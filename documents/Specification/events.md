@@ -5,8 +5,8 @@ hidden: false
 createdAt: "2022-01-31T19:03:58.177Z"
 updatedAt: "2022-08-16T19:54:31.440Z"
 ---
-Event Emissions
----------------
+
+## Event Emissions
 
 Events are emitted at every state-changing function call, in addition to standard [ERC721 events.](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/4f8af2dceb0fbc36cb32eb2cc14f80c340b9022e/contracts/token/ERC721/IERC721.sol) Events often include the timestamp as a specific parameter, which allows for direct consumption using a bloom filter without needing to fetch block context on every event.
 
@@ -32,7 +32,7 @@ Emitted when the NFT contract's name and symbol are set at initialization by [in
 
 `event StateSet(address indexed caller, DataTypes.ProtocolState indexed prevState, DataTypes.ProtocolState indexed newState, uint256 timestamp);`
 
-Emitted when the hub state is set by [setState()](doc:functions#setstate) 
+Emitted when the hub state is set by [setState()](doc:functions#setstate)
 
 | Parameter Name | Type                          | Description                                                                     |
 | -------------- | ----------------------------- | ------------------------------------------------------------------------------- |
@@ -45,7 +45,7 @@ Emitted when the hub state is set by [setState()](doc:functions#setstate)
 
 `event GovernanceSet(address indexed caller, address indexed prevGovernance, address indexed newGovernance, uint256 timestamp);.`
 
-Emitted when the governance address is changed by [setGovernance()](doc:functions#setgovernance) 
+Emitted when the governance address is changed by [setGovernance()](doc:functions#setgovernance)
 
 | Parameter Name | Type    | Description                                                                                                               |
 | -------------- | ------- | ------------------------------------------------------------------------------------------------------------------------- |
@@ -184,7 +184,7 @@ Emitted when a profile's follow module is set by [setFollowModule()](doc:functio
 
 `event PostCreated(uint256 indexed profileId, uint256 indexed pubId, string contentURI, address collectModule, bytes collectModuleReturnData, address referenceModule, bytes referenceModuleReturnData, uint256 timestamp);`
 
-Emitted when a "post" is published by either [post()](doc:functions#post) or [postWithSig()](<>)
+Emitted when a "post" is published by either [post()](doc:functions#post) or [postWithSig()]()
 
 | Parameter Name            | Type    | Description                                                                                                                                           |
 | ------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -201,7 +201,7 @@ Emitted when a "post" is published by either [post()](doc:functions#post) or [po
 
 `event CommentCreated(uint256 indexed profileId, uint256 indexed pubId, string contentURI, uint256 profileIdPointed, uint256 pubIdPointed, address collectModule, bytes collectModuleReturnData, address referenceModule, bytes referenceModuleReturnData, uint256 timestamp);`
 
-Emitted when a "comment" is published by either [comment()](doc:functions#comment) or [commentWithSig()](<>)
+Emitted when a "comment" is published by either [comment()](doc:functions#comment) or [commentWithSig()]()
 
 | Parameter Name            | Type    | Description                                                                                                                                             |
 | ------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -220,7 +220,7 @@ Emitted when a "comment" is published by either [comment()](doc:functions#commen
 
 `event MirrorCreated(uint256 indexed profileId, uint256 indexed pubId, uint256 profileIdPointed, uint256 pubIdPointed, address referenceModule, bytes referenceModuleReturnData, uint256 timestamp);`
 
-Emitted when a "mirror" is published by either [mirror()](doc:functions#mirror) or [mirrorWithSig()](<>)
+Emitted when a "mirror" is published by either [mirror()](doc:functions#mirror) or [mirrorWithSig()]()
 
 | Parameter Name            | Type    | Description                                                                                                                           |
 | ------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------- |
@@ -236,7 +236,7 @@ Emitted when a "mirror" is published by either [mirror()](doc:functions#mirror) 
 
 `event FollowNFTDeployed(uint256 indexed profileId, address indexed followNFT, uint256 timestamp);`
 
-Emitted when a `followNFT` clone is deployed using a lazy deployment pattern i.e. in case Follow NFT contract does not already exist when either [follow()](doc:functions#follow) or [followWithSig()](<>) is called.
+Emitted when a `followNFT` clone is deployed using a lazy deployment pattern i.e. in case Follow NFT contract does not already exist when either [follow()](doc:functions#follow) or [followWithSig()]() is called.
 
 | Parameter Name | Type    | Description                                                       |
 | -------------- | ------- | ----------------------------------------------------------------- |
@@ -248,7 +248,7 @@ Emitted when a `followNFT` clone is deployed using a lazy deployment pattern i.e
 
 `event CollectNFTDeployed(uint256 indexed profileId, uint256 indexed pubId, address indexed collectNFT, uint256 timestamp);`
 
-Emitted when a `collectNFT` clone is deployed using a lazy deployment pattern i.e. in case collect NFT contract does not already exist when either [collect()](doc:functions#collect) or [collectWithSig()](<>) is called.
+Emitted when a `collectNFT` clone is deployed using a lazy deployment pattern i.e. in case collect NFT contract does not already exist when either [collect()](doc:functions#collect) or [collectWithSig()]() is called.
 
 | Parameter Name | Type    | Description                                                              |
 | -------------- | ------- | ------------------------------------------------------------------------ |
@@ -261,7 +261,7 @@ Emitted when a `collectNFT` clone is deployed using a lazy deployment pattern i.
 
 `event Collected(address indexed collector, uint256 indexed profileId, uint256 indexed pubId, uint256 rootProfileId, uint256 rootPubId, uint256 timestamp);`
 
-Emitted upon a successful collect action by either [collect()](doc:functions#collect) or [collectWithSig()](<>)
+Emitted upon a successful collect action by either [collect()](doc:functions#collect) or [collectWithSig()]()
 
 | Parameter Name | Type    | Description                                                                                         |
 | -------------- | ------- | --------------------------------------------------------------------------------------------------- |
@@ -301,8 +301,7 @@ Emitted via callback when a collectNFT is transferred.
 | to             | address | The address the collectNFT is being transferred to                            |
 | timestamp      | uint256 | The current block timestamp                                                   |
 
-Collect/Follow NFT-Specific
----------------------------
+## Collect/Follow NFT-Specific
 
 ### FollowNFTInitialized
 
@@ -331,7 +330,7 @@ Emitted when delegation power in a FollowNFT is changed.
 
 `event CollectNFTInitialized(uint256 profileId, uint256 pubId, uint256 timestamp);`
 
- Emitted when a newly deployed collect NFT is initialized.
+Emitted when a newly deployed collect NFT is initialized.
 
 | Parameter Name | Type    | Description                                                                         |
 | -------------- | ------- | ----------------------------------------------------------------------------------- |
@@ -339,8 +338,7 @@ Emitted when delegation power in a FollowNFT is changed.
 | pubId          | uint256 | The publication ID connected to the publication mapped to this collect NFT          |
 | timestamp      | uint256 | The current block timestamp                                                         |
 
-Module-Specific
----------------
+## Module-Specific
 
 ### ModuleGlobalsGovernanceSet
 
@@ -370,7 +368,7 @@ Emitted when the ModuleGlobals treasury address is set.
 
 `event ModuleGlobalsTreasuryFeeSet(uint16 indexed prevTreasuryFee, uint16 indexed newTreasuryFee, uint256 timestamp);`
 
- Emitted when the ModuleGlobals treasury fee is set.
+Emitted when the ModuleGlobals treasury fee is set.
 
 | Parameter Name  | Type    | Description                      |
 | --------------- | ------- | -------------------------------- |

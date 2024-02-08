@@ -2,10 +2,11 @@
 title: "Developer Quickstart - Lens API"
 slug: "developer-quickstart-api"
 hidden: false
-metadata: 
+metadata:
 createdAt: "2022-10-19T21:51:23.077Z"
 updatedAt: "2023-05-25T20:38:30.608Z"
 ---
+
 The recommended way to get started building on Lens is to use the Lens SDK and [this quickstart guide](https://docs.lens.xyz/docs/developer-quickstart-1).
 
 If you are instead interested in using the lower level Lens GraphQL API, this tutorial is for you!
@@ -69,49 +70,49 @@ Creating a basic GraphQL API is simple, we can do it in just a couple of lines o
 Create a new file named `api.ts` in the root of the new project and add the following code:
 
 ```typescript
-import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
+import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
 
-const API_URL = 'https://api.lens.dev'
+const API_URL = "https://api.lens.dev";
 
 /* create the API client */
 export const client = new ApolloClient({
   uri: API_URL,
-  cache: new InMemoryCache()
-})
+  cache: new InMemoryCache(),
+});
 
 /* define a GraphQL query  */
 export const exploreProfiles = gql`
-query ExploreProfiles {
-  exploreProfiles(request: { sortCriteria: MOST_FOLLOWERS }) {
-    items {
-      id
-      name
-      bio
-      handle
-      picture {
-        ... on MediaSet {
-          original {
-            url
+  query ExploreProfiles {
+    exploreProfiles(request: { sortCriteria: MOST_FOLLOWERS }) {
+      items {
+        id
+        name
+        bio
+        handle
+        picture {
+          ... on MediaSet {
+            original {
+              url
+            }
           }
         }
-      }
-      stats {
-        totalFollowers
+        stats {
+          totalFollowers
+        }
       }
     }
   }
-}
-`
+`;
 ```
 
-The query we've defined here will fetch a list of [profiles](https://docs.lens.xyz/docs/explore-profiles) from Lens based on the profile sort criteria pass in, in our case `MOST_FOLLOWERS`. You can view all of the sort criteria [here](https://docs.lens.xyz/docs/explore-profiles#sortcriteria), and experiment with other profile queries [here](https://docs.lens.xyz/docs/profiles). 
+The query we've defined here will fetch a list of [profiles](https://docs.lens.xyz/docs/explore-profiles) from Lens based on the profile sort criteria pass in, in our case `MOST_FOLLOWERS`. You can view all of the sort criteria [here](https://docs.lens.xyz/docs/explore-profiles#sortcriteria), and experiment with other profile queries [here](https://docs.lens.xyz/docs/profiles).
 
 ## Fetching and rendering profiles
 
 We can now fetch data using the new API with a single line of code:
 
 ```typescript
-const response = await client.query({ query: exploreProfiles })
+const response = await client.query({ query: exploreProfiles });
 ```
 
 With that in mind, we'd like to fetch the profiles using this API, then render and style them in our app.
@@ -205,32 +206,30 @@ To enable this, open `api.ts` and add the following two queries:
 
 ```typescript
 export const getProfile = gql`
-query Profile($handle: Handle!) {
-  profile(request: { handle: $handle }) {
-    id
-    name
-    bio
-    picture {
-      ... on MediaSet {
-        original {
-          url
+  query Profile($handle: Handle!) {
+    profile(request: { handle: $handle }) {
+      id
+      name
+      bio
+      picture {
+        ... on MediaSet {
+          original {
+            url
+          }
         }
       }
+      handle
     }
-    handle
   }
-}
-`
+`;
 
 export const getPublications = gql`
   query Publications($id: ProfileId!, $limit: LimitScalar) {
-    publications(request: {
-      profileId: $id,
-      publicationTypes: [POST],
-      limit: $limit
-    }) {
+    publications(
+      request: { profileId: $id, publicationTypes: [POST], limit: $limit }
+    ) {
       items {
-        __typename 
+        __typename
         ... on Post {
           ...PostFields
         }
@@ -246,7 +245,7 @@ export const getPublications = gql`
   fragment MetadataOutputFields on MetadataOutput {
     content
   }
-`
+`;
 ```
 
 In `app/page.tsx` you'll notice that we're linking to the user's handle in the html:
@@ -277,7 +276,7 @@ export default function Profile() {
   /* using the router we can get the lens handle from the route path */
   const pathName = usePathname()
   const handle = pathName?.split('/')[2]
-  
+
   useEffect(() => {
     if (handle) {
       fetchProfile()

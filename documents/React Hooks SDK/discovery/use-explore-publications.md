@@ -5,25 +5,22 @@ hidden: false
 createdAt: "2023-01-13T14:48:20.781Z"
 updatedAt: "2023-04-11T19:50:49.451Z"
 ---
-`useExplorePublications` is a React Hook used to explore different publications on Lens Protocol from a variety of people that you may not yet follow. 
+
+`useExplorePublications` is a React Hook used to explore different publications on Lens Protocol from a variety of people that you may not yet follow.
 
 ```typescript
-const { data, loading, hasMore, next } = useExplorePublications(args)
+const { data, loading, hasMore, next } = useExplorePublications(args);
 ```
-
-
 
 ## Usage
 
 ```typescript TypeScript
-import { useExplorePublications } from '@lens-protocol/react-web';
+import { useExplorePublications } from "@lens-protocol/react-web";
 
 function useExplorePublications() {
-	const { data, loading, hasMore, next } = useExplorePublications();
+  const { data, loading, hasMore, next } = useExplorePublications();
 }
 ```
-
-
 
 ## Reference
 

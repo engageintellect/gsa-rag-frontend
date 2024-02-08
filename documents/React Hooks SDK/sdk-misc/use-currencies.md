@@ -5,13 +5,12 @@ hidden: false
 createdAt: "2022-12-23T15:42:20.026Z"
 updatedAt: "2023-03-20T07:31:19.850Z"
 ---
+
 `useCurrencies` is a React Hook that returns the list of ERC20 supported by the Lens Protocol.
 
 ```typescript
 const { data, loading } = useCurrencies();
 ```
-
-
 
 ## Usage
 
@@ -29,7 +28,7 @@ import { useCurrencies } from '@lens-protocol/react-web';
 
 function CurrencyDropdown() {
   const { data, loading } = useCurrencies();
-  
+
   if (loading) return null;
 
   return (
@@ -44,8 +43,6 @@ function CurrencyDropdown() {
 }
 ```
 
-
-
 ## Reference
 
 ### `useCurrencies()`
@@ -53,8 +50,6 @@ function CurrencyDropdown() {
 ```typescript
 const { data, loading } = useActiveProfile();
 ```
-
-
 
 #### Parameters
 

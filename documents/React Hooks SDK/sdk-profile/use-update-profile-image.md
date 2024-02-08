@@ -5,15 +5,14 @@ hidden: false
 createdAt: "2023-01-11T15:14:59.754Z"
 updatedAt: "2023-03-20T07:13:08.545Z"
 ---
+
 `useUpdateProfileImage` is a React Hook that lets the active user change their profile image.
 
 ```typescript TypeScript
 const { execute, error, isPending } = useUpdateProfileImage({
-  profile
+  profile,
 });
 ```
-
-
 
 ## Usage
 
@@ -43,8 +42,6 @@ function UpdateProfileImage({ profile }: { profile: ProfileFragment }) {
   );
 }
 ```
-
-
 
 ## Reference
 

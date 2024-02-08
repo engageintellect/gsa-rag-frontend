@@ -78,7 +78,7 @@ export default function Home() {
     setResult({ text: "", link: "", source: "" });
     setLoading(true);
 
-    console.log('hello there world')
+    console.log("hello there world");
 
     try {
       const response = await fetch("/api/read", {
@@ -103,7 +103,14 @@ export default function Home() {
 
       <div className="relative -z-[1]">
         <div className="w-full object-cover h-full relative">
-          <Image src="/tech_network.jpg" alt="logo" priority={true} className="w-full h-64 sm:h-72 md:h-80 border border-gray-900" width={500} height={500} />
+          <Image
+            src="/tech_network.jpg"
+            alt="logo"
+            priority={true}
+            className="w-full h-64 sm:h-72 md:h-80 border border-gray-900"
+            width={500}
+            height={500}
+          />
         </div>
 
         <div className="absolute top-0 w-full h-full flex justify-center items-center opacity-80 sm:h-72 md:h-80 bg-gradient-to-b from-gray-950 to-gray-700"></div>
@@ -111,18 +118,23 @@ export default function Home() {
         <div className="absolute top-0 w-full h-full flex justify-center items-center pb-10">
           <div className="hero h-full">
             <div className="hero-content text-center">
-              <div className="max-w-lg">
+              <div className="max-w-3xl">
                 <div className="font-semibold text-white drop-shadow">
                   <div className="flex items-center justify-center">
-                    <span><CiSearch className="text-white h-20 w-20" /></span>
+                    <span>
+                      <CiSearch className="text-white h-20 w-20" />
+                    </span>
                     {/* <div>Search</div> */}
-                    <div className="font-thin text-blue-400 drop-shadow text-7xl">GSA</div>
+
+                    <div className="font-thin text-blue-400 drop-shadow text-7xl">
+                      GSA
+                    </div>
+                    <div className="text-red-500 text-3xl">eLibrary 2.0</div>
                   </div>
                 </div>
                 <p className="py-3 text-white font-thin sm:text-lg drop-shadow">
                   You have questions, we have answers.
                 </p>
-
 
                 {/* <div className="bg-white flex gap-2 items-center border border-primary rounded">
                   <div>
@@ -152,40 +164,70 @@ export default function Home() {
         </div>
       </div>
 
-
-
-
-
-
-
       <main className="min-h-screen flex flex-col bg-gray-200 items-center max-w-3xl mx-auto border border-primary rounded shadow-lg -mt-20 mb-10 p-5">
-        <div className="mb-10 w-full">
-          <div className="bg-white flex gap-2 items-center border border-primary rounded mb-5 w-full max-w-3xl mx-auto">
-            <div>
-              <FaSearch className="text-primary h-7 w-7 pl-2" />
-            </div>
-            <div className="flex gap-2 w-full">
-              <input
-                ref={inputRef} // Add the ref to the input element
-                className="w-full focus:outline-none"
-                placeholder="Ask a question..."
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    sendQuery();
-                  }
-                }}
-              />
-              <button className="btn btn-primary rounded-l-none hover:shadow group" onClick={sendQuery}>
-                <div className="sm:group-hover:scale-105 transition-all duration-200">
-                  <IoIosSend className="w-7 h-7 text-white" />
-                </div>
-              </button>
-            </div>
+
+
+        <div className="bg-white flex gap-2 items-center border border-primary rounded mb-5 w-full max-w-3xl mx-auto">
+          <div>
+            <FaSearch className="text-primary h-7 w-7 pl-2" />
           </div>
+          <div className="flex gap-2 w-full">
+            <input
+              ref={inputRef} // Add the ref to the input element
+              className="w-full focus:outline-none"
+              placeholder="Ask a question..."
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  sendQuery();
+                }
+              }}
+            />
+            <button
+              className="btn btn-primary rounded-l-none hover:shadow group"
+              onClick={sendQuery}
+            >
+              <div className="sm:group-hover:scale-105 transition-all duration-200">
+                <IoIosSend className="w-7 h-7 text-white" />
+              </div>
+            </button>
+          </div>
+        </div>
 
 
+
+
+          {!loading && (
+            <>
+              <div className="text-xs pb-2">
+                <strong>Disclaimer:</strong> dolor consectetur velit ut non cillum
+                aliquip tempor cupidatat dolor id pariatur aliqua nulla. Non esse aute
+                et dolore non incididunt aliqua proident. Occaecat cupidatat ex mollit
+                Duis laboris do do dolore eu do esse pariatur tempor.
+              </div>
+
+              <div className="text-xs w-full"><strong>Sample Prompts:</strong></div>
+
+
+              <div className="flex flex-col sm:flex-row gap-2 sm:gap-5 w-full text-xs pb-5">
+                <div className="w-full bg-base-200 border border-gray-900 rounded p-2 italic">
+                  "How much wood would a woodchuck chuck if a woodchuck could chuck wood?"
+                </div>
+                <div className="w-full border border-gray-900 rounded p-2 italic">
+                  "Amet cupidatat essemagna ipsum qui. Laboris sit voluptate velit qui
+                  ad fugiat nisi eu qui qui commodo anim laboris."
+                </div>
+                <div className="w-full border border-gray-900 rounded p-2 italic">
+                  "Amet cupidatat esmagna ipsum qui. Laboris sitcommodo anim laboris."
+                </div>{" "}
+              </div>
+            </>
+          )}
+
+
+
+        <div className="mb-10 w-full">
           {loading && (
             <>
               <div className="flex flex-col items-center py-10">
@@ -276,13 +318,13 @@ export default function Home() {
 
         {/* consider removing this button from the UI once the embeddings are created ... */}
         <div className="flex -mt-10 flex-col sm:flex-row gap-2 sm:gap-5  w-full items-center justify-center max-w-3xl">
-
-          <a href="/about" className="w-full border border-gray-900 rounded group">
-            <button className="btn btn-ghost w-full">
+          <a
+            href="/about"
+            className="w-full border border-gray-900 rounded group"
+          >
+            <button className="btn btn-primary w-full">
               <div className="flex gap-2 items-center">
-                <div>
-                  About
-                </div>
+                <div>About</div>
 
                 <div className="sm:group-hover:scale-105 transition-all duration-200">
                   <MdGroups className="w-6 h-6" />
@@ -291,12 +333,16 @@ export default function Home() {
             </button>
           </a>
 
-          <a href="/about" className="w-full border border-gray-900 rounded group">
-            <button className="btn btn-ghost w-full" onClick={createIndexAndEmbeddings}>
+          <a
+            href="/about"
+            className="w-full border border-gray-900 rounded group"
+          >
+            <button
+              className="btn btn-primary w-full"
+              onClick={createIndexAndEmbeddings}
+            >
               <div className="flex gap-2 items-center">
-                <div>
-                  Index
-                </div>
+                <div>Index</div>
 
                 <div className="sm:group-hover:scale-105 transition-all duration-200">
                   <AiOutlineNodeIndex className="w-6 h-6" />
@@ -305,14 +351,10 @@ export default function Home() {
             </button>
           </a>
 
-
-
           <div className="w-full h-full flex shadow border border-gray-900 rounded group">
-            <button className="btn btn-ghost w-full" onClick={getPages}>
+            <button className="btn btn-primary w-full" onClick={getPages}>
               <div className="flex gap-2 items-center">
-                <div>
-                  Get Pages
-                </div>
+                <div>Get Pages</div>
 
                 <div className="sm:group-hover:scale-105 transition-all duration-200">
                   <MdOutlineGetApp className="w-6 h-6" />

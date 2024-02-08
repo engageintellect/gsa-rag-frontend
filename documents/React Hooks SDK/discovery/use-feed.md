@@ -5,33 +5,30 @@ hidden: false
 createdAt: "2022-12-23T16:50:51.237Z"
 updatedAt: "2023-03-20T07:10:54.690Z"
 ---
+
 `useFeed` is a React Hook that lets you fetch the feed of a given profile.
 
 ```typescript
-const { data, loading, hasMore, next } = useFeed(args)
+const { data, loading, hasMore, next } = useFeed(args);
 ```
-
-
 
 ## Usage
 
 ```typescript TypeScript
-import { useFeed } from '@lens-protocol/react-web';
+import { useFeed } from "@lens-protocol/react-web";
 
 function Feed() {
-const {
+  const {
     data: feedItems,
     loading,
     hasMore,
     next,
   } = useFeed({
-    profileId: '0x02',
+    profileId: "0x02",
     limit: 10,
   });
 }
 ```
-
-
 
 ## Reference
 

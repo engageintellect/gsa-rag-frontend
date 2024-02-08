@@ -9,7 +9,7 @@ import { metadata } from "./app/layout";
 export const queryPineconeVectorStoreAndQueryLLM = async (
   client,
   indexName,
-  question
+  question,
 ) => {
   // 1. Start query process
   console.log("Querying Pinecone vector store...");
@@ -38,19 +38,15 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
     const concatenatedPageContent = queryResponse.matches
       .map((match) => match.metadata.pageContent)
       .join(" ");
-		console.log('FUCK THIS')
-		console.log('FUCK THIS')
+    console.log("FUCK THIS");
+    console.log("FUCK THIS");
     // 9. Execute the chain with input documents and question
 
     // console.log("QUERY MATCHES", queryResponse.matches)
 
     const pageContents = queryResponse.matches;
 
-
-    
-
-    console.log('PAGE CONTENTS:', pageContents);
-
+    console.log("PAGE CONTENTS:", pageContents);
 
     // const result = await chain.call({
     //   input_documents: [new Document({ pageContent: concatenatedPageContent })],
@@ -71,17 +67,10 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
   }
 };
 
-
-
-
-
-
-
-
 export const createPineconeIndex = async (
   client,
   indexName,
-  vectorDimension
+  vectorDimension,
 ) => {
   // 1. Initiate index existence check
   console.log(`Checking "${indexName}"...`);
@@ -101,7 +90,7 @@ export const createPineconeIndex = async (
     });
     // 6. Log successful creation
     console.log(
-      `Creating index.... please wait for it to finish initializing.`
+      `Creating index.... please wait for it to finish initializing.`,
     );
     // 7. Wait for index initialization
     await new Promise((resolve) => setTimeout(resolve, timeout));
@@ -131,15 +120,15 @@ export const updatePinecone = async (client, indexName, docs) => {
     const chunks = await textSplitter.createDocuments([text]);
     console.log(`Text split into ${chunks.length} chunks`);
     console.log(
-      `Calling OpenAI's Embedding endpoint documents with ${chunks.length} text chunks ...`
+      `Calling OpenAI's Embedding endpoint documents with ${chunks.length} text chunks ...`,
     );
     // 6. Create OpenAI embeddings for documents
     const embeddingsArrays = await new OpenAIEmbeddings().embedDocuments(
-      chunks.map((chunk) => chunk.pageContent.replace(/\n/g, " "))
+      chunks.map((chunk) => chunk.pageContent.replace(/\n/g, " ")),
     );
     console.log("Finished embedding documents");
     console.log(
-      `Creating ${chunks.length} vectors array with id, values, and metadata...`
+      `Creating ${chunks.length} vectors array with id, values, and metadata...`,
     );
     // 7. Create and upsert vectors in batches of 100
     const batchSize = 100;

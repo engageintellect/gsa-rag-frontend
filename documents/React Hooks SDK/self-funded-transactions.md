@@ -6,6 +6,7 @@ hidden: true
 createdAt: "2023-05-26T12:49:35.672Z"
 updatedAt: "2023-05-26T14:28:37.681Z"
 ---
+
 [quick intro to let reader recognize the situation, error details, etc.]
 
 We are going to use `useFollow` in our example here but bear in mind it works the same exact way for:
@@ -19,52 +20,69 @@ We are going to use `useFollow` in our example here but bear in mind it works th
 We are going to compose the `useFollow` hook with the `useSelfFundedFallback` hook into a new React hook. This new hook will encapsulate how we intend to communicate and handle the rejection scenario.
 
 ```typescript useFollowWithSelfFundedFallback.tsx
-import { FollowOperation, Profile, ProfileOwnedByMe, SelfFundedOperation, supportsSelfFundedFallback, useFollow, useSelfFundedFallback } from '@lens-protocol/react-web';
+import {
+  FollowOperation,
+  Profile,
+  ProfileOwnedByMe,
+  SelfFundedOperation,
+  supportsSelfFundedFallback,
+  useFollow,
+  useSelfFundedFallback,
+} from "@lens-protocol/react-web";
 
 type UseFollowWithSelfFundedFallbackArgs = {
   followee: Profile;
   follower: ProfileOwnedByMe;
-}
+};
 
-type PossibleError = FollowOperation['error'] | SelfFundedOperation['error']
+type PossibleError = FollowOperation["error"] | SelfFundedOperation["error"];
 
-export function useFollowWithSelfFundedFallback({ followee, follower }: UseFollowWithSelfFundedFallbackArgs) {
+export function useFollowWithSelfFundedFallback({
+  followee,
+  follower,
+}: UseFollowWithSelfFundedFallbackArgs) {
   const [error, setError] = useState<PossibleError>(undefined);
-  const { execute: subsidize, error: subsidizedError, isPending: isSubsidizedPending } = useFollow({ followee, follower });
+  const {
+    execute: subsidize,
+    error: subsidizedError,
+    isPending: isSubsidizedPending,
+  } = useFollow({ followee, follower });
 
-  const { execute: selfFund, error: selfFundedError, isPending: isSelfFundedPending } = useSelfFundedFallback();
-  
+  const {
+    execute: selfFund,
+    error: selfFundedError,
+    isPending: isSelfFundedPending,
+  } = useSelfFundedFallback();
+
   const execute = async () => {
     // it won't ask to sign if can be performed via proxy-action
     const result = await subsidize();
 
     // did the gasless request fail?
     if (result.isFailure()) {
-      
       // was it rejected? is there an fallback?
       if (supportsSelfFundedFallback(result.error)) {
-
         // ask your confirmation before using their funds
         const shouldPayFor = window.confirm(
-          'It was not possible to cover the gas costs at this time.\n\n' +
-          'Do you wish to continue with your MATIC?'
+          "It was not possible to cover the gas costs at this time.\n\n" +
+            "Do you wish to continue with your MATIC?",
         );
 
         if (shouldPayFor) {
           // initiate self-funded, will require signature
-        	await selfFund(result.error.fallback);
+          await selfFund(result.error.fallback);
         }
         return;
       }
       // other result.error handling as needed
     }
   };
-  
+
   return {
     execute,
     error,
     isPending: isSubsidizedPending || isSelfFundedPending,
-  }
+  };
 }
 ```
 
@@ -86,13 +104,13 @@ type FollowButtonProps = {
 
 export function FollowButton({ followee, follower }: FollowButtonProps) {
   const { execute: follow, error, isPending } = useFollowWithSelfFundedFallback({ followee, follower });
-  
+
   return (
     <>
       <button disabled={!followee.followStatus.canFollow || isPending} onClick={follow}>
         Follow
       </button>
-         
+
       {error && <small>{error.message}</small>}
     </>
   );

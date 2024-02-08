@@ -5,16 +5,17 @@ hidden: false
 createdAt: "2022-02-18T11:30:10.353Z"
 updatedAt: "2023-03-25T13:08:54.907Z"
 ---
+
 > 📘 Full code example
-> 
+>
 > <https://github.com/lens-protocol/api-examples/blob/master/src/publications/get-publication.ts>
 
-This query returns to you the publication information. Remember posts, comments and mirrors are all publications. 
+This query returns to you the publication information. Remember posts, comments and mirrors are all publications.
 
 # API Design
 
 > 📘 Use the GraphQL schema...
-> 
+>
 > One of the huge advantages of GraphQL is you have a schema that should explain how the schema should look at what properties exist in that. In these docs we explore code examples and explain key concepts but we will not explain each property that exists in the response for example, as the schema already does that!
 
 ```javascript Example operation
@@ -22,7 +23,7 @@ query Publication {
   publication(request: {
     publicationId: "0x01-0x01"
   }) {
-   __typename 
+   __typename
     ... on Post {
       ...PostFields
     }
@@ -100,7 +101,7 @@ fragment ProfileFields on Profile {
   }
 }
 
-fragment PublicationStatsFields on PublicationStats { 
+fragment PublicationStatsFields on PublicationStats {
   totalAmountOfMirrors
   totalAmountOfCollects
   totalAmountOfComments
@@ -183,10 +184,10 @@ fragment MirrorFields on Mirror {
   ...MirrorBaseFields
   mirrorOf {
    ... on Post {
-      ...PostFields          
+      ...PostFields
    }
    ... on Comment {
-      ...CommentFields          
+      ...CommentFields
    }
   }
 }
@@ -226,10 +227,10 @@ fragment CommentFields on Comment {
       ...MirrorBaseFields
       mirrorOf {
         ... on Post {
-           ...PostFields          
+           ...PostFields
         }
         ... on Comment {
-           ...CommentMirrorOfFields        
+           ...CommentMirrorOfFields
         }
       }
     }
@@ -362,6 +363,7 @@ fragment ReferenceModuleFields on ReferenceModule {
 }
 
 ```
+
 ```javascript Example response
 {
   "data": {
@@ -429,20 +431,18 @@ fragment ReferenceModuleFields on ReferenceModule {
 }
 ```
 
-
-
 > 📘 Hot tip
-> 
+>
 > If you do not know GraphQL that well remember things can be nullable if defined as so in the schema how GraphQL knows its nullable is without the `!` at the end here is an example:
-> 
-> Not nullable: 
-> 
+>
+> Not nullable:
+>
 > ownedBy: EthereumAddress!
-> 
+>
 > Nullable:
-> 
+>
 > ownedBy: EthereumAddress
-> 
+>
 > It's always worth generating the TypeScript types for the schema if your application is TypeScript here is a reference to how you would do that - <https://www.apollographql.com/blog/tooling/apollo-codegen/typescript-graphql-code-generator-generate-graphql-types/>
 
 ## Request
@@ -454,16 +454,16 @@ Let's look into the request a little more:
 You can query the publication using the `internalPublicationId` and return information about the publication.
 
 > 📘 Did you know...
-> 
+>
 > The publication id is not unique in the smart contract its a counter per each profile. So if @josh posts a publication that will be publication 1 for his profile and then if @josh2 posts a publication that will be publication 1 for his profile. Our backend generates what we call an `InternalPublicationId` which is built up from `{profileId}-{publicationId}` creating a unique ID that can be queried against our database. You will see that `InternalPublicationId` is used on all our responses and also used in any request you which to do.
 
 ### txHash
 
-There is a case where your user does a new post or comment or mirror and you send the transaction. At this point, you do not know the publication id without having to do some extra logic. This is the perfect time where you may want to query the publication by the `txHash` to get the publication and update your internal UI cache or something else. 
+There is a case where your user does a new post or comment or mirror and you send the transaction. At this point, you do not know the publication id without having to do some extra logic. This is the perfect time where you may want to query the publication by the `txHash` to get the publication and update your internal UI cache or something else.
 
 Please note you can only supply one of these if you supply more than one the API will throw. We have to do it this way with optional parameters as GraphQL does not support unions on request yet.
 
-# 
+#
 
 # Using LensClient SDK
 

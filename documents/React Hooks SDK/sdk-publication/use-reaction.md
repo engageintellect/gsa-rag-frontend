@@ -5,13 +5,13 @@ hidden: false
 createdAt: "2023-01-05T10:32:36.600Z"
 updatedAt: "2023-03-20T06:55:34.248Z"
 ---
-`useReaction` is a React Hook that lets you react to a publication. The only reaction type supported currently is `UPVOTE`. With `useReaction` hook you can add, remove reaction or check if a publication has a reaction. 
+
+`useReaction` is a React Hook that lets you react to a publication. The only reaction type supported currently is `UPVOTE`. With `useReaction` hook you can add, remove reaction or check if a publication has a reaction.
 
 ```typescript
-const { addReaction, removeReaction, hasReaction, isPending, error } = useReaction(args);
+const { addReaction, removeReaction, hasReaction, isPending, error } =
+  useReaction(args);
 ```
-
-
 
 ## Usage
 
@@ -29,13 +29,13 @@ function Component({ profile }) {
     publicationId: '0x1b-0x0118',
     observerId: profile.id, // important!
   });
-  
+
   const { addReaction, removeReaction, hasReaction, isPending, error } = useReaction({
     profileId: profile.id,
   });
-  
+
   const reactionType = ReactionType.UPVOTE;
-  
+
   if (loading) return <Loading />;
 
   const hasReactionType = hasReaction({
@@ -68,8 +68,6 @@ function Component({ profile }) {
 }
 ```
 
-
-
 ## Reference
 
 ### `useReaction(args)`
@@ -84,7 +82,7 @@ Returns an object with:
 
 - `addReaction`: a function you can use to add a new reaction.
 - `removeReaction`: a function you can use to remove an existing reaction.
-- `hasReaction`: a function you can use to check if a publication has already a reaction from a profile 
+- `hasReaction`: a function you can use to check if a publication has already a reaction from a profile
 - `isPending`: a boolean notifying you if any of the operations is in progress.
 - `error`: any error that might occur in normal operating conditions will be returned via this property.
 

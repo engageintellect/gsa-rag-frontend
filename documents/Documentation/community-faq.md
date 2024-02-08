@@ -5,6 +5,7 @@ hidden: false
 createdAt: "2022-12-01T11:37:18.557Z"
 updatedAt: "2023-04-17T15:29:04.854Z"
 ---
+
 The Lens ecosystem is growing at speed 🚀
 
 We’ve noticed on Social and our Discord server a few questions around similar topics so wanted to give you all an update on these
@@ -25,9 +26,9 @@ We’re still in closed Beta, we are doing this to attain feedback and improve t
 
 We are excited to get you all enjoying Lens, but we want to do it at the right time to give you the best experience possible
 
-If you haven't been able to get access to Lens yet, but would like to learn more about the growing Lens ecosystem, here's an awesome [article](https://medium.com/@fabriguespe/lens-protocol-application-ecosystem-update-october-d8381c635dcc) from our developer relations team 
+If you haven't been able to get access to Lens yet, but would like to learn more about the growing Lens ecosystem, here's an awesome [article](https://medium.com/@fabriguespe/lens-protocol-application-ecosystem-update-october-d8381c635dcc) from our developer relations team
 
-Head to our [Lensverse](https://lens.xyz/apps) page to discover hundreds of applications built 🛠 on Lens Protocol 
+Head to our [Lensverse](https://lens.xyz/apps) page to discover hundreds of applications built 🛠 on Lens Protocol
 
 ## How much time do I have to claim my profile once eligible?
 
@@ -37,7 +38,7 @@ You will have 30 days to claim your profile once you have been allowlisted off o
 
 Certain handles have been reserved for multiple reasons, for example, certain famous brands are limited from claiming to avoid user confusion around the ownership of those handles.
 
-It is possible that certain reserved handles may be coincident with your desired lens profile. We are working on this as our plan is to reduce the amount of reserved Lens handles going forward.  
+It is possible that certain reserved handles may be coincident with your desired lens profile. We are working on this as our plan is to reduce the amount of reserved Lens handles going forward.
 
 ## How can I transfer a Lens Profile?
 

@@ -5,19 +5,20 @@ hidden: false
 createdAt: "2022-01-25T21:55:14.960Z"
 updatedAt: "2022-02-06T18:23:53.893Z"
 ---
+
 [block:image]
 {
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/8320c1f-illustration_mirror.svg",
-        "illustration_mirror.svg",
-        328,
-        240,
-        "#00501e"
-      ]
-    }
-  ]
+"images": [
+{
+"image": [
+"https://files.readme.io/8320c1f-illustration_mirror.svg",
+"illustration_mirror.svg",
+328,
+240,
+"#00501e"
+]
+}
+]
 }
 [/block]
 Mirrors are the curation tool of the Lens Protocol. They are the protocol's equivalent to reposting or re-amplifying content. Mirrors are treated the same as [publications](doc:publication) with a few additional checks and a few more minor features.

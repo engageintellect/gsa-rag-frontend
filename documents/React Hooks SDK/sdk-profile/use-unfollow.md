@@ -5,13 +5,12 @@ hidden: false
 createdAt: "2023-01-13T14:15:39.567Z"
 updatedAt: "2023-03-20T07:13:47.318Z"
 ---
+
 `useUnfollow` is a React Hook that lets you unfollow a profile.
 
 ```typescript
 const { execute, error, isPending } = useUnfollow();
 ```
-
-
 
 ## Usage
 
@@ -38,8 +37,6 @@ export function UnfollowProfile({ profile }: ProfileUnfollowProps) {
 
 ```
 
-
-
 ## Reference
 
 ### `useUnfollow()`
@@ -56,8 +53,6 @@ export function UnfollowProfile({ profile }: ProfileUnfollowProps) {
   // ...
 }
 ```
-
-
 
 #### Parameters
 

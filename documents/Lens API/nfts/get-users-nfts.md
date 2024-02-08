@@ -5,11 +5,12 @@ hidden: false
 createdAt: "2022-02-18T11:25:35.980Z"
 updatedAt: "2023-03-14T12:41:27.671Z"
 ---
+
 > 📘 Full code example
-> 
+>
 > <https://github.com/lens-protocol/api-examples/blob/master/src/nfts/get-users-nfts.ts>
 
-This query allows you to find what NFTs a user owns. It also allows you to query what they own by contract address to sees which specific NFTs a user owns in a given collection. We use Moralis API to get the NFT data. 
+This query allows you to find what NFTs a user owns. It also allows you to query what they own by contract address to sees which specific NFTs a user owns in a given collection. We use Moralis API to get the NFT data.
 
 # API details
 
@@ -253,15 +254,17 @@ Below is the overview of the entire interface but we dig into specific queries b
   }
 }
 ```
+
 ```javascript Query interface
-type Query { 
+type Query {
 	nfts(request: NFTsRequest!): NFTsResult!
 }
 ```
+
 ```javascript Request
 input NFTsRequest {
   limit: Int
-  
+
   cursor: Cursor
 
   # Filter by owner address
@@ -286,6 +289,7 @@ scalar ContractAddress
 # Cursor custom scalar type
 scalar Cursor
 ```
+
 ```javascript Response
 # Paginated nft results
 type NFTsResult {
@@ -349,7 +353,7 @@ type NFTContent {
   # The meta type content
   metaType: String!
 }
-  
+
 # The paginated result info
 type PaginatedResultInfo {
   # Cursor to query the actual results
@@ -361,7 +365,7 @@ type PaginatedResultInfo {
   # The total number of entities the pagination iterates over. e.g. For a query that requests all nfts with more than 10 likes, this field gives the total amount of nfts with more than 10 likes, not the total amount of nfts
   totalCount: Int!
 }
-  
+
 # Cursor custom scalar type
 scalar Cursor
 
@@ -369,9 +373,7 @@ scalar Cursor
 scalar ChainId
 ```
 
-
-
-You will see the paging result behavior repeated a lot in the API, this is to allow you to fetch a certain amount and then page it for the most optimal request speed. Every time something is wrapped in a paging result you will always get returned a `pageInfo` which holds the cursors for the previous and next alongside the total count which exists in the database. These cursors are just pointers for the server to get to the next result and do not need to be understood by your client or server. If you ever want to then page to the next result you can pass these previous and next cursor in the request cursor property. 
+You will see the paging result behavior repeated a lot in the API, this is to allow you to fetch a certain amount and then page it for the most optimal request speed. Every time something is wrapped in a paging result you will always get returned a `pageInfo` which holds the cursors for the previous and next alongside the total count which exists in the database. These cursors are just pointers for the server to get to the next result and do not need to be understood by your client or server. If you ever want to then page to the next result you can pass these previous and next cursor in the request cursor property.
 
 Now you see the base query let's look at how we can use different request parameters to request different NFTs for the user.
 
@@ -414,6 +416,7 @@ query Nfts($request: NFTsRequest!) {
   }
 }
 ```
+
 ```javascript Example response
 {
   "data": {
@@ -650,8 +653,6 @@ query Nfts($request: NFTsRequest!) {
 }
 ```
 
-
-
 ## Get NFTs of a collection a wallet address owns
 
 To do this just set the `ownerAddress` to the ethereum address you want to query for their NFTs and set the `contractAddress` of the NFT you wish to filter it on.
@@ -692,6 +693,7 @@ query Nfts($request: NFTsRequest!) {
   }
 }
 ```
+
 ```javascript Example response
 {
   "data": {
@@ -928,9 +930,7 @@ query Nfts($request: NFTsRequest!) {
 }
 ```
 
-
-
-# 
+#
 
 # Using LensClient SDK
 
@@ -939,8 +939,7 @@ Example use.
 ```typescript
 const result = await lensClient.nfts.fetch({
   chainIds: [80001],
-  ownerAddress: '0xa5653e88D9c352387deDdC79bcf99f0ada62e9c6',
+  ownerAddress: "0xa5653e88D9c352387deDdC79bcf99f0ada62e9c6",
   limit: 10,
-}),
-
+});
 ```

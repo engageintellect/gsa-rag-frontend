@@ -5,28 +5,25 @@ hidden: false
 createdAt: "2022-12-23T16:25:43.921Z"
 updatedAt: "2023-03-20T07:04:33.236Z"
 ---
+
 `useMutualFollowers` is a React Hook that lets you query the followers in common between two profiles.
 
 ```typescript
-const { data, loading, hasMore, next } = useMutualFollowers(args)
+const { data, loading, hasMore, next } = useMutualFollowers(args);
 ```
-
-
 
 ## Usage
 
 ```typescript TypeScript
-import { useMutualFollowers } from '@lens-protocol/react-web';
+import { useMutualFollowers } from "@lens-protocol/react-web";
 
 function MutualFollowers() {
-const { data, loading } = useMutualFollowers({
-    observerId: '0x02',
-    viewingProfileId: '0x03',
+  const { data, loading } = useMutualFollowers({
+    observerId: "0x02",
+    viewingProfileId: "0x03",
   });
 }
 ```
-
-
 
 ## Reference
 

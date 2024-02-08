@@ -5,6 +5,7 @@ hidden: false
 createdAt: "2023-04-26T14:41:19.528Z"
 updatedAt: "2023-04-26T16:31:44.885Z"
 ---
+
 Any time you do any typed data signing for DA, you need to use `broadcastDataAvailability` , which will broadcast the transaction for you.
 
 ### Response

@@ -5,8 +5,9 @@ hidden: false
 createdAt: "2022-03-23T12:34:10.254Z"
 updatedAt: "2023-03-14T13:43:20.601Z"
 ---
+
 > 📘 Full code example
-> 
+>
 > <https://github.com/lens-protocol/api-examples/blob/master/src/revenue/publication-revenue.ts>
 
 This query returns the amounts earned on the requested publication.
@@ -14,14 +15,14 @@ This query returns the amounts earned on the requested publication.
 # API Design
 
 > 📘 Did you know...
-> 
+>
 > The publication id is not unique in the smart contract its a counter per each profile. So if @josh posts a publication that will be publication 1 for his profile and then if @josh2 posts a publication that will be publication 1 for his profile. Our backend generates what we call an `InternalPublicationId` which is built up from `{profileId}-{publicationId}` creating a unique ID that can be queried against our database. You will see that `InternalPublicationId` is used on all our responses and also used in any request you which to do.
 
 ```javascript Example operation
 query PublicationRevenue {
   publicationRevenue(request: { publicationId: "0x41-0x03" }) {
     publication {
-      __typename 
+      __typename
         ... on Post {
           ...PostFields
         }
@@ -122,7 +123,7 @@ fragment ProfileFields on Profile {
   }
 }
 
-fragment PublicationStatsFields on PublicationStats { 
+fragment PublicationStatsFields on PublicationStats {
   totalAmountOfMirrors
   totalAmountOfCollects
   totalAmountOfComments
@@ -203,10 +204,10 @@ fragment MirrorFields on Mirror {
   ...MirrorBaseFields
   mirrorOf {
    ... on Post {
-      ...PostFields          
+      ...PostFields
    }
    ... on Comment {
-      ...CommentFields          
+      ...CommentFields
    }
   }
 }
@@ -242,10 +243,10 @@ fragment CommentFields on Comment {
       ...MirrorBaseFields
       mirrorOf {
         ... on Post {
-           ...PostFields          
+           ...PostFields
         }
         ... on Comment {
-           ...CommentMirrorOfFields        
+           ...CommentMirrorOfFields
         }
       }
     }
@@ -377,6 +378,7 @@ fragment ReferenceModuleFields on ReferenceModule {
   }
 }
 ```
+
 ```javascript Example response
 {
   "data": {
@@ -499,12 +501,12 @@ fragment ReferenceModuleFields on ReferenceModule {
 }
 ```
 
-
-
-# 
+#
 
 # Using LensClient SDK
 
 ```typescript
-const result = await lensClient.revenue.publication({ publicationId: '0x15-0x028e' });
+const result = await lensClient.revenue.publication({
+  publicationId: "0x15-0x028e",
+});
 ```

@@ -5,13 +5,12 @@ hidden: false
 createdAt: "2023-01-18T16:29:08.854Z"
 updatedAt: "2023-03-20T07:32:00.102Z"
 ---
+
 `usePublicationRevenue` is a React hook used to query publications by a profile that have earned revenue.
 
 ```typescript
-const { data, loading, hasMore, next } = useProfilePublicationRevenue(args)
+const { data, loading, hasMore, next } = useProfilePublicationRevenue(args);
 ```
-
-
 
 ## Usage
 
@@ -22,7 +21,7 @@ function PublicationRevenue() {
   const { data: profilePublicationRevenue, loading } = useProfilePublicationRevenue({
     profileId: '0x4f90-0x02',
   });
-  
+
   if (loading) return 'Loading...';
 
   return (
@@ -44,8 +43,6 @@ function PublicationRevenue() {
   );
 }
 ```
-
-
 
 ## Reference
 
@@ -83,8 +80,6 @@ function PublicationRevenue() {
   next(): () => void // fetches the next batch and appends to the data
 }
 ```
-
-
 
 ### `PublicationRevenueFragment`
 

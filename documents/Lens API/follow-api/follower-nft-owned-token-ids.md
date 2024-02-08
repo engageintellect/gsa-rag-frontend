@@ -5,17 +5,18 @@ hidden: false
 createdAt: "2022-03-04T21:39:07.383Z"
 updatedAt: "2023-03-14T10:34:37.732Z"
 ---
+
 > 📘 Full code example
-> 
+>
 > <https://github.com/lens-protocol/api-examples/blob/master/src/follow/follower-nft-owned-token-ids.ts>
 
-This query returns the follower NFT for a profile token ids that the wallet address owns. Remember a wallet can follow a profile as many times as they wish. 
+This query returns the follower NFT for a profile token ids that the wallet address owns. Remember a wallet can follow a profile as many times as they wish.
 
 # API Design
 
 ```javascript Example operation
 query FollowerNftOwnedTokenIds {
-  followerNftOwnedTokenIds(request: { 
+  followerNftOwnedTokenIds(request: {
              	address: "0xD020E01C0c90Ab005A01482d34B808874345FD82",
               profileId: "0x01"
              }) {
@@ -24,6 +25,7 @@ query FollowerNftOwnedTokenIds {
   }
 }
 ```
+
 ```javascript Example response
 {
   "data": {
@@ -42,23 +44,26 @@ query FollowerNftOwnedTokenIds {
   }
 }
 ```
+
 ```javascript Query interface
 type Query {
   followerNftOwnedTokenIds(request: FollowerNftOwnedTokenIdsRequest!): FollowerNftOwnedTokenIds!
 }
 ```
+
 ```javascript Request
 input FollowerNftOwnedTokenIdsRequest {
   address: EthereumAddress!
   profileId: ProfileId!
 }
-  
+
 # Ethereum address custom scalar type
 scalar EthereumAddress
-  
+
 # ProfileId custom scalar type
 scalar ProfileId
 ```
+
 ```javascript Response
 type FollowerNftOwnedTokenIds {
   followerNftAddress: ContractAddress!
@@ -69,11 +74,7 @@ type FollowerNftOwnedTokenIds {
 scalar ContractAddress
 ```
 
-
-
-
-
-# 
+#
 
 # Using LensClient SDK
 
@@ -82,5 +83,4 @@ const result = await lensClient.profile.followerNftOwnedTokenIds({
   address: "",
   profileId: "",
 });
-
 ```

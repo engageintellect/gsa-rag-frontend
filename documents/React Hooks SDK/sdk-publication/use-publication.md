@@ -5,27 +5,24 @@ hidden: false
 createdAt: "2022-12-23T15:27:41.379Z"
 updatedAt: "2023-03-20T06:54:30.080Z"
 ---
+
 `usePublication` is a React hook that allows you to find a specific publication using it's identifier.
 
 ```typescript
-const { data, loading } = usePublication(args)
+const { data, loading } = usePublication(args);
 ```
-
-
 
 ## Usage
 
 ```typescript TypeScript
-import { usePublication } from '@lens-protocol/react-web';
+import { usePublication } from "@lens-protocol/react-web";
 
 function Publication() {
-const { data: publication, loading } = usePublication({
-    publicationId: '0x77-0x0149',
+  const { data: publication, loading } = usePublication({
+    publicationId: "0x77-0x0149",
   });
 }
 ```
-
-
 
 ## Reference
 

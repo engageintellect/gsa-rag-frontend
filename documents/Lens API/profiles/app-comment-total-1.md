@@ -5,6 +5,7 @@ hidden: false
 createdAt: "2022-09-26T15:22:25.817Z"
 updatedAt: "2023-04-27T23:15:01.665Z"
 ---
+
 As you attach an appId to the publications you post the number of publications you did on profile Y on app Z can be different from app H numbers, this allows you to query by sources to get the correct stats if you're building an app that only cares about the content of the app.
 
 # API design
@@ -25,6 +26,7 @@ query Profile {
   }
 }
 ```
+
 ```javascript Example response
 {
   "data": {
@@ -44,9 +46,7 @@ query Profile {
 }
 ```
 
-
-
-# 
+#
 
 # Using LensClient SDK
 
@@ -55,6 +55,6 @@ const profileById = await lensClient.profile.stats(
   {
     handle: "pukkynext.test",
   },
-  ["your_app_id"] // array of sources -> appIds you want the stats to be calculated for
+  ["your_app_id"], // array of sources -> appIds you want the stats to be calculated for
 );
 ```

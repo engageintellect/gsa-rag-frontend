@@ -5,6 +5,7 @@ hidden: false
 createdAt: "2023-03-03T14:26:13.060Z"
 updatedAt: "2023-03-14T12:13:37.573Z"
 ---
+
 # TypeScript Types
 
 This page explains a few important concepts used by the Client SDK that you need to understand to correctly use the features offered by the package.
@@ -25,12 +26,12 @@ result.isSuccess();
 result.isFailure();
 
 // access the value if success
-if(result.isSuccess()) {
+if (result.isSuccess()) {
   const value = result.value;
 }
 
 // access the error if failure
-if(result.isFailure()) {
+if (result.isFailure()) {
   throw result.error;
 }
 
@@ -39,15 +40,13 @@ if(result.isFailure()) {
 result.unwrap();
 ```
 
-
-
 ## `PaginatedResult` return type
 
 The result of a type of `PaginatedResult` offers you the utility of requesting more results for the same query. Check the example below.
 
 ```typescript
 const paginatedResult = await lensClient.explore.profiles({
-	limit: 10
+  limit: 10,
 });
 
 // now what can we do with the PaginatedResult object
@@ -55,11 +54,10 @@ const paginatedResult = await lensClient.explore.profiles({
 const firstTenItems = [...paginatedResult.items]; // clone as items will be overwritten when calling .next()
 
 // fetch next batch of items
-await paginatedResult.next()
+await paginatedResult.next();
 
 const nextTenItems = [...paginatedResult.items];
 
 // you can also request previous batch
-await paginatedResult.prev()
-
+await paginatedResult.prev();
 ```

@@ -5,6 +5,7 @@ hidden: false
 createdAt: "2022-01-28T04:09:59.646Z"
 updatedAt: "2023-02-26T14:30:33.056Z"
 ---
+
 # Collect Module Interface
 
 This is the interface all Lens Protocol Compatible Collect modules must implement.
@@ -58,7 +59,7 @@ The [Limited Fee Collect Module](https://github.com/lens-protocol/lens-protocol/
 
 ## Timed Fee Collect Module
 
-The [Timed Fee Collect Module](https://github.com/lens-protocol/lens-protocol/blob/main/contracts/core/modules/collect/TimedFeeCollectModule.sol) allows for any follower to collect the associated publication, provided they pay a fee, up to a specific time limit. The present whitelisted Timed Fee Collect module only has a 24-hour time limit to reduce gas usage and optimize efficiency. 
+The [Timed Fee Collect Module](https://github.com/lens-protocol/lens-protocol/blob/main/contracts/core/modules/collect/TimedFeeCollectModule.sol) allows for any follower to collect the associated publication, provided they pay a fee, up to a specific time limit. The present whitelisted Timed Fee Collect module only has a 24-hour time limit to reduce gas usage and optimize efficiency.
 
 As with the Fee Collect Module, the fee must be denominated in a whitelisted currency, a referral fee can be specified, and governance can direct a treasury fee to a designated treasury address.
 

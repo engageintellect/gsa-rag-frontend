@@ -6,6 +6,7 @@ hidden: false
 createdAt: "2023-04-04T07:27:51.068Z"
 updatedAt: "2023-04-12T10:16:11.071Z"
 ---
+
 ## Sign in
 
 Although the following example uses [wagmi](https://wagmi.sh/) it can be adapted to any wallet integration that results in an [ethers](https://ethers.org/) `Signer`.
@@ -37,7 +38,7 @@ function LoginButton() {
       await login(signer);
     }
   };
- 
+
   return (
     <div>
       {loginError && <p>{loginError}</p>}
@@ -46,8 +47,6 @@ function LoginButton() {
   );
 }
 ```
-
-
 
 ## Determine if the user is authenticated
 
@@ -69,13 +68,11 @@ function HomePage() {
 
   if (wallet) {
     return <p>You are logged-in with {wallet.address}</p>;
-  } 
+  }
 
   return <p>You are logged-out</p>;
 }
 ```
-
-
 
 ## Sign out
 
@@ -84,13 +81,11 @@ import { useWalletLogout } from '@lens-protocol/react-web';
 
 function LogoutButton() {
   const { execute: logout, isPending } = useWalletLogout();
-  
+
   return (
     <button disabled={isPending} onClick={logout}>Log out</button>
   );
 }
 ```
-
-
 
 Although the `useWalletLogout` returns an `isPending` flag, the sign-out operation tends to be pretty fast so do not expect to account for long wait. You probably don't need to do more than you see in the example above.

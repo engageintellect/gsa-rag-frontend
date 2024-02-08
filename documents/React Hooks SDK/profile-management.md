@@ -6,6 +6,7 @@ hidden: false
 createdAt: "2023-04-04T07:28:14.553Z"
 updatedAt: "2023-05-25T09:24:52.349Z"
 ---
+
 ## Active Profile
 
 On successful login via the `useWalletLogin` hook, the Lens SDK retrieves the Lens Profile owned by the authenticated wallet address and selects the first profile as the Active Profile.
@@ -35,11 +36,11 @@ function MyProfile() {
 ```
 
 > 📘 Pro-tip
-> 
-> For the TypeScript enthusiast out there, you might have noticed that the  `useActiveProfile` yields a specialized type of profile called `ProfileOwnedByMe`.
-> 
+>
+> For the TypeScript enthusiast out there, you might have noticed that the `useActiveProfile` yields a specialized type of profile called `ProfileOwnedByMe`.
+>
 > In and around the SDK your will find hooks that requires to know the Lens profile that is performing a given operation. Those hooks makes it clear that they need a profile owned by the logged-in wallet using the type `ProfileOwnedByMe`. See for example `collector` in `useCollect` hook or `follower` in `useFollow` hook.
-> 
+>
 > You can pass the profile returned by the `useActiveProfile` directly to those hook arguments and you can improve the type safety of your Lens integration with not extra effort.
 
 ## Change the Active Profile
@@ -105,11 +106,11 @@ function ProfileSwitcher() {
 ```
 
 > 👍 Pro-tip
-> 
+>
 > Again, for the TypeScript enthusiast might notice that `useProfilesOwnedByMe` returns `ProfileOwnedByMe` instances and that `useActiveProfileSwitch` callback accepts `ProfileOwnedByMe` only.
-> 
+>
 > This has 2 benefits:
-> 
+>
 > - self-document the hooks by informing how hooks can be composed together
 > - provides type safety that avoid run-time issues before they can occur.
 
@@ -123,13 +124,13 @@ import { useWalletLogin } from '@lens-protocol/react-web';
 function LoginButton() {
   const { execute: login, error: loginError, isPending: isLoginPending } = useWalletLogin();
 
-  const onLoginClick = async () => {    
+  const onLoginClick = async () => {
     const handle = window.prompt('Type the profile handle you want to login with')
-    
+
     // signer is available here, omitted for brevity
     await login(signer, handle);
   };
- 
+
   return (
     <div>
       {loginError && <p>{loginError}</p>}

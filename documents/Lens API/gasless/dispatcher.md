@@ -5,6 +5,7 @@ hidden: false
 createdAt: "2022-02-17T17:57:00.438Z"
 updatedAt: "2023-05-24T15:07:21.106Z"
 ---
+
 # Dispatcher
 
 The **Dispatcher** enables gasless and signless transactions (transactions without signing any approval modals) in your Lens app.
@@ -44,13 +45,14 @@ You can use the `withSig` methods and go through the `broadcast` logic to keep t
 ```graphql example operation
 query Profile {
   profile(request: { profileId: "0x18" }) {
-    dispatcher { 
+    dispatcher {
       address
       canUseRelay
     }
   }
 }
 ```
+
 ```javascript example response
 {
   "data": {
@@ -73,9 +75,9 @@ As a dispatcher can only use a subset of methods this doesn't mean you can not b
 ## Set dispatcher
 
 > 📘 Full code example
-> 
+>
 > Disable - <https://github.com/lens-protocol/api-examples/blob/master/src/dispatcher/disable-dispatcher.ts>
-> 
+>
 > Enable - <https://github.com/lens-protocol/api-examples/blob/master/src/dispatcher/enable-dispatcher.ts>
 
 This API call allows you to get the typed data to then call the `withSig` method to set a dispatcher for your Lens profile.
@@ -83,25 +85,27 @@ This API call allows you to get the typed data to then call the `withSig` method
 Dispatcher allows another address to post, comment, mirror, set follow module and change the profile picture on behalf of you using their wallet
 
 > 🚧 This request is protected by authentication
-> 
+>
 > hint: this means it requires an x-access-token header put in the request with your authentication token.
 
 Typed data is a way to try to show the users what they are signing in a more readable format. You can read more about it [here](https://eips.ethereum.org/EIPS/eip-712).
 
-Constructing that type of data is normally difficult. On the type data, you also need to get the nonce, deadline, contract version, contract address, chain id, and the name of the contract for the signature to be able to be signed and verified. 
+Constructing that type of data is normally difficult. On the type data, you also need to get the nonce, deadline, contract version, contract address, chain id, and the name of the contract for the signature to be able to be signed and verified.
 
 When using this API the server checks every detail before it generates the typed data. For example: if you try to create typed data on an always failing transaction the server will throw an error in a human-readable form. This is great for debugging but also saves issues with users sending always failing transactions or a mismatch of a bad request.
 
-We will show you the typed data approach using ethers and the API side by side. Keep in mind that with the typed data approach you use the `withSig` methods which can be called by you with your signature or with that signature any relay could call it for you on your behalf allowing gasless transactions. 
+We will show you the typed data approach using ethers and the API side by side. Keep in mind that with the typed data approach you use the `withSig` methods which can be called by you with your signature or with that signature any relay could call it for you on your behalf allowing gasless transactions.
 
 # API Design
 
 ```graphql Example operation
 mutation CreateSetDispatcherTypedData {
-  createSetDispatcherTypedData(request:{
-    profileId: "0x1d",
-    dispatcher: "0xdfd7D26fd33473F475b57556118F8251464a24eb"
-  }) {
+  createSetDispatcherTypedData(
+    request: {
+      profileId: "0x1d"
+      dispatcher: "0xdfd7D26fd33473F475b57556118F8251464a24eb"
+    }
+  ) {
     id
     expiresAt
     typedData {
@@ -127,6 +131,7 @@ mutation CreateSetDispatcherTypedData {
   }
 }
 ```
+
 ```javascript Example response
 {
   "data": {
@@ -186,7 +191,7 @@ You can pass in the `dispatcher` as per the above to set a dispatcher.
 
 ### enabled
 
-You can remove the dispatcher by setting `enabled: false`. 
+You can remove the dispatcher by setting `enabled: false`.
 
 Example in the request as below:
 
@@ -250,7 +255,7 @@ const data = typedDataResult.unwrap();
 const signedTypedData = await wallet._signTypedData(
   data.typedData.domain,
   data.typedData.types,
-  data.typedData.value
+  data.typedData.value,
 );
 
 // broadcast
@@ -268,9 +273,8 @@ if (!isRelayerResult(broadcastResultValue)) {
 }
 
 console.log(
-  `Transaction was successfuly broadcasted with txId ${broadcastResultValue.txId}`
+  `Transaction was successfuly broadcasted with txId ${broadcastResultValue.txId}`,
 );
-
 ```
 
 ### Reference

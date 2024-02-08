@@ -6,6 +6,7 @@ hidden: false
 createdAt: "2023-03-08T22:00:53.661Z"
 updatedAt: "2023-05-17T12:29:40.290Z"
 ---
+
 ## Next.js build failing
 
 You might see your Next.js build failing with an error like this:
@@ -21,7 +22,7 @@ To fix it you need to edit you `next.config.js` so to make sure the Lens SDK and
 
 ```js
 const nextConfig = {
-  transpilePackages: ['@lens-protocol'],
+  transpilePackages: ["@lens-protocol"],
 };
 ```
 

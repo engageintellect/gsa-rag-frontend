@@ -8,7 +8,7 @@ id: "y8zhb26v3fne7xo"
 likes: []
 name: "Artificial General Intelligence (AGI)"
 tagline: "Skynet is otw"
-tags: ["v279zcrn3qjme3j","b0uoqk121pmlyfi"]
+tags: ["v279zcrn3qjme3j", "b0uoqk121pmlyfi"]
 thumbnail: "modern_tech_5szoAYiOq5.png"
 updated: "2023-08-03 11:27:50.055Z"
 url: "https://google.com"

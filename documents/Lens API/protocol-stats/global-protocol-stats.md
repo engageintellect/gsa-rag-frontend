@@ -5,8 +5,9 @@ hidden: false
 createdAt: "2022-03-23T10:40:55.030Z"
 updatedAt: "2023-03-14T13:00:54.722Z"
 ---
+
 > 📘 Full code example
-> 
+>
 > <https://github.com/lens-protocol/api-examples/blob/master/src/protocol-stats/global-protocol-stats.ts>
 
 This query returns to you the global protocol stats of key metrics.
@@ -35,6 +36,7 @@ query GlobalProtocolStats {
   }
 }
 ```
+
 ```javascript Example response
 {
   "data": {
@@ -61,11 +63,13 @@ query GlobalProtocolStats {
   }
 }
 ```
+
 ```javascript Query interface
 type Query {
 	globalProtocolStats(request: GlobalProtocolStatsRequest): GlobalProtocolStats!
 }
 ```
+
 ```javascript Request
 input GlobalProtocolStatsRequest {
   # Unix time from timestamp - if not supplied it will go from 0 timestamp
@@ -78,6 +82,7 @@ input GlobalProtocolStatsRequest {
   sources: [Sources!]
 }
 ```
+
 ```javascript Response
 type GlobalProtocolStats {
   totalProfiles: Int!
@@ -91,11 +96,9 @@ type GlobalProtocolStats {
 }
 ```
 
-
-
 ## Request
 
-Let's look at the query options we can use here to get for different things. 
+Let's look at the query options we can use here to get for different things.
 
 ```javascript get global stats
 {
@@ -111,9 +114,7 @@ Let's look at the query options we can use here to get for different things.
  }
 ```
 
-
-
-# 
+#
 
 # Using LensClient SDK
 
@@ -121,6 +122,6 @@ Let's look at the query options we can use here to get for different things.
 const result = await lensClient.stats.fetch({
   fromTimestamp: 1642934933,
   toTimestamp: 1648032533,
-  sources: ['someAppId']
+  sources: ["someAppId"],
 });
 ```

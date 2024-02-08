@@ -5,33 +5,25 @@ hidden: false
 createdAt: "2023-01-06T10:16:42.967Z"
 updatedAt: "2023-03-20T06:55:40.487Z"
 ---
+
 `useWhoReacted` is a React hook that allows you to query for profiles that reacted to a publication.
 
 ```typescript
-const { data, loading, hasMore, next } = useWhoReacted(args)
+const { data, loading, hasMore, next } = useWhoReacted(args);
 ```
-
-
 
 ## Usage
 
 ```typescript TypeScript
-import { useWhoReacted } from '@lens-protocol/react-web';
+import { useWhoReacted } from "@lens-protocol/react-web";
 
 function WhoReacted() {
-  const {
-    data,
-    loading,
-    hasMore,
-    next,
-  } = useWhoReacted({
-    publicationId: '0x1b-0x0118',
+  const { data, loading, hasMore, next } = useWhoReacted({
+    publicationId: "0x1b-0x0118",
     limit: 10,
   });
 }
 ```
-
-
 
 ## Reference
 
@@ -62,15 +54,13 @@ The amount of items to return.
 }
 ```
 
-
-
 ### `WhoReactedResultFragment`
 
 ```typescript
 {
-  reactionId: string,  
+  reactionId: string,
   reaction: ReactionType, // ie. ReactionType.UPVOTE
-  reactionAt: string,  
+  reactionAt: string,
   profile: ProfileFragment
 }
 ```

@@ -5,39 +5,40 @@ hidden: false
 createdAt: "2022-02-18T11:33:01.520Z"
 updatedAt: "2023-03-14T13:51:21.463Z"
 ---
+
 > 📘 Full code example
-> 
+>
 > Search profiles - <https://github.com/lens-protocol/api-examples/blob/master/src/search/search-profiles.ts>
-> 
+>
 > Search publications - <https://github.com/lens-protocol/api-examples/blob/master/src/search/search-publications.ts>
 
-This query allows you to search across hashtags on publications or profile handles. This query returns either a `Post` and `Comment` or `Profile`. 
+This query allows you to search across hashtags on publications or profile handles. This query returns either a `Post` and `Comment` or `Profile`.
 
 Querying the protocol publications for content and profiles is fundamental for social visibility and something we will continue to improve on.
 
 # API details
 
-You can search against profile handles or search against hashtags. Both will be explained in detail below. 
+You can search against profile handles or search against hashtags. Both will be explained in detail below.
 
 > 📘 Hot tip
-> 
+>
 > If you do not know GraphQL that well remember things can be nullable if defined as so in the schema how GraphQL knows its nullable is without the `!` at the end here is an example:
-> 
-> Not nullable: 
-> 
+>
+> Not nullable:
+>
 > ownedBy: EthereumAddress!
-> 
+>
 > Nullable:
-> 
+>
 > ownedBy: EthereumAddress
-> 
+>
 > It's always worth generating the TypeScript types for the schema if your application is TypeScript here is a reference to how you would do that - <https://www.apollographql.com/blog/tooling/apollo-codegen/typescript-graphql-code-generator-generate-graphql-types/>
 
-You will see the paging result behavior repeated a lot in the API.  This is to allow you to fetch a certain amount and then page it for the most optimal request speed. Every time something is wrapped in a paging result, you will always get returned a `pageInfo` which holds the cursors for the previous and next alongside the total count which exists in the database. These cursors are just pointers for the server to get to the next result and do not need to be understood by your client or server. If you ever want to then page to the next result you can pass these previous and next cursor in the request cursor property. 
+You will see the paging result behavior repeated a lot in the API. This is to allow you to fetch a certain amount and then page it for the most optimal request speed. Every time something is wrapped in a paging result, you will always get returned a `pageInfo` which holds the cursors for the previous and next alongside the total count which exists in the database. These cursors are just pointers for the server to get to the next result and do not need to be understood by your client or server. If you ever want to then page to the next result you can pass these previous and next cursor in the request cursor property.
 
 ## Search across profiles
 
- You can use the `type` property on the request which allows you to search on the same endpoint to define the type of search you want.
+You can use the `type` property on the request which allows you to search on the same endpoint to define the type of search you want.
 
 ```javascript Example operation
 query Search {
@@ -47,7 +48,7 @@ query Search {
     limit: 10
   }) {
     ... on ProfileSearchResult {
-      __typename 
+      __typename
       items {
         ... on Profile {
           ...ProfileFields
@@ -152,6 +153,7 @@ fragment ProfileFields on Profile {
   }
 }
 ```
+
 ```javascript Example response
 {
   "data": {
@@ -282,22 +284,18 @@ fragment ProfileFields on Profile {
 }
 ```
 
-
-
 ### Using LensClient SDK
 
 ```typescript
 const result = await lensClient.search.profiles({
-  query: 'josh',
+  query: "josh",
   limit: 10,
 });
 ```
 
-
-
 ## Search across publications
 
-For now, the search will search across anything which has hashtags and tags, this will be expanded to a full-text search soon. So if someone posted #foo that can be searched but if someone posted "I like #foo" only "foo" would be searchable and not "like". A full-text search API is under active development and will be released at a later point. 
+For now, the search will search across anything which has hashtags and tags, this will be expanded to a full-text search soon. So if someone posted #foo that can be searched but if someone posted "I like #foo" only "foo" would be searchable and not "like". A full-text search API is under active development and will be released at a later point.
 
 ```javascript Example operation
 query Search {
@@ -307,9 +305,9 @@ query Search {
     limit: 10
   }) {
     ... on PublicationSearchResult {
-       __typename 
+       __typename
       items {
-        __typename 
+        __typename
         ... on Comment {
           ...CommentFields
         }
@@ -324,7 +322,7 @@ query Search {
       }
     }
     ... on ProfileSearchResult {
-      __typename 
+      __typename
       items {
         ... on Profile {
           ...ProfileFields
@@ -424,7 +422,7 @@ fragment ProfileFields on Profile {
   }
 }
 
-fragment PublicationStatsFields on PublicationStats { 
+fragment PublicationStatsFields on PublicationStats {
   totalAmountOfMirrors
   totalAmountOfCollects
   totalAmountOfComments
@@ -513,10 +511,10 @@ fragment CommentFields on Comment {
       ...MirrorBaseFields
       mirrorOf {
         ... on Post {
-           ...PostFields          
+           ...PostFields
         }
         ... on Comment {
-           ...CommentMirrorOfFields        
+           ...CommentMirrorOfFields
         }
       }
     }
@@ -648,6 +646,7 @@ fragment ReferenceModuleFields on ReferenceModule {
   }
 }
 ```
+
 ```javascript Example response
 {
   "data": {
@@ -730,13 +729,11 @@ fragment ReferenceModuleFields on ReferenceModule {
 }
 ```
 
-
-
 ### Using LensClient SDK
 
 ```typescript
 const result = await lensClient.search.publications({
-  query: 'hello',
+  query: "hello",
   limit: 10,
 });
 ```

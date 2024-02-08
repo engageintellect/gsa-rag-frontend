@@ -6,6 +6,7 @@ hidden: false
 createdAt: "2023-01-19T17:41:35.097Z"
 updatedAt: "2023-04-03T15:53:57.576Z"
 ---
+
 ## Async errors
 
 In the vast majority of the operations, the Lens SDK makes use of optimistic update strategies to return control to the user in a timely fashion. Several of these operations might involve long-lasting tasks that due to their nature might require from a handful of seconds up to minutes to settle.
@@ -13,25 +14,18 @@ In the vast majority of the operations, the Lens SDK makes use of optimistic upd
 When configuring the `<LensProvider>` wrapper you can specify an `errorHandler` function.
 
 ```html JSX
-<LensProvider config={lensConfig} onError={errorHandler}>
+<LensProvider config="{lensConfig}" onError="{errorHandler}">
   <YourAppCode />
 </LensProvider>
 ```
-
-
 
 If one of these long-lasting tasks fails the Lens SDK will invoke the `errorHandler` function to notify you of the failure.
 
 The `errorHandler` function has the following signature:
 
 ```typescript
-function errorHandler(
-  error:
-    | FailedTransactionError
-): void;
+function errorHandler(error: FailedTransactionError): void;
 ```
-
-
 
 where:
 
@@ -43,6 +37,7 @@ where:
     - `PendingTransactionData<Request>` - the transaction failed at a very early stage of creation even before receiving a TX hash.
     - `BroadcastedTransactionData<Request>` - the transaction failed after has been broadcasted to the network. At this stage, the transaction has an associated TX hash.
   - `reason: TransactionError` - the error object that contains the `reason` of the failure. Currently, the reason could be one of these:
+
     ````typescript
     ```typescript
     enum TransactionErrorReason {
@@ -56,7 +51,7 @@ where:
        * within the expected timeout.
        */
       INDEXING_TIMEOUT = 'INDEXING_TIMEOUT',
-
+    
       /**
        * Tthe tx was broadcasted but it was not mined within the
        * expected timeout
@@ -73,18 +68,17 @@ where:
        * The tx was reverted.
        */
       REVERTED = 'REVERTED',
-
+    
       /**
        * A not recognized failure.
        */
       UNKNOWN = 'UNKNOWN',
     }
-    ```
+    ```;
     ````
 
-
 > 🚧 Errors, errors everywhere...
-> 
+>
 > The `LensProvider` `onError` handler would evolve over time with more errors being added so make sure you get notified by your tooling (.e.g typescript compiler) that new errors are not handled after updating the `@lens-protocol/react` version.
 
 ## Generic local errors
@@ -94,8 +88,6 @@ A lot of hooks that modify state report the `error` as a part of the hook return
 ```
   const { execute, error, isPending } = useWalletLogin();
 ```
-
-
 
 Sometimes the errors are specific to the operation being involved (e.g. `FailedUploadError` when creating publication) but a lot of hooks share some common errors related to handling transaction errors.
 
@@ -111,19 +103,19 @@ export enum WalletConnectionErrorReason {
    * The operation required the wallet to be on a specific network
    * and it was not possible to switch network.
    */
-  
-  INCORRECT_CHAIN = 'INCORRECT_CHAIN',
+
+  INCORRECT_CHAIN = "INCORRECT_CHAIN",
   /**
    * The operation required signing from a specific address,
    * instead the connected wallet is associated with another address.
    */
-  
-  WRONG_ACCOUNT = 'WRONG_ACCOUNT',
-  
+
+  WRONG_ACCOUNT = "WRONG_ACCOUNT",
+
   /**
-   * There is a pending connection request that 
+   * There is a pending connection request that
    * was not yet cancelled or approved.
    */
-  STALE_CONNECTION_REQUEST = 'STALE_CONNECTION_REQUEST',
+  STALE_CONNECTION_REQUEST = "STALE_CONNECTION_REQUEST",
 }
 ```

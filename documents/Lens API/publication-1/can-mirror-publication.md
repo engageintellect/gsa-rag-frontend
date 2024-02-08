@@ -5,6 +5,7 @@ hidden: false
 createdAt: "2022-09-23T08:45:26.093Z"
 updatedAt: "2023-03-16T16:02:31.784Z"
 ---
+
 Reference modules allow you to place criteria on the comment and mirror commands on who is actually allowed to do it. For example, a publication could set only their followers can comment and mirror. You need a way to quickly look this up for the selected profile the user is browsing on. In the `canMirror` field resolver you can pass in a `profileId`If you wish to know if they can mirror or not, most apps would use the logged-in user's selected profile they are browsing on.
 
 # API design basic
@@ -19,7 +20,7 @@ query Publications {
     limit: 10,
   }) {
     items {
-      __typename 
+      __typename
       ... on Post {
         canMirror(profileId: "0x01") {
           result
@@ -44,8 +45,6 @@ query Publications {
   }
 }
 ```
-
-
 
 `profileId` for `canMirror` can pass in as a variable easily enough as well. You can imagine passing the logged-in user's profiles they are browsing on to see if they can comment on the publication. This can be hooked in like this for every query which returns a publication type (Post or Comment or Mirror)
 
@@ -53,7 +52,7 @@ query Publications {
 query Publications($publicationsRequest: PublicationsQueryRequest!, $profileId: ProfileId) {
   publications(request: $publicationsRequest) {
     items {
-      __typename 
+      __typename
       ... on Post {
         canMirror(profileId: $profileId) {
         	result
@@ -79,16 +78,14 @@ query Publications($publicationsRequest: PublicationsQueryRequest!, $profileId: 
 }
 ```
 
-
-
-# 
+#
 
 # Using LensClient SDK
 
 Provide `observerId` as an argument to get results in the context of the observer profile.
 
 ```typescript
-const observerId = "0x01"
+const observerId = "0x01";
 
 const result = await lensClient.publication.fetchAll(request, observerId);
 

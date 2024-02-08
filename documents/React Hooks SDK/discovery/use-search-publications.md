@@ -5,25 +5,22 @@ hidden: false
 createdAt: "2023-01-12T07:21:37.816Z"
 updatedAt: "2023-03-20T07:14:58.482Z"
 ---
-`useSearchPublications` is a React Hook used to query Lens publications based on a query. 
+
+`useSearchPublications` is a React Hook used to query Lens publications based on a query.
 
 ```typescript
-const { data, loading, hasMore, next } = useSearchPublications(args)
+const { data, loading, hasMore, next } = useSearchPublications(args);
 ```
-
-
 
 ## Usage
 
 ```typescript TypeScript
-import { useSearchPublications } from "@lens-protocol/react-web"
+import { useSearchPublications } from "@lens-protocol/react-web";
 
 function SearchPublications() {
-  const { data, loading } = useSearchPublications({ query: 'web3'})
- }
+  const { data, loading } = useSearchPublications({ query: "web3" });
+}
 ```
-
-
 
 ## Reference
 

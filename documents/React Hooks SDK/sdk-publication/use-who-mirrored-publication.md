@@ -5,33 +5,25 @@ hidden: false
 createdAt: "2023-01-25T01:38:35.366Z"
 updatedAt: "2023-03-20T06:55:25.617Z"
 ---
+
 `useWhoMirroredPublication` is a React hook that allows you to query for profiles that mirrored a publication.
 
 ```typescript
-const { data, loading, hasMore, next } = useWhoMirroredPublication(args)
+const { data, loading, hasMore, next } = useWhoMirroredPublication(args);
 ```
-
-
 
 ## Usage
 
 ```typescript TypeScript
-import { useWhoMirroredPublication } from '@lens-protocol/react-web';
+import { useWhoMirroredPublication } from "@lens-protocol/react-web";
 
 function WhoMirroredPublication() {
-  const {
-    data,
-    loading,
-    hasMore,
-    next,
-  } = useWhoMirroredPublication({
-    publicationId: '0x1b-0x0118',
+  const { data, loading, hasMore, next } = useWhoMirroredPublication({
+    publicationId: "0x1b-0x0118",
     limit: 10,
   });
 }
 ```
-
-
 
 ## Reference
 

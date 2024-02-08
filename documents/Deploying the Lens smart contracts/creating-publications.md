@@ -6,9 +6,10 @@ hidden: false
 createdAt: "2022-01-17T21:38:03.900Z"
 updatedAt: "2022-10-27T22:38:45.486Z"
 ---
+
 ## Creating the Custom Task
 
-I'm sure you're used to it by now; we'll start by creating a new file called `post.ts` in the `tasks/` directory. 
+I'm sure you're used to it by now; we'll start by creating a new file called `post.ts` in the `tasks/` directory.
 
 We'll also include our usual imports and basic initialization. We're also going to be using the `FreeCollectModule,` which allows any follower to collect our post for free into perpetuity. Here's what the file should look like:
 
@@ -29,8 +30,6 @@ task('post', 'publishes a post')
 
 ```
 
-
-
 ## Whitelisting the Collect Module
 
 The protocol only allows whitelisted collect modules to be used in posts and comments (mirrors don't have a collect module associated with them), so we've got to whitelist our free collect module:
@@ -40,8 +39,6 @@ The protocol only allows whitelisted collect modules to be used in posts and com
   await waitForTx(lensHub.whitelistCollectModule(freeCollectModuleAddr, true));
 ...
 ```
-
-
 
 ## Creating the Post
 
@@ -70,11 +67,9 @@ Now that we've whitelisted the collect module, we're ready to create our post! L
     }
 ```
 
-
-
 Now we're ready to move forward with building our input struct! We want the profile ID to be 1 since we own the only profile in existence. The content URI can be mocked. The collect module will be the newly whitelisted `FreeCollectModule,` which takes no data, and lastly, the reference module and its associated data field are free.
 
->  In production you will want to make sure the content saved for the `contentURI` conforms to the metadata standards outlined [here](https://docs.lens.xyz/docs/metadata-standards).
+> In production you will want to make sure the content saved for the `contentURI` conforms to the metadata standards outlined [here](https://docs.lens.xyz/docs/metadata-standards).
 
 Here's how that should look:
 
@@ -91,8 +86,6 @@ Here's how that should look:
 ...
 ```
 
-
-
 Alright, now we're just about ready to execute the transaction. Like profile creation, we'll connect the `lensHub` instance to our `user` signer and send the transaction! To be sure, we're also going to add some logging to ensure everything works exactly how we expect it to:
 
 ```
@@ -101,8 +94,6 @@ Alright, now we're just about ready to execute the transaction. Like profile cre
   console.log(await lensHub.getPub(1, 1));
 ...
 ```
-
-
 
 ## Recap
 
@@ -137,15 +128,11 @@ task('post', 'publishes a post').setAction(async ({}, hre) => {
 });
 ```
 
-
-
 Finally, let's go ahead and run the task:
 
 ```
 $ npx hardhat post --network localhost
 ```
-
-
 
 If everything went according to plan, the console should output something like this:
 
@@ -165,7 +152,5 @@ If everything went according to plan, the console should output something like t
   collectNFT: '0x0000000000000000000000000000000000000000'
 ]
 ```
-
-
 
 Awesome! That checks out -- we've created our first profile and published our first post. Now, naturally, our profile and post are a bit lonely, out there in the void, so let's move forward with following our profile and collecting the post!

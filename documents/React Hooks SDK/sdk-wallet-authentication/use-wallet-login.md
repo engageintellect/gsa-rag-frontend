@@ -5,13 +5,12 @@ hidden: true
 createdAt: "2023-01-23T17:50:04.489Z"
 updatedAt: "2023-03-10T11:03:17.934Z"
 ---
+
 `useWalletLogin` is a React Hook that lets you authenticate with the Lens API.
 
 ```typescript
 const { execute, error, isPending } = useWalletLogin();
 ```
-
-
 
 ## Usage
 
@@ -44,7 +43,7 @@ function LoginButton() {
       await login(signer);
     }
   };
- 
+
   return (
     <div>
       {error && <p>{error}</p>}
@@ -54,10 +53,8 @@ function LoginButton() {
 }
 ```
 
-
-
 > 📘 Looking for a full-fledged example?
-> 
+>
 > Check the [web-wagmi](https://github.com/lens-protocol/lens-sdk/tree/main/examples/web-wagmi) example in the Lens SDK monorepo. It's showcasing a full authnetication integration with some helper components to control which part of the UI should be just for logged in (or logged out) users.
 
 ## Reference
@@ -71,8 +68,6 @@ function LoginButton() {
   const { execute, error, isPending } = useWalletLogin();
   // ...
 ```
-
-
 
 #### Parameters
 
@@ -91,10 +86,8 @@ Returns an object with:
 The `execute` function returned by the `useWalletLogin` lets you programmatically login the specified [ethers](https://ethers.org/) `Signer`. If called multiple times it will re-trigger a new login flow. If called with a different signer it will implicitly log-out the old signer and log-in the new one.
 
 ```typescript
-execute(signer)
+execute(signer);
 ```
-
-
 
 #### Parameters
 

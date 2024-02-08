@@ -5,12 +5,13 @@ hidden: false
 createdAt: "2022-02-18T11:36:27.090Z"
 updatedAt: "2023-03-14T12:42:21.693Z"
 ---
+
 > 📘 Full code example
-> 
+>
 > <https://github.com/lens-protocol/api-examples/blob/master/src/module/enabled-modules.ts>
 
 > 🚧 This request is protected by authentication
-> 
+>
 > hint: this means it requires an x-access-token header put in the request with your authentication token.
 
 This query returns to you all the modules that the server knows about and information about those modules.
@@ -71,6 +72,7 @@ query CollectModules {
   }
 }
 ```
+
 ```javascript Example response
 {
   "data": {
@@ -433,11 +435,13 @@ query CollectModules {
   }
 }
 ```
+
 ```javascript Query interface
 type Query {
   enabledModules: EnabledModules!
 }
 ```
+
 ```javascript Response
 type EnabledModules {
   collectModules: [EnabledModule!]!
@@ -457,18 +461,15 @@ type ModuleInfo {
   name: String!
   type: String!
 }
-  
+
 # Contract address custom scalar type
 scalar ContractAddress
 ```
 
-
-
-# 
+#
 
 # Using LensClient SDK
 
 ```typescript
-const result = await lensClient.modules.fetchEnabled()
-
+const result = await lensClient.modules.fetchEnabled();
 ```

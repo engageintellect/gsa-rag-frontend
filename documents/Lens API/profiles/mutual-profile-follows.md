@@ -5,8 +5,9 @@ hidden: false
 createdAt: "2022-09-23T11:35:49.418Z"
 updatedAt: "2023-03-15T18:18:55.198Z"
 ---
+
 > 📘 Full code example
-> 
+>
 > <https://github.com/lens-protocol/api-examples/blob/master/src/profile/mutual-profile-follows.ts>
 
 This will return you mutual profiles based on the 2 profiles following. It will return to you all profiles that the profile you are viewing is followed by the profiles you follow.
@@ -14,7 +15,7 @@ This will return you mutual profiles based on the 2 profiles following. It will 
 # API Design
 
 > 📘 Use the GraphQL schema...
-> 
+>
 > One of the huge advantages of GraphQL is you have a schema that should explain how the schema should look at what properties exist in that. In these docs we explore code examples and explain key concepts but we will not explain each property that exists in the response for example, as the schema already does that!
 
 ```Text Example operation
@@ -140,6 +141,7 @@ fragment FollowModuleFields on FollowModule {
   }
 }
 ```
+
 ```Text Example response
 {
   "data": {
@@ -311,9 +313,7 @@ fragment FollowModuleFields on FollowModule {
 }
 ```
 
-
-
-You will see the paging result behavior repeated a lot in the API, this is to allow you to fetch a certain amount and then page it for the most optimal request speed. Every time something is wrapped in a paging result you will always get returned a `pageInfo` which holds the cursors for the previous and next alongside the total count which exists in the database. These cursors are just pointers for the server to get to the next result and do not need to be understood by your client or server. If you ever want to then page to the next result you can pass these previous and next cursor in the request cursor property. 
+You will see the paging result behavior repeated a lot in the API, this is to allow you to fetch a certain amount and then page it for the most optimal request speed. Every time something is wrapped in a paging result you will always get returned a `pageInfo` which holds the cursors for the previous and next alongside the total count which exists in the database. These cursors are just pointers for the server to get to the next result and do not need to be understood by your client or server. If you ever want to then page to the next result you can pass these previous and next cursor in the request cursor property.
 
 ## Request
 
@@ -325,9 +325,7 @@ The profile id you are viewing
 
 The profile id the user is looking from
 
-
-
-# 
+#
 
 # Using LensClient SDK
 

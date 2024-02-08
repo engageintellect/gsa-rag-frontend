@@ -6,15 +6,19 @@ hidden: false
 createdAt: "2022-02-04T21:46:55.302Z"
 updatedAt: "2022-05-31T14:45:03.609Z"
 ---
+
 [block:callout]
 {
-  "type": "info",
-  "title": "Getting Set Up",
-  "body": "If you don't yet know how to run the Docker container and interact with your own local blockchain, or if you find yourself a little confused, check out the walkthrough! \n\nThis tutorial also assumes your environment is set up and you're operating from within the Docker container."
+"type": "info",
+"title": "Getting Set Up",
+"body": "If you don't yet know how to run the Docker container and interact with your own local blockchain, or if you find yourself a little confused, check out the walkthrough! \n\nThis tutorial also assumes your environment is set up and you're operating from within the Docker container."
 }
 [/block]
+
 ## Creating the Custom Task
+
 Let's create a file called `test-module.ts` in the `tasks/` directory and add a few imports:
+
 ```
 import { defaultAbiCoder } from 'ethers/lib/utils';
 import { task } from 'hardhat/config';
@@ -37,6 +41,7 @@ import {
 If your linter is upset at the `SecretCodeFollowModule__factory`, make sure you've compiled the contracts that should generate the missing typechain binding.
 
 Next up, let's go ahead and start writing our task. We're going to want to unpause the protocol, whitelist the user for profile creation, and create a profile.
+
 ```
 ...
 task('test-module', 'tests the SecretCodeFollowModule').setAction(async ({}, hre) => {
@@ -61,10 +66,13 @@ task('test-module', 'tests the SecretCodeFollowModule').setAction(async ({}, hre
 });
 ...
 ```
+
 Note that we connected the hub to the user to create the profile. And with that, we're ready to deploy, whitelist, set and finally test the follow module!
 
 ## Setting Up the New Module
+
 In order to deploy a new contract, we're going to use the typechain factory, here's how:
+
 ```
 ...
   const secretCodeFollowModule = await deployContract(
@@ -73,11 +81,12 @@ In order to deploy a new contract, we're going to use the typechain factory, her
 ...
 ```
 
-Note that we're using a custom wrapper function (`deployContract()`) that just ensures that the execution is paused until the contract is confirmed to have been deployed. 
+Note that we're using a custom wrapper function (`deployContract()`) that just ensures that the execution is paused until the contract is confirmed to have been deployed.
 
 To briefly explain what's going on here, we're constructing the factory with the governance signer and passing the hub address in the module's constructor at deployment.
 
 Next up, we'll want to whitelist the module:
+
 ```
 ...
   await waitForTx(lensHub.whitelistFollowModule(secretCodeFollowModule.address, true));
@@ -85,12 +94,14 @@ Next up, we'll want to whitelist the module:
 ```
 
 Now we're on to the last step before we put it to the test, let's set this new module as our follow module:
+
 ```
 ...
   const data = defaultAbiCoder.encode(['uint256'], ['42069']);
   await waitForTx(lensHub.connect(user).setFollowModule(1, secretCodeFollowModule.address, data));
 ...
 ```
+
 Here's where we're using that `defaultAbiCoder` we imported earlier since we've got to pass encoded data to be decoded in the follow module's initialization.
 
 One more thing: if you're running this on a chain you've interacted with before, make sure you're specifying the correct profile ID in our case, this is 1, since this is the only profile in existence!
@@ -98,14 +109,15 @@ One more thing: if you're running this on a chain you've interacted with before,
 Finally, we're ready to test out our new module!
 
 ## Testing the New Module
-If everything went well, we know that if we pass the same number we encoded in our `data` parameter earlier, the follow should be successful. 
+
+If everything went well, we know that if we pass the same number we encoded in our `data` parameter earlier, the follow should be successful.
 
 Let's go ahead and use a `try {} catch {}` statement to validate the unsuccessful case, and then validate the successful case. We'll log the same data as we did in the walkthrough section for following:
 
 ```
 ...
   const badData = defaultAbiCoder.encode(['uint256'], ['1337']);
-  
+
   try {
     await waitForTx(lensHub.connect(user).follow([1], [badData]));
   } catch (e) {
@@ -129,6 +141,7 @@ Let's go ahead and use a `try {} catch {}` statement to validate the unsuccessfu
 Alright, that about wraps it up!
 
 ## Recap
+
 Before we execute our hardhat task, let's take a quick look at what the `test-module.ts` file looks like in its entirety:
 
 ```
@@ -178,7 +191,7 @@ task('test-module', 'tests the SecretCodeFollowModule').setAction(async ({}, hre
   await waitForTx(lensHub.connect(user).setFollowModule(1, secretCodeFollowModule.address, data));
 
   const badData = defaultAbiCoder.encode(['uint256'], ['1337']);
-  
+
   try {
     await waitForTx(lensHub.connect(user).follow([1], [badData]));
   } catch (e) {
@@ -199,22 +212,24 @@ task('test-module', 'tests the SecretCodeFollowModule').setAction(async ({}, hre
 });
 ```
 
-As a quick rundown, we've unpaused the protocol, created a profile, deployed a new follow module, whitelisted it, set it as the follow module for our profile and tested it. 
+As a quick rundown, we've unpaused the protocol, created a profile, deployed a new follow module, whitelisted it, set it as the follow module for our profile and tested it.
 [block:callout]
 {
-  "type": "info",
-  "title": "On Testing",
-  "body": "In this example, we used a rudimentary `try {} catch {}` statement to test our functionality, this isn't actually recommended (we use Waffle and Chai with Hardhat). For a more in-depth look at how these contracts are tested, check out the `test/` directory and [Hardhat's testing documentation!](https://hardhat.org/guides/waffle-testing.html)"
+"type": "info",
+"title": "On Testing",
+"body": "In this example, we used a rudimentary `try {} catch {}` statement to test our functionality, this isn't actually recommended (we use Waffle and Chai with Hardhat). For a more in-depth look at how these contracts are tested, check out the `test/` directory and [Hardhat's testing documentation!](https://hardhat.org/guides/waffle-testing.html)"
 }
 [/block]
 Alright, it's all or nothing. You know the drill, let's run the task against our local chain (if you don't have one spun up, no worries--check out the walkthrough section).
 
 Here goes:
+
 ```
 $ npx hardhat test-module --network localhost
 ```
 
 If everything went according to plan, here's what your terminal output should look like:
+
 ```
 Expected failure occurred! Error: ProviderError: Error: VM Exception while processing transaction: reverted with custom error 'PasscodeInvalid()'
 Follow NFT total supply (should be 1): 1

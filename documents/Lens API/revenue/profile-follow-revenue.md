@@ -5,8 +5,9 @@ hidden: false
 createdAt: "2022-09-23T10:40:40.205Z"
 updatedAt: "2023-03-14T13:43:47.607Z"
 ---
+
 > 📘 Full code example
-> 
+>
 > <https://github.com/lens-protocol/api-examples/blob/master/src/revenue/profile-follow-revenue.ts>
 
 This query returns the amounts earned on the requested profile for all follows. It will group them up by currency.
@@ -30,6 +31,7 @@ query ProfileFollowRevenue {
   }
 }
 ```
+
 ```javascript Example response
 {
   "data": {
@@ -63,12 +65,10 @@ query ProfileFollowRevenue {
 }
 ```
 
-
-
-# 
+#
 
 # Using LensClient SDK
 
 ```typescript
-const result = await lensClient.revenue.profileFollow({ profileId: '0x0185' });
+const result = await lensClient.revenue.profileFollow({ profileId: "0x0185" });
 ```

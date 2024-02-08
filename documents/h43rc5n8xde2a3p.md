@@ -8,7 +8,7 @@ id: "h43rc5n8xde2a3p"
 likes: []
 name: "Quantum Computing"
 tagline: "We're not even sure how it works"
-tags: ["f6adlms7fyy9mgl","si2fvdks1bj9gza","89sfe3no0r6qbqz"]
+tags: ["f6adlms7fyy9mgl", "si2fvdks1bj9gza", "89sfe3no0r6qbqz"]
 thumbnail: "quantumcomputer_Mi3B4kUcKl.jpg"
 updated: "2023-09-13 04:25:22.800Z"
 url: "https://google.com"

@@ -5,8 +5,9 @@ hidden: false
 createdAt: "2022-10-11T16:40:24.511Z"
 updatedAt: "2023-03-31T14:18:50.940Z"
 ---
+
 > 🚧 This request is protected by authentication
-> 
+>
 > hint: this means it requires an x-access-token header put in the request with your authentication token.
 
 Feed is one of the most fundamental elements that a successful social media site needs. It can be used to show the user what is happening on the social feeds of people they follow and what they like. The feed queries will get smarter, eventually bringing in AI and data profiling. We will continue to improve what data is returned by the API. The beauty of this is if you use the API you just inherit this functionality without having to update anything. This also is fully open so if you wish to see someone else's feed just supply their profile id in!
@@ -23,7 +24,7 @@ If one of the profiles you follow comments on a publication it will appear on yo
 
 ## Mirror
 
-If one of the profiles you follow mirrors a publication it will appear in your timeline. Remember people can mirror a post or a comment. 
+If one of the profiles you follow mirrors a publication it will appear in your timeline. Remember people can mirror a post or a comment.
 
 ## Collected
 
@@ -213,7 +214,7 @@ fragment ProfileFields on Profile {
 
 }
 
-fragment PublicationStatsFields on PublicationStats { 
+fragment PublicationStatsFields on PublicationStats {
 
   totalAmountOfMirrors
 
@@ -439,13 +440,13 @@ fragment CommentFields on Comment {
 
         ... on Post {
 
-           ...PostFields          
+           ...PostFields
 
         }
 
         ... on Comment {
 
-           ...CommentMirrorOfFields        
+           ...CommentMirrorOfFields
 
         }
 
@@ -711,6 +712,7 @@ fragment ReferenceModuleFields on ReferenceModule {
 
 }
 ```
+
 ```json Example response
 {
   "data": {
@@ -1489,11 +1491,9 @@ fragment ReferenceModuleFields on ReferenceModule {
 }
 ```
 
-
-
 ## Response
 
-The response is aggregated for you to allow you to build really nice feeds. 
+The response is aggregated for you to allow you to build really nice feeds.
 
 ### root
 
@@ -1501,7 +1501,7 @@ This contains the feed item root which is a POST or a COMMENT, this is the main 
 
 ### electedMirror
 
-When a user collects it should collect the elected mirror id so that the user can get some profits for the collect if referral fees are set. This is sharing the elected mirror what this means is the first person in that aggregation who mirrored is elected. 
+When a user collects it should collect the elected mirror id so that the user can get some profits for the collect if referral fees are set. This is sharing the elected mirror what this means is the first person in that aggregation who mirrored is elected.
 
 **mirrorId** - the publication mirror id
 
@@ -1511,15 +1511,15 @@ When a user collects it should collect the elected mirror id so that the user ca
 
 ### mirrors
 
-The profiles which have mirrored this publication in the aggregation. The first 1 in the array is the most recent profile to mirror. 
+The profiles which have mirrored this publication in the aggregation. The first 1 in the array is the most recent profile to mirror.
 
-**profile** - the profile that mirrored 
+**profile** - the profile that mirrored
 
 **timestamp** - when that was mirrored
 
 ### collects
 
-The profiles which have collected this publication in the aggregation. The first 1 in the array is the most recent profile that collected. 
+The profiles which have collected this publication in the aggregation. The first 1 in the array is the most recent profile that collected.
 
 **profile** - the profile collected
 
@@ -1529,7 +1529,7 @@ The profiles which have collected this publication in the aggregation. The first
 
 The comments were published to the publication in the aggregation. The first 1 in the array is the most recent comment.
 
-# 
+#
 
 # Using LensClient SDK
 
@@ -1537,11 +1537,11 @@ The comments were published to the publication in the aggregation. The first 1 i
 // lensClient is authenticated
 
 const result = await lensClient.feed.fetch({
-  profileId: '0x123'
+  profileId: "0x123",
 });
-     
+
 // or
 const result = await lensClient.feed.fetchHighlights({
-  profileId: '0x123'
-}),
+  profileId: "0x123",
+});
 ```

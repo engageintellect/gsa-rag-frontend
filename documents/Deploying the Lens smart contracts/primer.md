@@ -6,6 +6,7 @@ hidden: false
 createdAt: "2022-01-12T23:52:06.590Z"
 updatedAt: "2023-01-13T21:23:18.852Z"
 ---
+
 ![](https://files.readme.io/27b2bc4-illustration_tend.svg "illustration_tend.svg")
 
 ## Summary
@@ -17,5 +18,5 @@ This section walks you through how to deploy the entire protocol in a local hard
 We'll first start with the repository and environment setup. You'll learn how to create a profile from scratch, publish a post, follow, collect, and even create your own custom module. We'll be using [ethers](https://www.npmjs.com/package/ethers), [hardhat](https://hardhat.org/), and [typescript](https://www.typescriptlang.org/) to interact with the protocol.
 
 > 📘 Before You Get Started
-> 
+>
 > You're going to need to have [Git](https://git-scm.com/) and [Docker Compose](https://docs.docker.com/compose/install/) installed on your system (this helps keep consistency between development machines and reduces OS/versioning errors!)

@@ -5,7 +5,8 @@ hidden: false
 createdAt: "2022-02-18T10:44:48.797Z"
 updatedAt: "2022-03-09T13:54:50.621Z"
 ---
-There are several major reasons we have decided to use GraphQL over a REST architecture: 
+
+There are several major reasons we have decided to use GraphQL over a REST architecture:
 
 # Strongly-typed schema
 
@@ -25,6 +26,6 @@ With GraphQL, developers can fetch only what is required. Nothing less, nothing 
 
 # The blockchain space people are used to GraphQL APIs
 
-The main reason is that we know the community use subgraphs on The Graph a lot and know how the syntax works so we think it will not be a learning curve at all for a lot of people who want to build on top of lens. 
+The main reason is that we know the community use subgraphs on The Graph a lot and know how the syntax works so we think it will not be a learning curve at all for a lot of people who want to build on top of lens.
 
 We have loads and loads more reasons but yeah we love `GraphQL` and works perfectly for our need here.

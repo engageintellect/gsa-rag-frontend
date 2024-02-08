@@ -6,6 +6,7 @@ hidden: false
 createdAt: "2023-02-27T15:37:14.700Z"
 updatedAt: "2023-04-05T04:34:43.796Z"
 ---
+
 # Introduction
 
 Lens already has indexers, which snapshot the data and transform it into a relational, super easy-to-understand database. This is how we get our speed on queries and how we can power all the LENS apps with the API. This saves the data into a centralised postgres database and allows you to query it using graphQL API. This is perfect for apps which need data on query time; for example, a user who is logging in wants to see their feed or see someone's profile. Querying this through the API is perfect and fast. The complication comes when you wish to bulk pull data, say you wish to do some ML training, some analytic, general data profiling. Right now, you would need a dedicated endpoint to surface that information, and of course, us creating these endpoints, which maybe you are only interested in. This does not scale. On top of this, having all this data and not allowing leverage for builders to do stuff feels wrong.
@@ -83,7 +84,7 @@ The public schema holds most of the logic most people will care about.
 
 ### app stats
 
-Apps can have their stats, aka what you did on lenster, for example. These tables do counters for actions on each app. 
+Apps can have their stats, aka what you did on lenster, for example. These tables do counters for actions on each app.
 
 ![](https://files.readme.io/8f2da9a-Untitled_1.png)
 
@@ -107,7 +108,7 @@ After you collect/follow, that NFT is still tradable. These tables keep the owne
 
 ### follower
 
-When you follow people, it's the wallet which follows, not profiles, so these tables keep that state in order. Please note it only writes once to the follower table, even if someone has followed that profile 100 times with the same wallet. A wallet can follow many times. 
+When you follow people, it's the wallet which follows, not profiles, so these tables keep that state in order. Please note it only writes once to the follower table, even if someone has followed that profile 100 times with the same wallet. A wallet can follow many times.
 
 ![](https://files.readme.io/1ddd53d-Untitled_5.png)
 
@@ -125,7 +126,7 @@ This table holds all the transaction hashes it has indexed with the block info a
 
 ### last seen block info
 
-The indexer uses blooms to work out if it needs to check the block, and if that block has the information it should care about, that means it does not check every single block. This table has the last block it did check; it is used if the indexer ever goes down, and it can pick up from where it left off. 
+The indexer uses blooms to work out if it needs to check the block, and if that block has the information it should care about, that means it does not check every single block. This table has the last block it did check; it is used if the indexer ever goes down, and it can pick up from where it left off.
 
 ![](https://files.readme.io/a0bb27a-Untitled_1.png)
 
@@ -164,9 +165,9 @@ A very important factor of LENS is profiles. With this, you have many factors wh
 
 Publications are the core heart of LENS. These tables keep all that information up to date.
 
-Please note just because it is in here does not mean it was successful in following metadata standards. For successful publication the `s3_metadata_location` should be defined, the `has_error` should be false and the `is_metadata_processed` should be true. 
+Please note just because it is in here does not mean it was successful in following metadata standards. For successful publication the `s3_metadata_location` should be defined, the `has_error` should be false and the `is_metadata_processed` should be true.
 
-Mirrors are in the `profile_post` table if it has an `is_related_to_post` or `is_related_to_comment` then it is a mirror. 
+Mirrors are in the `profile_post` table if it has an `is_related_to_post` or `is_related_to_comment` then it is a mirror.
 
 ![](https://files.readme.io/eb25641-Untitled.png)
 
@@ -190,7 +191,7 @@ This holds the LIT access control logic around a publication. If it is pending, 
 
 ### publication collect/reference modules
 
-These tables hold the collected and reference module details for a publication. It also holds the records of all the collects which have been done on that publication. 
+These tables hold the collected and reference module details for a publication. It also holds the records of all the collects which have been done on that publication.
 
 ![](https://files.readme.io/d3db0e6-Untitled_4.png)
 
@@ -208,7 +209,7 @@ Maps a publication ID to a publication type.
 
 ### publication tags
 
-These tables hold the publication tags which have been applied 
+These tables hold the publication tags which have been applied
 
 ![](https://files.readme.io/7285284-Untitled_7.png)
 

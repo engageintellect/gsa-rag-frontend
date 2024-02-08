@@ -5,11 +5,12 @@ hidden: false
 createdAt: "2022-09-23T13:16:33.798Z"
 updatedAt: "2023-03-16T16:14:57.059Z"
 ---
-On anything which returns a `Post` `Comment` `Mirror` or anything to do with a publication you have ability to filter on that metadata. 
+
+On anything which returns a `Post` `Comment` `Mirror` or anything to do with a publication you have ability to filter on that metadata.
 
 # API Design
 
-Will use publications as an example but please note this is a filter on a lot more endpoints so make sure you look at the graphQL schema for the best visibility. 
+Will use publications as an example but please note this is a filter on a lot more endpoints so make sure you look at the graphQL schema for the best visibility.
 
 ```javascript example operation
 query Publications {
@@ -29,7 +30,7 @@ query Publications {
     }
   }) {
     items {
-      __typename 
+      __typename
     }
     pageInfo {
       prev
@@ -40,8 +41,6 @@ query Publications {
 }
 ```
 
-
-
 ## Request
 
 ### locale - optional
@@ -50,11 +49,11 @@ This is the locale you which to filter on you can just pass in the region code o
 
 ### contentWarning - optional
 
-By default all flagged content warning publications is not brought back when querying but if you want to bring them back you can add this filter and it will include them. 
+By default all flagged content warning publications is not brought back when querying but if you want to bring them back you can add this filter and it will include them.
 
 #### includeOneOf
 
-It must include at least one of the array. 
+It must include at least one of the array.
 
 ### mainContentFocus - optional
 
@@ -66,20 +65,21 @@ On a publication you can now add tags for discovery this allows you to filter on
 
 #### oneOf
 
-It only needs to match 1 of the array passed in to bring it back. Remember publications can be tagged by many tags. 
+It only needs to match 1 of the array passed in to bring it back. Remember publications can be tagged by many tags.
 
 #### all
 
 It must match all tags supplied.
 
-
-
-# 
+#
 
 # Using LensClient SDK
 
 ```typescript
-import { PublicationContentWarning, PublicationMainFocus } from "@lens-protocol/client";
+import {
+  PublicationContentWarning,
+  PublicationMainFocus,
+} from "@lens-protocol/client";
 
 const result = await lensClient.publication.fetchAll({
   metadata: {

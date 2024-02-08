@@ -2,10 +2,11 @@
 title: "Authentication Quickstart"
 slug: "authentication-quickstart"
 hidden: false
-metadata: 
+metadata:
 createdAt: "2023-05-23T22:03:30.002Z"
 updatedAt: "2023-05-25T20:38:50.306Z"
 ---
+
 This tutorial walks you through the recommended way to build an authentication flow on Lens, leveraging the [Lens React Hooks SDK](https://docs.lens.xyz/docs/sdk-react-intro).
 
 The Lens React Hooks SDK abstracts away the need to write a lot of lower level GraphQL boilerplate for API calls to Lens, making it much easier to build web and mobile apps on Lens.
@@ -57,7 +58,7 @@ npm install @lens-protocol/react-web ethers@legacy-v5 wagmi@0.12.7 @lens-protoco
 
 ## app/layout.tsx
 
-Next, we want to configure our app to use the Lens SDK. 
+Next, we want to configure our app to use the Lens SDK.
 
 This is typically done at the entrypoint of the app, and only needs to be done once.
 
@@ -136,7 +137,7 @@ export default function Authentication() {
       await login(signer);
     }
   }
- 
+
   return (
     <div className="flex flex-col p-12 items-start">
       {

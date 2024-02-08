@@ -6,8 +6,9 @@ hidden: false
 createdAt: "2023-04-25T23:08:58.618Z"
 updatedAt: "2023-05-11T20:09:42.318Z"
 ---
+
 > 🚧 This request is protected by authentication
-> 
+>
 > hint: this means it requires an x-access-token header put in the request with your authentication token.
 
 DA transactions allow lens to scale to higher load at cheap costs. It is a great use case for non-financial web3 social transactions like posts, comments, and shares.
@@ -77,6 +78,7 @@ mutation CreateDataAvailabilityPostTypedData {
   }
 }
 ```
+
 ```javascript Example response
 {
   "data": {

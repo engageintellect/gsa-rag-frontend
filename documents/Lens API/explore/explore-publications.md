@@ -5,33 +5,36 @@ hidden: false
 createdAt: "2022-02-18T11:29:23.848Z"
 updatedAt: "2023-03-14T10:19:13.211Z"
 ---
+
 > 📘 Full code example
-> 
+>
 > <https://github.com/lens-protocol/api-examples/blob/master/src/explore/explore-publications.ts>
 
-This query returns a list of publications based on the top collected or top comments. It randomizes it so it is never the same content you see twice similar to how Instagram works when you refresh their explore section. 
+This query returns a list of publications based on the top collected or top comments. It randomizes it so it is never the same content you see twice similar to how Instagram works when you refresh their explore section.
 
-For now, this uses basic explore logic on basic data the protocol has. We will be greatly increasing this when we start doing AI on the explore feeds and endpoints. If you integrate this API into your application you will be inheriting all of these improvements with no code changes. 
+For now, this uses basic explore logic on basic data the protocol has. We will be greatly increasing this when we start doing AI on the explore feeds and endpoints. If you integrate this API into your application you will be inheriting all of these improvements with no code changes.
 
 # API Design
 
 > 📘 Did you know...
-> 
+>
 > The publication id is not unique in the smart contract its a counter per each profile. So if @josh posts a publication that will be publication 1 for his profile and then if @josh2 posts a publication that will be publication 1 for his profile. Our backend generates what we call an `InternalPublicationId` which is built up from `{profileId}-{publicationId}` creating a unique ID that can be queried against our database. You will see that `InternalPublicationId` is used on all our responses and also used in any request you which to do.
 
 > 📘 Use the GraphQL schema...
-> 
+>
 > One of the huge advantages of GraphQL is you have a schema that should explain how the request and response schema should look at what properties exist in that. In these docs we explore code examples and explain key concepts but we will not explain each property that exists in the response for example, as the schema already does that!
 
 ```graphql Example operation
 query ExplorePublications {
-  explorePublications(request: {
-    sortCriteria: TOP_COMMENTED,
-    publicationTypes: [POST, COMMENT, MIRROR],
-    limit: 10
-  }) {
+  explorePublications(
+    request: {
+      sortCriteria: TOP_COMMENTED
+      publicationTypes: [POST, COMMENT, MIRROR]
+      limit: 10
+    }
+  ) {
     items {
-      __typename 
+      __typename
       ... on Post {
         ...PostFields
       }
@@ -104,7 +107,7 @@ fragment ProfileFields on Profile {
         ...MediaFields
       }
       small {
-       ...MediaFields
+        ...MediaFields
       }
       medium {
         ...MediaFields
@@ -129,7 +132,7 @@ fragment ProfileFields on Profile {
   }
 }
 
-fragment PublicationStatsFields on PublicationStats { 
+fragment PublicationStatsFields on PublicationStats {
   totalAmountOfMirrors
   totalAmountOfCollects
   totalAmountOfComments
@@ -216,12 +219,12 @@ fragment MirrorBaseFields on Mirror {
 fragment MirrorFields on Mirror {
   ...MirrorBaseFields
   mirrorOf {
-   ... on Post {
-      ...PostFields          
-   }
-   ... on Comment {
-      ...CommentFields          
-   }
+    ... on Post {
+      ...PostFields
+    }
+    ... on Comment {
+      ...CommentFields
+    }
   }
 }
 
@@ -260,10 +263,10 @@ fragment CommentFields on Comment {
       ...MirrorBaseFields
       mirrorOf {
         ... on Post {
-           ...PostFields          
+          ...PostFields
         }
         ... on Comment {
-           ...CommentMirrorOfFields        
+          ...CommentMirrorOfFields
         }
       }
     }
@@ -277,7 +280,7 @@ fragment CommentMirrorOfFields on Comment {
       ...PostFields
     }
     ... on Mirror {
-       ...MirrorBaseFields
+      ...MirrorBaseFields
     }
   }
 }
@@ -394,9 +397,8 @@ fragment ReferenceModuleFields on ReferenceModule {
     degreesOfSeparation
   }
 }
-
-
 ```
+
 ```javascript Example response
 {
   "data": {
@@ -559,13 +561,11 @@ fragment ReferenceModuleFields on ReferenceModule {
 }
 ```
 
-
-
-You will see the paging result behavior repeated a lot in the API, this is to allow you to fetch a certain amount and then page it for the most optimal request speed. Every time something is wrapped in a paging result you will always get returned a `pageInfo` which holds the cursors for the previous and next alongside the total count which exists in the database. These cursors are just pointers for the server to get to the next result and do not need to be understood by your client or server. If you ever want to then page to the next result you can pass these previous and next cursor in the request cursor property. 
+You will see the paging result behavior repeated a lot in the API, this is to allow you to fetch a certain amount and then page it for the most optimal request speed. Every time something is wrapped in a paging result you will always get returned a `pageInfo` which holds the cursors for the previous and next alongside the total count which exists in the database. These cursors are just pointers for the server to get to the next result and do not need to be understood by your client or server. If you ever want to then page to the next result you can pass these previous and next cursor in the request cursor property.
 
 ## Request
 
-Let's look at the query options we can use here to get a lot of data for different things. 
+Let's look at the query options we can use here to get a lot of data for different things.
 
 ```json get explore by top comments
 // This returns you a random array back of the top commented publications on
@@ -586,6 +586,7 @@ Let's look at the query options we can use here to get a lot of data for differe
     // "excludeProfileIds": ["0x01"]
  }
 ```
+
 ```json get explore by top collected
 // This returns you a random array back of the top collected publications on
 // the protocol. Each time you call it a new set of random publications will return
@@ -605,6 +606,7 @@ Let's look at the query options we can use here to get a lot of data for differe
     // "excludeProfileIds": ["0x01"]
  }
 ```
+
 ```javascript get explore by top mirrored
 // This returns you a random array back of the top collected publications on
 // the protocol. Each time you call it a new set of random publications will return
@@ -624,6 +626,7 @@ Let's look at the query options we can use here to get a lot of data for differe
     // "excludeProfileIds": ["0x01"]
  }
 ```
+
 ```javascript get latest
 // This returns you a random array back of the top collected publications on
 // the protocol. Each time you call it a new set of random publications will return
@@ -643,6 +646,7 @@ Let's look at the query options we can use here to get a lot of data for differe
     // "excludeProfileIds": ["0x01"]
  }
 ```
+
 ```Text get by curated profiles
 // This returns you a random array back of the top curated profiles publications on
 // the protocol. Each time you call it a new set of random publications will return
@@ -663,11 +667,9 @@ Let's look at the query options we can use here to get a lot of data for differe
  }
 ```
 
+##
 
-
-## 
-
-## 
+##
 
 ## Using LensClient SDK
 
@@ -675,6 +677,6 @@ Let's look at the query options we can use here to get a lot of data for differe
 import { PublicationSortCriteria } from "@lens-protocol/client";
 
 lensClient.explore.publications({
-  sortCriteria: PublicationSortCriteria.TopCommented
-})
+  sortCriteria: PublicationSortCriteria.TopCommented,
+});
 ```

@@ -5,13 +5,12 @@ hidden: false
 createdAt: "2023-01-18T16:14:45.209Z"
 updatedAt: "2023-03-20T06:55:18.650Z"
 ---
+
 `useWhoCollectedPublication` is a React hook that allows you to query for wallets and their profiles that collected a publication.
 
 ```typescript
-const { data, loading, hasMore, next } = useWhoCollectedPublication(args)
+const { data, loading, hasMore, next } = useWhoCollectedPublication(args);
 ```
-
-
 
 ## Usage
 
@@ -30,8 +29,6 @@ const WhoCollectedPublication() {
   });
 }
 ```
-
-
 
 ## Reference
 
@@ -62,13 +59,11 @@ The amount of items to return.
 }
 ```
 
-
-
 ### `WalletFragment`
 
 ```typescript
 {
-  address: string,  
+  address: string,
   defaultProfile: ProfileFragment
 }
 ```

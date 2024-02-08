@@ -5,8 +5,9 @@ hidden: false
 createdAt: "2022-02-17T11:38:34.974Z"
 updatedAt: "2023-03-15T17:53:50.709Z"
 ---
+
 > 📘 Full code example
-> 
+>
 > <https://github.com/lens-protocol/api-examples/blob/master/src/profile/recommended-profiles.ts>
 
 The API uses ML to populate people who we think you would like to follow. You can disable ML by using the `disableML` parameter if you wish to use basic curated profiles. It does not support a paging list as of yet. We continue to push these recommendations. By using this API, you inherit all improvements without changing the code.
@@ -97,6 +98,7 @@ query RecommendedProfiles {
   }
 }
 ```
+
 ```javascript Example response
 {
   "data": {
@@ -263,13 +265,12 @@ query RecommendedProfiles {
   }
 }
 ```
+
 ```javascript Query interface
-type Query { 
+type Query {
 	recommendedProfiles: [Profile!]!
 }
 ```
-
-
 
 ## Dismiss profile recommendations
 
@@ -277,18 +278,15 @@ You can use the following mutation to permanently dismiss one or more profile fo
 
 ```graphql Mutation
 mutation DismissRecommendedProfiles {
-  dismissRecommendedProfiles(request: {profileIds: ["0x01", "0x02"]})
+  dismissRecommendedProfiles(request: { profileIds: ["0x01", "0x02"] })
 }
 ```
+
 ```Text Example response
 // returns null so no response
 ```
 
-
-
-
-
-# 
+#
 
 # Using LensClient SDK
 
@@ -300,11 +298,11 @@ const recommendedProfiles = await lensClient.profile.allRecommended();
 
 console.log(
   `Recommended profiles: `,
-  recommendedProfiles.map((i) => ({ id: i.id, handle: i.handle }))
+  recommendedProfiles.map((i) => ({ id: i.id, handle: i.handle })),
 );
 
 // dismiss
-await lensClient.profile.dismissRecommended({ profileIds: [recommendedProfiles[0].id] });
-
-
+await lensClient.profile.dismissRecommended({
+  profileIds: [recommendedProfiles[0].id],
+});
 ```

@@ -5,16 +5,17 @@ hidden: false
 createdAt: "2022-09-23T11:45:54.462Z"
 updatedAt: "2023-03-14T13:31:41.065Z"
 ---
+
 > 📘 Full code example
-> 
+>
 > <https://github.com/lens-protocol/api-examples/blob/master/src/reaction/who-reacted-publication.ts>
 
-This query returns all the profiles who reacted to the publication. 
+This query returns all the profiles who reacted to the publication.
 
 # API Design
 
 > 📘 Use the GraphQL schema...
-> 
+>
 > One of the huge advantages of GraphQL is you have a schema that should explain how the schema should look at what properties exist in that. In these docs we explore code examples and explain key concepts but we will not explain each property that exists in the response for example, as the schema already does that!
 
 ```javascript Example operation
@@ -145,6 +146,7 @@ fragment FollowModuleFields on FollowModule {
   }
 }
 ```
+
 ```Text Example response
 {
   "data": {
@@ -1452,14 +1454,12 @@ fragment FollowModuleFields on FollowModule {
 }
 ```
 
-
-
-# 
+#
 
 # Using LensClient SDK
 
 ```typescript
 const result = await lensClient.reactions.toPublication({
-  publicationId: '0x05-0x04',
+  publicationId: "0x05-0x04",
 });
 ```

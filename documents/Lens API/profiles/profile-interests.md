@@ -5,6 +5,7 @@ hidden: false
 createdAt: "2022-11-09T10:11:10.513Z"
 updatedAt: "2023-03-15T18:24:58.079Z"
 ---
+
 Profiles can have interests so that the experience layer can filter and provide content that is more relevant and engaging to their audience. The Lens API supports the following interests categories, and subcategories:
 
 - Arts & Entertainment
@@ -82,44 +83,43 @@ In addition, the API wants to stay unopinionated in terms of i18n and of how you
 
 ```graphql Query example
 query ProfileInterests {
- profileInterests
+  profileInterests
 }
 ```
+
 ```json Response example
 {
   "data": {
     "profileInterests": [
-      'ART_ENTERTAINMENT',
-      'ART_ENTERTAINMENT__BOOKS',
-      'ART_ENTERTAINMENT__ART',
-      'ART_ENTERTAINMENT__DESIGN',
-      'ART_ENTERTAINMENT__PHOTOGRAPHY',
-      'ART_ENTERTAINMENT__FASHION', 
-      'ART_ENTERTAINMENT__ANIME',
-      'ART_ENTERTAINMENT__MEMES',
-      'ART_ENTERTAINMENT__FILM_TV',
-      'ART_ENTERTAINMENT__MUSIC',
-      'BUSINESS',
-      'BUSINESS__CREATOR_ECONOMY',
-      'BUSINESS__FINANCE',
-      'BUSINESS__MARKETING',
-      'TECHNOLOGY',
-      'TECHNOLOGY__AI_ML',
-      'TECHNOLOGY__SCIENCE',
-      'TECHNOLOGY__PROGRAMMING',
-      'TECHNOLOGY__TOOLS',
-      'TECHNOLOGY__BIOTECH',
-      'CAREER',
-      'EDUCATION',
-      'FAMILY_PARENTING',
-      'HEALTH_FITNESS',
-      'HEALTH_FITNESS__EXERCISE'
+      "ART_ENTERTAINMENT",
+      "ART_ENTERTAINMENT__BOOKS",
+      "ART_ENTERTAINMENT__ART",
+      "ART_ENTERTAINMENT__DESIGN",
+      "ART_ENTERTAINMENT__PHOTOGRAPHY",
+      "ART_ENTERTAINMENT__FASHION",
+      "ART_ENTERTAINMENT__ANIME",
+      "ART_ENTERTAINMENT__MEMES",
+      "ART_ENTERTAINMENT__FILM_TV",
+      "ART_ENTERTAINMENT__MUSIC",
+      "BUSINESS",
+      "BUSINESS__CREATOR_ECONOMY",
+      "BUSINESS__FINANCE",
+      "BUSINESS__MARKETING",
+      "TECHNOLOGY",
+      "TECHNOLOGY__AI_ML",
+      "TECHNOLOGY__SCIENCE",
+      "TECHNOLOGY__PROGRAMMING",
+      "TECHNOLOGY__TOOLS",
+      "TECHNOLOGY__BIOTECH",
+      "CAREER",
+      "EDUCATION",
+      "FAMILY_PARENTING",
+      "HEALTH_FITNESS",
+      "HEALTH_FITNESS__EXERCISE"
     ]
   }
 }
 ```
-
-
 
 - Get a profile's interests (these are fetched as part of the `Profile` object). Public access.
 
@@ -131,6 +131,7 @@ query Profile {
   }
 }
 ```
+
 ```json Response example
 {
   "data": {
@@ -142,22 +143,15 @@ query Profile {
 }
 ```
 
-
-
 - Add interests to a profile
 
 Profiles can have up to 12 interests at this time. Will return null if successful, otherwise error. You need to be authorized with the provided `profileId` to call.
 
 ```graphql Mutation example
 mutation AddProfileInterest {
-   addProfileInterests(request: {
-    profileId: "0x01",
-    interests: ["NFTS"]
-  })
+  addProfileInterests(request: { profileId: "0x01", interests: ["NFTS"] })
 }
 ```
-
-
 
 - Remove interests from a profile
 
@@ -165,16 +159,11 @@ As with the previous endpoint, this one also returns null on success otherwise e
 
 ```graphql Mutation example
 mutation RemoveProfileInterest {
-   removeProfileInterests(request: {
-    profileId: "0x01",
-    interests: ["NFTS"]
-  })
+  removeProfileInterests(request: { profileId: "0x01", interests: ["NFTS"] })
 }
 ```
 
-
-
-# 
+#
 
 # Using LensClient SDK
 

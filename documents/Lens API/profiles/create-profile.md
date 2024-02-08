@@ -5,21 +5,22 @@ hidden: false
 createdAt: "2022-02-17T11:38:47.107Z"
 updatedAt: "2023-05-13T05:44:54.092Z"
 ---
+
 > 📘 Full code example
-> 
+>
 > <https://github.com/lens-protocol/api-examples/blob/master/src/profile/create-profile.ts>
 
 > 🚧 This request is protected by authentication
-> 
+>
 > hint: this means it requires an x-access-token header put in the request with your authentication token.
 
-Creating a profile on `MAINNET` is only allowed by trusted whitelisted addresses for now. This endpoint can be used on `TESTNET` to allow you to create profiles easily through your UI without worrying about the gas. This will only be exposed on the `TESTNET` public API. This is great for when you building some cool stuff against the `TESTNET` contracts. 
+Creating a profile on `MAINNET` is only allowed by trusted whitelisted addresses for now. This endpoint can be used on `TESTNET` to allow you to create profiles easily through your UI without worrying about the gas. This will only be exposed on the `TESTNET` public API. This is great for when you building some cool stuff against the `TESTNET` contracts.
 
 # API Design
 
 ```javascript Example operation
 mutation CreateProfile {
-  createProfile(request: { 
+  createProfile(request: {
     handle: "devjoshstevens",
     profilePictureUri: null,
     followNFTURI: null,
@@ -35,6 +36,7 @@ mutation CreateProfile {
   }
 }
 ```
+
 ```javascript Example response
 {
   "data": {
@@ -42,11 +44,13 @@ mutation CreateProfile {
   }
 }
 ```
+
 ```javascript Query interface
 type Mutation {
   createProfile(request: CreateProfileRequest!): RelayResult!
 }
 ```
+
 ```javascript Request
 input CreateProfileRequest {
   handle: Handle!
@@ -56,7 +60,7 @@ input CreateProfileRequest {
 
   # The follow module
   followModule: FollowModuleParams
-  
+
   # The follow NFT URI is the NFT metadata your followers will mint when they follow you. This can be updated at all times. If you do not pass in anything it will create a super cool changing NFT which will show the last publication of your profile as the NFT which looks awesome! This means people do not have to worry about writing this logic but still have the ability to customise it for their followers
   followNFTURI: Url
 }
@@ -77,6 +81,7 @@ input FeeFollowModuleParams {
   recipient: EthereumAddress!
 }
 ```
+
 ```javascript Response
 union RelayResult = RelayerResult | RelayError
 
@@ -89,7 +94,7 @@ type RelayerResult {
 type RelayError {
   reason: RelayErrorReasons!
 }
-  
+
 # Relay error reason
 enum RelayErrorReasons {
   REJECTED
@@ -99,19 +104,17 @@ enum RelayErrorReasons {
 }
 ```
 
-
-
 ## Request
 
-Let's touch on this request so it's super clear. 
+Let's touch on this request so it's super clear.
 
 ### Handle - required
 
-You must define the handle you wish to have for the profile which will be created. This is mandatory. 
+You must define the handle you wish to have for the profile which will be created. This is mandatory.
 
 ### profilePictureUri
 
-You can pass in a `profilePictureUri` which is a link to any kind of storage that points to an image. You can leave this out the request if you do not want to supply a default image for the profile. 
+You can pass in a `profilePictureUri` which is a link to any kind of storage that points to an image. You can leave this out the request if you do not want to supply a default image for the profile.
 
 ### followNFTURI
 
@@ -131,9 +134,9 @@ This can also be defined explicitly in the request by doing:
 
 ```js
 mutation CreateProfile {
-  createProfile(request:{ 
+  createProfile(request:{
                 handle: "devjoshstevens",
-                profilePictureUri: null,   
+                profilePictureUri: null,
                 followModule: {
                      freeFollowModule: true
                   }
@@ -149,17 +152,15 @@ mutation CreateProfile {
 }
 ```
 
-
-
 #### Revert follow module
 
 You do not want anyone to follow you; to set this up you can do:
 
 ```js
 mutation CreateProfile {
-  createProfile(request:{ 
+  createProfile(request:{
                 handle: "devjoshstevens",
-                profilePictureUri: null,   
+                profilePictureUri: null,
                 followModule: {
                      revertFollowModule: true
                   }
@@ -175,17 +176,15 @@ mutation CreateProfile {
 }
 ```
 
-
-
 #### Fee follow module
 
 You can charge a fee when someone follows you, to set this up when you create a profile you can do:
 
 ```js
 mutation CreateProfile {
-  createProfile(request:{ 
+  createProfile(request:{
                 handle: "devjoshstevens",
-                profilePictureUri: null,   
+                profilePictureUri: null,
                 followModule: {
                       feeFollowModule: {
                              amount: {
@@ -207,21 +206,17 @@ mutation CreateProfile {
 }
 ```
 
+As you see above we have mapped the `currency` we want to be paid in alongside the `value` which should be passed in as the normal amount not shifted to the decimal places as our server does this for you. So if you want 1 WETH you would enter 1 as a value. The final property defined is the `recipient` you want the funds to go to.
 
-
-As you see above we have mapped the `currency` we want to be paid in alongside the `value` which should be passed in as the normal amount not shifted to the decimal places as our server does this for you. So if you want 1 WETH you would enter 1 as a value. The final property defined is the `recipient` you want the funds to go to. 
-
-You can update the follow module for your profile at any time, the resolver endpoints to generate the typed data for them are explained on the [Create set follow module typed data](doc:create-set-follow-module-typed-data) 
+You can update the follow module for your profile at any time, the resolver endpoints to generate the typed data for them are explained on the [Create set follow module typed data](doc:create-set-follow-module-typed-data)
 
 > 📘 The API will support more modules which get whitelisted as they get approved.
-> 
+>
 > as they do this doc will be updated alongside it.
 
 When calling the `createProfile()` function, the contract will add the `.test` or `.lens` extension to your handle. The best way to check all the profiles you have created is to send a `getProfiles()` request filtered with `ownedBy` and your account address as the value.
 
- 
-
-# 
+#
 
 # Using LensClient SDK
 
@@ -232,9 +227,9 @@ import { isRelayerResult } from "@lens-protocol/client";
 
 // lensClient is an authenticated instance of LensClient
 
-const profileCreateResult = await lensClient.profile.create({ 
-  handle: 'profilehandle',
- 	// other request args 
+const profileCreateResult = await lensClient.profile.create({
+  handle: "profilehandle",
+  // other request args
 });
 
 // profileCreateResult is a Result object
@@ -246,6 +241,6 @@ if (!isRelayerResult(profileCreateResultValue)) {
 }
 
 console.log(
-  `Transaction was successfuly broadcasted with txId ${profileCreateResultValue.txId}`
+  `Transaction was successfuly broadcasted with txId ${profileCreateResultValue.txId}`,
 );
 ```

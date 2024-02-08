@@ -5,15 +5,16 @@ hidden: false
 createdAt: "2022-02-18T11:31:14.976Z"
 updatedAt: "2023-03-16T15:16:47.024Z"
 ---
+
 This API call allows you to get the typed data to then call the `withSig` method to mirror a publication from a profile on lens.
 
 > 🚧 This request is protected by authentication
-> 
+>
 > hint: this means it requires an x-access-token header put in the request with your authentication token.
 
 Typed data is a way to try to show the users what they are signing in a more readable format. You can read more about it [here](https://eips.ethereum.org/EIPS/eip-712).
 
-Constructing that type of data is normally difficult. On the type data, you also need to get the nonce, deadline, contract version, contract address, chain id, and the name of the contract for the signature to be able to be signed and verified. 
+Constructing that type of data is normally difficult. On the type data, you also need to get the nonce, deadline, contract version, contract address, chain id, and the name of the contract for the signature to be able to be signed and verified.
 
 When using this API the server checks every detail before it generates the typed data. For example: if you try to create typed data on an always failing transaction the server will throw an error in a human-readable form. This is great for debugging but also saves issues with users sending always failing transactions or a mismatch of a bad request.
 
@@ -22,7 +23,7 @@ We will show you the typed data approach using ethers and the API side by side. 
 # API Design
 
 > 📘 Hot tip
-> 
+>
 > It's super easy to enable modules within your publication using this typed data approach as the server lifts all the encoding and decoding of the modules for you. This allows you to just supply it as you would if you were using a web2 API.
 
 ```javascript Example operation
@@ -63,6 +64,7 @@ mutation CreateMirrorTypedData {
   }
 }
 ```
+
 ```javascript Example response
 {
   "data": {
@@ -127,6 +129,7 @@ mutation CreateMirrorTypedData {
   }
 }
 ```
+
 ```javascript Query interface
 type Mutation {
   createMirrorTypedData(
@@ -134,6 +137,7 @@ type Mutation {
   ): CreateMirrorBroadcastItemResult!
 }
 ```
+
 ```javascript Request
 input CreateMirrorRequest {
   # Profile id
@@ -145,18 +149,19 @@ input CreateMirrorRequest {
   # The reference module info
   referenceModule: ReferenceModuleParams
 }
-  
+
 # ProfileId custom scalar type
 scalar ProfileId
 
 # Internal publication id custom scalar type
 scalar InternalPublicationId
-  
+
 input ReferenceModuleParams {
   # The follower only reference module
   followerOnlyReferenceModule: Boolean
 }
 ```
+
 ```javascript Response
 # The broadcast item
 type CreateMirrorBroadcastItemResult {
@@ -169,7 +174,7 @@ type CreateMirrorBroadcastItemResult {
   # The typed data
   typedData: CreateMirrorEIP712TypedData!
 }
-  
+
 # The eip 712 typed data domain
 type EIP712TypedDataDomain {
   # The name of the typed data domain
@@ -184,7 +189,7 @@ type EIP712TypedDataDomain {
   # The verifying contract
   verifyingContract: ContractAddress!
 }
-  
+
 # The eip 712 typed data field
 type EIP712TypedDataField {
   # The name of the typed data field
@@ -221,10 +226,10 @@ type CreateMirrorEIP712TypedDataValue {
   referenceModule: ContractAddress!
   referenceModuleData: ReferenceModuleData!
 }
-  
+
 # reference module data scalar type
 scalar ReferenceModuleData
-  
+
 # Broadcast scalar id type
 scalar BroadcastId
 
@@ -237,8 +242,6 @@ scalar ProfileId
 # UnixTimestamp custom scalar type
 scalar UnixTimestamp
 ```
-
-
 
 ## Request
 
@@ -253,7 +256,7 @@ You have to pass in a `profileId` that is mandatory.
 You have to pass in a `publicationId ` that is mandatory.
 
 > 📘 Did you know...
-> 
+>
 > The publication id is not unique in the smart contract its a counter per each profile. So if @josh posts a publication that will be publication 1 for his profile and then if @josh2 posts a publication that will be publication 1 for his profile. Our backend generates what we call an `InternalPublicationId` which is built up from `{profileId}-{publicationId}` creating a unique ID that can be queried against our database. You will see that `InternalPublicationId` is used on all our responses and also used in any request you which to do.
 
 #### referenceModule - required
@@ -264,46 +267,42 @@ Modules are quite complex, each module needs to be encoded in the correct way fo
 input ReferenceModuleParams {
  # The follower only reference module
  followerOnlyReferenceModule: Boolean
- 
+
  # The degree of seperation for who can comment and mirror your stuff
  degreesOfSeparationReferenceModule: DegreesOfSeparationReferenceModuleParams
- 
+
  # unknown reference module
  unknownReferenceModule: UnknownReferenceModuleParams
 }
 ```
 
-
-
 ##### followerOnlyReferenceModule
 
 A simple reference module that validates that comments or mirrors originate from a profile owned by a follower.
 
-This is super easy to toggle just pass in the boolean in the `followerOnlyReferenceModule` property and it turns it on and off for that publication. 
+This is super easy to toggle just pass in the boolean in the `followerOnlyReferenceModule` property and it turns it on and off for that publication.
 
 Usage:
 
 ```json
 {
-    "profileId": "0x03",
-    "publicationId": "0x01-0x01",
-    "referenceModule": {
-        "followerOnlyReferenceModule": true
-    }
- }
+  "profileId": "0x03",
+  "publicationId": "0x01-0x01",
+  "referenceModule": {
+    "followerOnlyReferenceModule": true
+  }
+}
 ```
-
-
 
 ##### degreesOfSeparationReferenceModule
 
-This reference module allows you to set the degrees of separation in who can comment or mirror. If you do not know what degrees of separation you may have heard of the rule that with up to 6 links you can connect people together. With the protocol being open bots and spam is a things we want to handle and this tackles this. 
+This reference module allows you to set the degrees of separation in who can comment or mirror. If you do not know what degrees of separation you may have heard of the rule that with up to 6 links you can connect people together. With the protocol being open bots and spam is a things we want to handle and this tackles this.
 
 settings:
 
-`commentsRestricted` -  Boolean - if it's set to true the degree of separation is applied if false it is not which means anyone can comment.
+`commentsRestricted` - Boolean - if it's set to true the degree of separation is applied if false it is not which means anyone can comment.
 
-`mirrorsRestricted` -  Boolean - if it's set to true the degree of separation is applied if false it is not which means anyone can mirror.
+`mirrorsRestricted` - Boolean - if it's set to true the degree of separation is applied if false it is not which means anyone can mirror.
 
 `degreesOfSeparation` - Int - Max 4 degrees
 
@@ -315,63 +314,59 @@ settings:
 
 ```json
 {
-    "profileId": "0x03",
-    "publicationId": "0x01-0x01",
-    "contentURI": "ipfs://QmPogtffEF3oAbKERsoR4Ky8aTvLgBF5totp5AuF8YN6vl",
-    "collectModule": {
-       "emptyCollectModule": true
-    },
-    "referenceModule": {
-       "degreesOfSeparationReferenceModule": {
-         "commentsRestricted": true,
-         "mirrorsRestricted": true,
-         "degreesOfSeparation": 2
-      }
+  "profileId": "0x03",
+  "publicationId": "0x01-0x01",
+  "contentURI": "ipfs://QmPogtffEF3oAbKERsoR4Ky8aTvLgBF5totp5AuF8YN6vl",
+  "collectModule": {
+    "emptyCollectModule": true
+  },
+  "referenceModule": {
+    "degreesOfSeparationReferenceModule": {
+      "commentsRestricted": true,
+      "mirrorsRestricted": true,
+      "degreesOfSeparation": 2
     }
- }
+  }
+}
 ```
-
-
 
 ##### unknownReferenceModule
 
-This reference module is unknown and not type supported in the API. This means if you use this you have to encode and supply the data yourself to the API, the API will still allow you to use the unknown reference module but it won't validate it. Only use unknown reference modules if you can trust the reference module and know what you're doing. 
+This reference module is unknown and not type supported in the API. This means if you use this you have to encode and supply the data yourself to the API, the API will still allow you to use the unknown reference module but it won't validate it. Only use unknown reference modules if you can trust the reference module and know what you're doing.
 
 ```json
 {
-    "profileId": "0x03",
-    "publicationId": "0x01-0x01",
-    "contentURI": "ipfs://QmPogtffEF3oAbKERsoR4Ky8aTvLgBF5totp5AuF8YN6vl",
-    "collectModule": {
-       "emptyCollectModule": true
-    },
-    "referenceModule": {
-       "unknownReferenceModule": {
-         "contractAddress": "0x1F68931Bc4C77b2D394Bf23cb1A45842501da10e",
-         "data": "0x01"
-      }
+  "profileId": "0x03",
+  "publicationId": "0x01-0x01",
+  "contentURI": "ipfs://QmPogtffEF3oAbKERsoR4Ky8aTvLgBF5totp5AuF8YN6vl",
+  "collectModule": {
+    "emptyCollectModule": true
+  },
+  "referenceModule": {
+    "unknownReferenceModule": {
+      "contractAddress": "0x1F68931Bc4C77b2D394Bf23cb1A45842501da10e",
+      "data": "0x01"
     }
- }
+  }
+}
 ```
 
-
-
 > 📘 The API will support more modules which get whitelisted as they get approved.
-> 
+>
 > as they do this doc will be updated alongside it.
 
 ## Putting it together
 
- <https://github.com/lens-protocol/api-examples/blob/master/src/publications/mirror.ts> shows you a live running example of how you would generate the signed typed data from the API and send it through the `withSig` methods. 
+<https://github.com/lens-protocol/api-examples/blob/master/src/publications/mirror.ts> shows you a live running example of how you would generate the signed typed data from the API and send it through the `withSig` methods.
 
 # Gasless
 
 > 🚧 If you are on mumbai anyone can use gasless but if your on polygon only whitelisted apps can currently use this
 
-You have 2 options when doing gasless you have `broadcast` and also the `dispatcher`. The dispatcher supports a subset of methods that allows you to do actions without signing, these actions are protocol calls that can not drain funds from any wallet making them classed as safe actions, not all methods are supported by the dispatcher. Posting is one of those allowed dispatcher methods. You can set up a dispatcher for the user using <https://docs.lens.xyz/docs/create-set-dispatcher-typed-data> and then broadcast that transaction which is described in that document. 
+You have 2 options when doing gasless you have `broadcast` and also the `dispatcher`. The dispatcher supports a subset of methods that allows you to do actions without signing, these actions are protocol calls that can not drain funds from any wallet making them classed as safe actions, not all methods are supported by the dispatcher. Posting is one of those allowed dispatcher methods. You can set up a dispatcher for the user using <https://docs.lens.xyz/docs/create-set-dispatcher-typed-data> and then broadcast that transaction which is described in that document.
 
 > 📘 Full code example of gasless
-> 
+>
 > <https://github.com/lens-protocol/api-examples/blob/master/src/publications/mirror-gasless.ts>
 
 ## Broadcast
@@ -401,6 +396,7 @@ mutation CreateMirrorViaDispatcher {
   }
 }
 ```
+
 ```javascript Example result
 {
   "data": {
@@ -412,25 +408,24 @@ mutation CreateMirrorViaDispatcher {
 }
 ```
 
-
-
 # Hooking in without using the type data
 
 You may not want to go down the typed data with the signature route and just send the transaction directly from the client to the blockchain without any API call to map the data for you. You will need to do the encoding and validation yourself if you go down that approach. This is out of scope for the API documentation as would have been explained and showed how to do it in the contract docs. This tries to advise the same practice as what `seaport` on OpenSea are doing alongside a lot of other projects which tries to improve the visibility of what the user is signing.
 
-# 
+#
 
 # Using LensClient SDK
 
 ```typescript
 // create a mirror via dispatcher, you need to have the dispatcher enabled for the profile
-const viaDispatcherResult = await lensClient.publication.createMirrorViaDispatcher({
-  profileId,
-  publicationId: "",
-  referenceModule: {
-    followerOnlyReferenceModule: false, // anybody can comment or mirror
-  },
-});
+const viaDispatcherResult =
+  await lensClient.publication.createMirrorViaDispatcher({
+    profileId,
+    publicationId: "",
+    referenceModule: {
+      followerOnlyReferenceModule: false, // anybody can comment or mirror
+    },
+  });
 
 // or with typedData that require signature and broadcasting
 const typedDataResult = await lensClient.publication.createMirrorTypedData({

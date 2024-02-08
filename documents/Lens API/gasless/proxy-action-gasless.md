@@ -5,6 +5,7 @@ hidden: false
 createdAt: "2022-09-23T12:34:31.525Z"
 updatedAt: "2023-05-24T15:07:35.465Z"
 ---
+
 > 🚧 Please note you can use broadcast freely on mumbai but if you want to use it on polygon you need to be whitelisted.
 
 While the dispatcher will allow you to do actions like `post`, `comment`, and `mirror` without signing any approval modals, this endpoint allows you to do actions like `follow` and `collect` without having to sign any approval modals.
@@ -12,19 +13,19 @@ While the dispatcher will allow you to do actions like `post`, `comment`, and `m
 _This only works if the modules assigned to those actions are free and have no cost to them, ie. FreeCollectModule and SimpleCollectModule._
 
 > 🚧 This request is protected by authentication
-> 
+>
 > hint: this means it requires an x-access-token header put in the request with your authentication token.
 
 > 📘 Full code example
-> 
+>
 > Free collect - <https://github.com/lens-protocol/api-examples/blob/master/src/proxy-action/proxy-action-free-collect.ts>
-> 
+>
 > Free follow - <https://github.com/lens-protocol/api-examples/blob/master/src/proxy-action/proxy-action-free-follow.ts>
 
 > 👍 SimpleCollectModule support
-> 
-> You can use Proxy actions to collect posts made with the new SimpleCollectModule. Keep in mind, posts still need to be free of charge and not require the collector to follow the post creator. 
-> 
+>
+> You can use Proxy actions to collect posts made with the new SimpleCollectModule. Keep in mind, posts still need to be free of charge and not require the collector to follow the post creator.
+>
 > In these cases, the [request](proxy-action-gasless#free-collect) to the API remains the same as with FreeCollectModule.
 
 # API Design
@@ -42,6 +43,7 @@ mutation ProxyAction {
   })
 }
 ```
+
 ```javascript Example response
 {
   "data": {
@@ -63,6 +65,7 @@ mutation ProxyAction {
   })
 }
 ```
+
 ```javascript Example response
 {
   "data": {
@@ -75,11 +78,11 @@ mutation ProxyAction {
 
 This returns a `proxyActionId` which is a new id linked to that event, this is important to keep as you need it to track the status of the action. You should track this behind the scenes so the user does not need to be blocked, requesting it every 1-2 minutes is enough. To them, it should look like it's done.
 
-The API uses optimistic updates so when you click that button on the user it is complete and they inherit all the stuff instantly. You do not need to worry about optimistic UI caching on your end even though of course it's best practice. 
+The API uses optimistic updates so when you click that button on the user it is complete and they inherit all the stuff instantly. You do not need to worry about optimistic UI caching on your end even though of course it's best practice.
 
 ## Tracking the proxy action status
 
-Once you got the proxy action id you should track its status to make sure it goes all the way through. 
+Once you got the proxy action id you should track its status to make sure it goes all the way through.
 
 ```Text Example operation
 query ProxyActionStatus {
@@ -119,6 +122,7 @@ These are all the points a proxy action can go through:
   }
 }
 ```
+
 ```Text when minting
 {
   "data": {
@@ -131,6 +135,7 @@ These are all the points a proxy action can go through:
   }
 }
 ```
+
 ```Text when complete
 {
   "data": {
@@ -143,6 +148,7 @@ These are all the points a proxy action can go through:
   }
 }
 ```
+
 ```Text when fails
 {
   "data": {
@@ -154,6 +160,7 @@ These are all the points a proxy action can go through:
   }
 }
 ```
+
 ```Text when transferring
 {
   "data": {
@@ -166,8 +173,6 @@ These are all the points a proxy action can go through:
   }
 }
 ```
-
-
 
 ## Using LensClient SDK
 

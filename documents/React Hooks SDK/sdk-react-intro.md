@@ -6,6 +6,7 @@ hidden: false
 createdAt: "2022-12-22T20:56:24.192Z"
 updatedAt: "2023-05-17T12:28:15.064Z"
 ---
+
 The Lens SDK includes a collection of React Hooks containing all you need to interact with the Lens Protocol.
 
 It provides a foundation that abstracts away the complexity of some low-level concepts of the Lens Protocol and Lens API.
@@ -17,7 +18,7 @@ Some of the key aspects:
 The SDK is written in TypeScript and shipped with all the type definitions you need. It generates its underlying type definitions from the Lens API GraphQL schema so you can rely on end-to-end type safety.
 
 > 👍 Good to know
-> 
+>
 > Although it is based on the Lens GraphQL API, you don't need to learn GraphQL to use it.
 
 ### Authentication

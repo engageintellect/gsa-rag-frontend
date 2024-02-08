@@ -5,6 +5,7 @@ hidden: false
 createdAt: "2022-10-06T12:33:07.752Z"
 updatedAt: "2023-02-15T10:07:10.979Z"
 ---
+
 Lens Protocol now supports the creation of gated content experiences so you can share your garden with just the people you wish. Gated content on Lens allows a trustless way to control content accessibility, as encryption and decryption happen on the client side. The Gated Publications feature uses LIT Protocol decentralized access control behind the scenes.
 
 ### So what can I do with it?
@@ -44,10 +45,7 @@ const client = await LensGatedSDK.create({
   signer: someSigner, //from wagmi or a wallet
   env: LensEnvironment.Mumbai,
 });
-
 ```
-
-
 
 You can choose between `Polygon`, `Mumbai` and `MumbaiSandbox` environments.
 
@@ -59,41 +57,57 @@ To encrypt content, you need the `encryptMetadata` method. Gets some metadata, y
 
 `(encryptedMetadata: EncryptedMetadata): Promise<string>`
 
-This gives you the freedom to reuse your existing code in order to upload metadata to your preferred storage. It's the final argument the encrypted metadata call in the code example below. It's omitted from the code example for clarity. 
+This gives you the freedom to reuse your existing code in order to upload metadata to your preferred storage. It's the final argument the encrypted metadata call in the code example below. It's omitted from the code example for clarity.
 
 > 📘 Keep in mind
-> 
+>
 > Gated content only supports the Metadata V2 format, see [here](doc:metadata-standards).
 
 ```typescript Encrypting metadata on the browser
-import { Web3Provider } from '@ethersproject/providers'
-import {AndCondition, OrCondition, FollowCondition, CollectCondition, EncryptedMetadata, EoaOwnership, Erc20TokenOwnership, MetadataV2, NftOwnership, ProfileOwnership, PublicationMainFocus, ContractType, ScalarOperator, LensGatedSDK, LensEnvironment,  } from '@lens-protocol/sdk-gated'
+import { Web3Provider } from "@ethersproject/providers";
+import {
+  AndCondition,
+  OrCondition,
+  FollowCondition,
+  CollectCondition,
+  EncryptedMetadata,
+  EoaOwnership,
+  Erc20TokenOwnership,
+  MetadataV2,
+  NftOwnership,
+  ProfileOwnership,
+  PublicationMainFocus,
+  ContractType,
+  ScalarOperator,
+  LensGatedSDK,
+  LensEnvironment,
+} from "@lens-protocol/sdk-gated";
 
 let metadata: MetadataV2 = {
-  version: '2.0.0',
-  name: 'name',
-  description: 'description',
+  version: "2.0.0",
+  name: "name",
+  description: "description",
   attributes: [],
-  content: 'content',
-  metadata_id: '1',
-  appId: 'app_id',
+  content: "content",
+  metadata_id: "1",
+  appId: "app_id",
   mainContentFocus: PublicationMainFocus.TextOnly,
-  locale: 'en',
-}
+  locale: "en",
+};
 
-const uploadMetadataHandler = async (data: EncryptedMetadata): Promise<string> => {
+const uploadMetadataHandler = async (
+  data: EncryptedMetadata,
+): Promise<string> => {
   // Upload the encrypted metadata to your server and return a publicly accessible url
-  return Promise.resolve('test')
-}
+  return Promise.resolve("test");
+};
 
 const nftAccessCondition: NftOwnership = {
-  contractAddress: '0x0000000000000000000000000000000000000000', // the address of the NFT collection, make sure it is a valid address depending on the chosen network
+  contractAddress: "0x0000000000000000000000000000000000000000", // the address of the NFT collection, make sure it is a valid address depending on the chosen network
   chainID: 80001, // the chain ID of the network the NFT collection is deployed on;
   contractType: ContractType.Erc721, // the type of the NFT collection, ERC721 and ERC1155 are supported
-  tokenIds: ['1', '2', '3'], // OPTIONAL - the token IDs of the NFTs that grant access to the metadata, if ommitted, owning any NFT from the collection will grant access
-}
-
-(async () => {
+  tokenIds: ["1", "2", "3"], // OPTIONAL - the token IDs of the NFTs that grant access to the metadata, if ommitted, owning any NFT from the collection will grant access
+}(async () => {
   const sdk = await LensGatedSDK.create({
     provider: new Web3Provider(window.ethereum),
     signer: someSigner,
@@ -103,27 +117,26 @@ const nftAccessCondition: NftOwnership = {
   // this must be called anytime you change networks, exposed so you can add this to your Web3Provider event handling
   // but not necessary to call explicitly
   await sdk.connect({
-    address: '0x1234123412341234123412341234123412341234', // your signer's wallet address
-    env: LensEnvironment.Mumbai
-  })
+    address: "0x1234123412341234123412341234123412341234", // your signer's wallet address
+    env: LensEnvironment.Mumbai,
+  });
 
   const { contentURI, encryptedMetadata } = await sdk.gated.encryptMetadata(
-          metadata,
-          '0x01', // the signed in user's profile id
-          {
-            nft: nftAccessCondition
-          }, // or any other access condition object
-          uploadMetadataHandler,
-  )
-  console.log(contentURI)
-  console.log(encryptedMetadata)
+    metadata,
+    "0x01", // the signed in user's profile id
+    {
+      nft: nftAccessCondition,
+    }, // or any other access condition object
+    uploadMetadataHandler,
+  );
+  console.log(contentURI);
+  console.log(encryptedMetadata);
   // contentURI is ready to be used in the `contentURI` field of your `createPostTypedMetadata` call
   // also exposing the encrypted metadata in case you want to do something with it
   // ... create post using the Lens API ...
-
 })();
-
 ```
+
 ```json Encrypted Metadata JSON Example
 {
   "version": "2.0.0",
@@ -148,7 +161,7 @@ const nftAccessCondition: NftOwnership = {
       "tokenIds": []
     },
     "providerSpecificParams": {
-      "encryptionKey": "a loooong hex string that LIT will use to decrypt your content as long as you satisfy the conditions",
+      "encryptionKey": "a loooong hex string that LIT will use to decrypt your content as long as you satisfy the conditions"
     },
     "encryptedFields": {
       "content": "WhpXUao7QU7iQg79UsCw0-ptkoy_fSbfEoqEs6_Zj2s=", // encrypted content
@@ -158,68 +171,61 @@ const nftAccessCondition: NftOwnership = {
     }
   },
   "locale": "en-us",
-  "tags": [
-    "using_api_examples"
-  ],
+  "tags": ["using_api_examples"],
   "mainContentFocus": "TEXT_ONLY"
 }
 ```
 
-
-
-This will give you a `contentURI` that you can then use on your regular posting flow. It also exposes the `encryptedMetadata` object because you will need to supply the `encryptionKey` on your upcoming call to `createPostTypedData`. Don't worry, this key is not enough to decrypt your data, it is used to query LIT Protocol, which upon verification that you do fulfill the access conditions, will then expose the actual decryption key.  
+This will give you a `contentURI` that you can then use on your regular posting flow. It also exposes the `encryptedMetadata` object because you will need to supply the `encryptionKey` on your upcoming call to `createPostTypedData`. Don't worry, this key is not enough to decrypt your data, it is used to query LIT Protocol, which upon verification that you do fulfill the access conditions, will then expose the actual decryption key.
 
 > 📘 Gasless gated posts
-> 
+>
 > You can also post gated content gasless as long as you have enabled the dispatcher in your profile!
-> 
-> When doing so, make sure you use the `createPostViaDispatcher` or `createCommentViaDispatcher` endpoints instead, and the rest of the process stays the same. 
+>
+> When doing so, make sure you use the `createPostViaDispatcher` or `createCommentViaDispatcher` endpoints instead, and the rest of the process stays the same.
 
 ```typescript Create typed data
-  const createPostRequest = {
-    profileId,
-    contentURI: 'ipfs://' + contentURI.path,
-    collectModule: {
-      freeCollectModule: { followerOnly: false },
-    },
-    referenceModule: {
-      followerOnlyReferenceModule: false,
-		},
-   // ******* added this
-    gated: {
-      nft: nftAccessConditions,
-      encryptedSymmetricKey:
-        encryptedMetadata.encryptionParams.providerSpecificParams.encryptionKey,
-    },
-   // *******
-  };
+const createPostRequest = {
+  profileId,
+  contentURI: "ipfs://" + contentURI.path,
+  collectModule: {
+    freeCollectModule: { followerOnly: false },
+  },
+  referenceModule: {
+    followerOnlyReferenceModule: false,
+  },
+  // ******* added this
+  gated: {
+    nft: nftAccessConditions,
+    encryptedSymmetricKey:
+      encryptedMetadata.encryptionParams.providerSpecificParams.encryptionKey,
+  },
+  // *******
+};
 
-  // the remaining code is the same as in regular posting
-  const signedResult = await signCreatePostTypedData(createPostRequest);
-  console.log('create post: signedResult', signedResult);
+// the remaining code is the same as in regular posting
+const signedResult = await signCreatePostTypedData(createPostRequest);
+console.log("create post: signedResult", signedResult);
 
-	const typedData = signedResult.result.typedData;
+const typedData = signedResult.result.typedData;
 
-  const { v, r, s } = splitSignature(signedResult.signature);
+const { v, r, s } = splitSignature(signedResult.signature);
 
-  const tx = await lensHub.postWithSig({
-    profileId: typedData.value.profileId,
-    contentURI: typedData.value.contentURI,
-    collectModule: typedData.value.collectModule,
-    collectModuleInitData: typedData.value.collectModuleInitData,
-    referenceModule: typedData.value.referenceModule,
-    referenceModuleInitData: typedData.value.referenceModuleInitData,
-    sig: {
-      v,
-      r,
-      s,
-      deadline: typedData.value.deadline,
-    },
-  });
-
+const tx = await lensHub.postWithSig({
+  profileId: typedData.value.profileId,
+  contentURI: typedData.value.contentURI,
+  collectModule: typedData.value.collectModule,
+  collectModuleInitData: typedData.value.collectModuleInitData,
+  referenceModule: typedData.value.referenceModule,
+  referenceModuleInitData: typedData.value.referenceModuleInitData,
+  sig: {
+    v,
+    r,
+    s,
+    deadline: typedData.value.deadline,
+  },
+});
 ```
-
-
 
 Any content you post with the code above will have its metadata fields encrypted and replaced with placeholders. The actual content will only be available to people satisfying the access conditions, after calling `decryptMetadata` on the `@lens-protocol/sdk-gated` package.
 
@@ -228,19 +234,17 @@ Any content you post with the code above will have its metadata fields encrypted
 Given you have instantiated a `LensGatedSDK` client with your wallet, and you have fetched some gated publication via the API, you can then simply:
 
 ```typescript
-const { error, decrypted } = await sdk.gated.decryptMetadata(encryptedMetadata)
-console.log(error) // in case something went wrong or you dont fullfill the criteria
-console.log(decrypted) // otherwise, the decrypted MetadataV2 will be here
+const { error, decrypted } = await sdk.gated.decryptMetadata(encryptedMetadata);
+console.log(error); // in case something went wrong or you dont fullfill the criteria
+console.log(decrypted); // otherwise, the decrypted MetadataV2 will be here
 ```
-
-
 
 ## Access Condition types
 
 Here are the supported access condition types. Check out the remaining examples to see how they are used in action.
 
 > 📘 Remember!
-> 
+>
 > When you supply a condition to the `encryptMetadata` function, it takes a `AccessConditionOutput` object as input, so make sure to wrap it in its corresponding type attribute as described in the following object:
 
 ```
@@ -265,22 +269,18 @@ export type AccessConditionOutput = {
 };
 ```
 
-
-
 ### NFT Ownership
 
-Will evaluate to true if the decryptor owns an NFT from that collection. If `tokenIds` are not provided, then owning _any_ NFT from the collection will satisfy the condition.  
+Will evaluate to true if the decryptor owns an NFT from that collection. If `tokenIds` are not provided, then owning _any_ NFT from the collection will satisfy the condition.
 
 ```typescript NFT Ownership
 const nftAccessCondition = {
-  contractAddress: '0x0000000000000000000000000000000000000000', // the address of the NFT collection, make sure it is a valid address depending on the chosen network
+  contractAddress: "0x0000000000000000000000000000000000000000", // the address of the NFT collection, make sure it is a valid address depending on the chosen network
   chainID: 80001, // the chain ID of the network the NFT collection is deployed on;
   contractType: ContractType.Erc721, // the type of the NFT collection, ERC721 and ERC1155 are supported
-  tokenIds: ['1', '2', '3'], // OPTIONAL - the token IDs of the NFTs that grant access to the metadata, if ommitted, owning any NFT from the collection will grant access
-}
+  tokenIds: ["1", "2", "3"], // OPTIONAL - the token IDs of the NFTs that grant access to the metadata, if ommitted, owning any NFT from the collection will grant access
+};
 ```
-
-
 
 ### EOA Address Ownership
 
@@ -291,8 +291,6 @@ const eoaAccessCondition: EoaOwnership = {
   address: '0x0000000000000000000000000000000000000000', // the address of the EOA that grants access to the metadata
 }
 ```
-
-
 
 ### ERC20 Token Ownership
 
@@ -309,77 +307,67 @@ const erc20AccessCondition: Erc20TokenOwnership = {
 
 ```
 
-
-
 ### Profile Ownership
 
 Will evaluate to true if the decryptor owns that ProfileId
 
 ```
-const profileAccessCondition: ProfileOwnership = {  
-  profileId: '0x01'  
+const profileAccessCondition: ProfileOwnership = {
+  profileId: '0x01'
 }
 ```
-
-
 
 ### Profile Follow
 
 Will evaluate to true if you follow that ProfileId
 
 ```
-const followAccessCondition: FollowCondition = {  
-  profileId: '0x01',  
+const followAccessCondition: FollowCondition = {
+  profileId: '0x01',
 }
 ```
-
-
 
 ### Collected publication
 
 Will evaluate to true if the person trying to decrypt the content owns a collected NFT of the given publication. Can take `thisPublication=true` when encrypting metadata for people who will collect that specific pub. You can use either of these 2 properties, but not both of them.
 
 ```
-const collectAccessCondition: CollectCondition = {  
-  thisPublication: true,  
+const collectAccessCondition: CollectCondition = {
+  thisPublication: true,
 }
 
-const collectAccessCondition2: CollectCondition = {  
-  publicationId: '0x01-0x01',  
+const collectAccessCondition2: CollectCondition = {
+  publicationId: '0x01-0x01',
 }
 ```
-
-
 
 ### Boolean conditions
 
 These support up to 5 conditions and they cannot have nested boolean conditions right now.
 
 ```
-const andCondition: AndCondition = {  
-  criteria: [  
-    {  
-      token: erc20AccessCondition  
-    },  
-    {  
-      follow: followAccessCondition  
-    }  
-  ]  
+const andCondition: AndCondition = {
+  criteria: [
+    {
+      token: erc20AccessCondition
+    },
+    {
+      follow: followAccessCondition
+    }
+  ]
 }
 
-const orCondition: OrCondition = {  
-  criteria: [  
-    {  
-      collect: collectAccessCondition,  
-    },  
-    {  
-      profile: profileAccessCondition  
-    }  
-  ]  
+const orCondition: OrCondition = {
+  criteria: [
+    {
+      collect: collectAccessCondition,
+    },
+    {
+      profile: profileAccessCondition
+    }
+  ]
 }
 ```
-
-
 
 ### Full stack project setup
 

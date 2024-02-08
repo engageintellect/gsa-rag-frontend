@@ -5,13 +5,12 @@ hidden: false
 createdAt: "2023-02-28T15:03:09.867Z"
 updatedAt: "2023-03-20T06:58:24.686Z"
 ---
+
 `useProfilesOwnedBy` is a React Hook that lets you query the profiles owned by a specific wallet address.
 
 ```typescript
-const { data, loading, hasMore, next } = useProfilesOwnedBy(args)
+const { data, loading, hasMore, next } = useProfilesOwnedBy(args);
 ```
-
-
 
 ## Usage
 
@@ -30,8 +29,6 @@ const {
   });
 }
 ```
-
-
 
 ## Reference
 

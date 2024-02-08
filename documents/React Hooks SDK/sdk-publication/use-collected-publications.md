@@ -5,30 +5,29 @@ hidden: false
 createdAt: "2022-12-23T16:29:16.717Z"
 updatedAt: "2023-03-20T06:55:09.608Z"
 ---
+
 `useCollectedPublications` is a React Hook that lets you query for all publications collected by a wallet address.
 
 ```typescript
-const { data, loading, hasMore, next } = useCollectedPublications(args)
+const { data, loading, hasMore, next } = useCollectedPublications(args);
 ```
-
-
 
 ## Usage
 
 ```typescript TypeScript
-import { useCollectedPublications } from '@lens-protocol/react-web';
+import { useCollectedPublications } from "@lens-protocol/react-web";
 
 function CollectedPublications() {
-const {
+  const {
     data: collectedPublications,
     loading,
     hasMore,
     next,
-  } = useCollectedPublications({ walletAddress: '0x42a578e3557f5854B27D48E7d753fEb2f428546D' });
+  } = useCollectedPublications({
+    walletAddress: "0x42a578e3557f5854B27D48E7d753fEb2f428546D",
+  });
 }
 ```
-
-
 
 ## Reference
 

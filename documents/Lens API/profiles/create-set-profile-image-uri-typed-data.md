@@ -5,15 +5,16 @@ hidden: false
 createdAt: "2022-02-17T11:39:58.683Z"
 updatedAt: "2023-03-15T18:12:35.115Z"
 ---
+
 This API call allows you to get the typed data to then call the `withSig` method to set your profile picture for your profile on lens.
 
 > 🚧 This request is protected by authentication
-> 
+>
 > hint: this means it requires an x-access-token header put in the request with your authentication token.
 
 Typed data is a way to try to show the users what they are signing in a more readable format. You can read more about it [here](https://eips.ethereum.org/EIPS/eip-712).
 
-Constructing that type of data is normally difficult. On the type data, you also need to get the nonce, deadline, contract version, contract address, chain id, and the name of the contract for the signature to be able to be signed and verified. 
+Constructing that type of data is normally difficult. On the type data, you also need to get the nonce, deadline, contract version, contract address, chain id, and the name of the contract for the signature to be able to be signed and verified.
 
 When using this API, the server checks every detail before it generates the typed data. For example: if you try to create typed data on an always-failing transaction, the server will throw an error in a human-readable form. This is great for debugging but also saves issues with users sending always failing transactions or a mismatch of a bad request.
 
@@ -54,6 +55,7 @@ mutation CreateSetProfileImageURITypedData {
   }
 }
 ```
+
 ```javascript Example response
 {
   "data": {
@@ -98,6 +100,7 @@ mutation CreateSetProfileImageURITypedData {
   }
 }
 ```
+
 ```javascript Query interface
 type Mutation {
    createSetProfileImageURITypedData(
@@ -105,6 +108,7 @@ type Mutation {
   ): CreateSetProfileImageUriBroadcastItemResult!
 }
 ```
+
 ```javascript Request
 input UpdateProfileImageRequest {
   profileId: ProfileId!
@@ -135,7 +139,7 @@ input NFTData {
   # The token id
   tokenId: String!
 }
-  
+
 # Contract address custom scalar type
 scalar ContractAddress
 
@@ -156,6 +160,7 @@ scalar Url
 # ProfileId custom scalar type
 scalar ProfileId
 ```
+
 ```javascript Response
 The broadcast item
 type CreateSetProfileImageUriBroadcastItemResult {
@@ -168,7 +173,7 @@ type CreateSetProfileImageUriBroadcastItemResult {
   # The typed data
   typedData: CreateSetProfileImageUriEIP712TypedData!
 }
-  
+
 # The eip 712 typed data field
 type EIP712TypedDataField {
   # The name of the typed data field
@@ -177,7 +182,7 @@ type EIP712TypedDataField {
   # The type of the typed data field
   type: String!
 }
-  
+
 # The eip 712 typed data domain
 type EIP712TypedDataDomain {
   # The name of the typed data domain
@@ -219,11 +224,9 @@ type CreateSetProfileImageUriEIP712TypedDataValue {
 }
 ```
 
-
-
 ## Request
 
-Let's touch on this request so it's super clear. 
+Let's touch on this request so it's super clear.
 
 ### profiled - required
 
@@ -235,7 +238,7 @@ This can be any image link you wish.
 
 ### nftData- optional if not supplied you need to supply the `url`
 
-- `id` - The id given back to you from [NFT ownership challenge](doc:nft-ownership-challenge) 
+- `id` - The id given back to you from [NFT ownership challenge](doc:nft-ownership-challenge)
 - `signature` - The signature result after signing the text returned from [NFT ownership challenge](doc:nft-ownership-challenge)
 
 Example using `nftData` to set the profile picture:
@@ -274,6 +277,7 @@ mutation CreateSetProfileImageURITypedData {
   }
 }
 ```
+
 ```javascript Example response
 {
   "data": {
@@ -319,20 +323,18 @@ mutation CreateSetProfileImageURITypedData {
 }
 ```
 
-
-
 ## Putting it together
 
-<https://github.com/lens-protocol/api-examples/blob/master/src/profile/set-profile-image-uri.ts> shows you a live running example of how you would generate the signed typed data from the API and send it through the `withSig` methods. 
+<https://github.com/lens-protocol/api-examples/blob/master/src/profile/set-profile-image-uri.ts> shows you a live running example of how you would generate the signed typed data from the API and send it through the `withSig` methods.
 
 # Gasless
 
 > 🚧 If you are on mumbai anyone can use gasless but if your on polygon only whitelisted apps can currently use this
 
-You have 2 options when doing gasless you have `broadcast` and also the `dispatcher`. The dispatcher supports a subset of methods that allows you to do actions without signing, these actions are protocol calls that can not drain funds from any wallet making them classed as safe actions, not all methods are supported by the dispatcher. Posting is one of those allowed dispatcher methods. You can set up a dispatcher for the user using <https://docs.lens.xyz/docs/create-set-dispatcher-typed-data> and then broadcast that transaction which is described in that document. 
+You have 2 options when doing gasless you have `broadcast` and also the `dispatcher`. The dispatcher supports a subset of methods that allows you to do actions without signing, these actions are protocol calls that can not drain funds from any wallet making them classed as safe actions, not all methods are supported by the dispatcher. Posting is one of those allowed dispatcher methods. You can set up a dispatcher for the user using <https://docs.lens.xyz/docs/create-set-dispatcher-typed-data> and then broadcast that transaction which is described in that document.
 
 > 📘 Full code example of gasless
-> 
+>
 > <https://github.com/lens-protocol/api-examples/blob/master/src/profile/set-profile-image-uri-gasless.ts>
 
 ## Broadcast
@@ -359,6 +361,7 @@ mutation CreateSetProfileImageURIViaDispatcher {
   }
 }
 ```
+
 ```javascript Example result
 {
   "data": {
@@ -370,26 +373,26 @@ mutation CreateSetProfileImageURIViaDispatcher {
 }
 ```
 
-
-
 # Hooking in without using the type data
 
 You may not want to go down the typed data with the signature route and just send the transaction directly from the client to the blockchain without any API call to map the data for you. You will need to do the encoding and validation yourself if you go down that approach. This is out of scope for the API documentation as would have been explained and showed how to do it in the contract docs. This tries to advise the same practice as what `seaport` on OpenSea are doing alongside a lot of other projects which tries to improve the visibility of what the user is signing.
 
-# 
+#
 
 # Using LensClient SDK
 
 ```typescript
-const typedDataResult = await lensClient.profile.createSetProfileImageURITypedData({
-  url: "https://arweave.net/dOKOqiZVvSs14n54GIRH9nkSlLKArzK7-SPc2sBVmAM",
-  profileId: "0x0635",
-});
+const typedDataResult =
+  await lensClient.profile.createSetProfileImageURITypedData({
+    url: "https://arweave.net/dOKOqiZVvSs14n54GIRH9nkSlLKArzK7-SPc2sBVmAM",
+    profileId: "0x0635",
+  });
 
-// or 
+// or
 
-const relayerResult = await lensClient.profile.createSetProfileImageURIViaDispatcher({
-  url: "https://arweave.net/dOKOqiZVvSs14n54GIRH9nkSlLKArzK7-SPc2sBVmAM",
-  profileId: "0x0635",
-});
+const relayerResult =
+  await lensClient.profile.createSetProfileImageURIViaDispatcher({
+    url: "https://arweave.net/dOKOqiZVvSs14n54GIRH9nkSlLKArzK7-SPc2sBVmAM",
+    profileId: "0x0635",
+  });
 ```

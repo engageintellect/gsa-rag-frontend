@@ -5,6 +5,7 @@ hidden: false
 createdAt: "2023-03-03T12:49:12.385Z"
 updatedAt: "2023-04-11T16:38:35.477Z"
 ---
+
 # Reference
 
 Here you can find all methods available in the LensClient SDK grouped by module.

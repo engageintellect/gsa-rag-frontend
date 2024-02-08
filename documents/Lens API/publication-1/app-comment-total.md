@@ -5,14 +5,15 @@ hidden: false
 createdAt: "2022-09-26T15:07:28.489Z"
 updatedAt: "2023-03-16T15:26:44.924Z"
 ---
+
 As you can filter queries by sources this means comments on a publication may be different numbers. Let's look at an example:
 
-- Josh does a post on APP2 
+- Josh does a post on APP2
 - Sally comments on APP3
 - John comments on APP4
 - Paul comments on APP2
 
-Josh's post has 3 comments but across many apps. When you filter on sources you only bring back the sources from those apps. This example below its showing you how we get publication ID `0x01-0x01` and we get back the number of comments that have been done on the app `your_app_id`. This allows us to get the correct counters etc. 
+Josh's post has 3 comments but across many apps. When you filter on sources you only bring back the sources from those apps. This example below its showing you how we get publication ID `0x01-0x01` and we get back the number of comments that have been done on the app `your_app_id`. This allows us to get the correct counters etc.
 
 # API design
 
@@ -42,6 +43,7 @@ query Publications {
   }
 }
 ```
+
 ```javascript Example response
 {
   "data": {
@@ -59,17 +61,15 @@ query Publications {
 }
 ```
 
-
-
-# 
+#
 
 # Using LensClient SDK
 
 ```typescript
-const result = await lensClient.publication.stats(  
-  {  
-    publicationId,  
-  },  
-  ["your_app_id"] // sources
+const result = await lensClient.publication.stats(
+  {
+    publicationId,
+  },
+  ["your_app_id"], // sources
 );
 ```

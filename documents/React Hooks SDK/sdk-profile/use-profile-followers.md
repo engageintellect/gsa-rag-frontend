@@ -5,33 +5,30 @@ hidden: false
 createdAt: "2022-12-23T16:46:20.708Z"
 updatedAt: "2023-03-20T07:04:17.354Z"
 ---
+
 `useProfileFollowers` is a React Hook that lets you query the followers of a profile.
 
 ```typescript
-const { data, loading, hasMore, next } = useProfileFollowers(args)
+const { data, loading, hasMore, next } = useProfileFollowers(args);
 ```
-
-
 
 ## Usage
 
 ```typescript TypeScript
-import { useProfileFollowers } from '@lens-protocol/react-web';
+import { useProfileFollowers } from "@lens-protocol/react-web";
 
 function Followers() {
-const {
+  const {
     data: followers,
     loading,
     hasMore,
     next,
   } = useProfileFollowers({
-    profileId: '0x77-0x0149',
+    profileId: "0x77-0x0149",
     limit: 10,
   });
 }
 ```
-
-
 
 ## Reference
 

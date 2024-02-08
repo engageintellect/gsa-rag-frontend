@@ -5,14 +5,15 @@ hidden: false
 createdAt: "2023-01-30T09:37:21.117Z"
 updatedAt: "2023-03-20T07:12:56.052Z"
 ---
+
 `useUpdateProfileDetails` is a React Hook that lets the active user update their profile details like name, bio, coverPicture and other custom attributes.
 
 ```typescript TypeScript
-const { execute, error, isPending } = useUpdateProfileDetails({ profile, upload });
-
+const { execute, error, isPending } = useUpdateProfileDetails({
+  profile,
+  upload,
+});
 ```
-
-
 
 ## Usage
 
@@ -21,14 +22,12 @@ Define an `upload` function that conforms to the signature:
 ```typescript upload.ts
 export const upload = (data: unknown): Promise<string> => {
   const serialized = JSON.stringify(data);
-  
+
   const url = // upload serialized to a public location
-        
+
   return url;
 }
 ```
-
-
 
 You can then wire the `useUpdateProfileDetails` into your component:
 
@@ -36,12 +35,16 @@ You can then wire the `useUpdateProfileDetails` into your component:
 import {
   ProfileFragment,
   useUpdateProfileDetails,
-} from '@lens-protocol/react-web';
+} from "@lens-protocol/react-web";
 
 function UpdateProfileDetails({ profile }: { profile: ProfileFragment }) {
-  const { execute: update, error, isPending } = useUpdateProfileDetails({
+  const {
+    execute: update,
+    error,
+    isPending,
+  } = useUpdateProfileDetails({
     profile,
-    upload
+    upload,
   });
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -49,20 +52,18 @@ function UpdateProfileDetails({ profile }: { profile: ProfileFragment }) {
 
     const formData = new FormData(event.currentTarget);
 
-    const name = formData.get('name') as string;
-    const bio = formData.get('bio') as string | null;
+    const name = formData.get("name") as string;
+    const bio = formData.get("bio") as string | null;
     const attributes = {
-      location: (formData.get('location') as string | null) || null,
-      website: (formData.get('website') as string | null) || null,
+      location: (formData.get("location") as string | null) || null,
+      website: (formData.get("website") as string | null) || null,
     };
     await update({ name, bio, attributes });
   }
-  
+
   // ...
 }
 ```
-
-
 
 You can then pass the `onSubmit` handler to your form.
 
@@ -89,18 +90,16 @@ You can use the `execute` function to update profile details.
 
 #### Parameters
 
-- `details: ProfileDetails` 
+- `details: ProfileDetails`
 
 ```typescript
 type ProfileDetails = {
-  name: string;  
+  name: string;
   bio?: string | null;
   coverPicture?: string | null;
   attributes?: PartialAttributesUpdate;
 };
 ```
-
-
 
 #### Returns
 

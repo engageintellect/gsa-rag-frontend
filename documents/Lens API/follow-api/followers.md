@@ -5,8 +5,9 @@ hidden: false
 createdAt: "2022-02-18T11:29:07.989Z"
 updatedAt: "2023-03-14T10:33:41.716Z"
 ---
+
 > 📘 Full code example
-> 
+>
 > <https://github.com/lens-protocol/api-examples/blob/master/src/follow/followers.ts>
 
 This query returns the wallet addresses which are following a profile
@@ -15,7 +16,7 @@ This query returns the wallet addresses which are following a profile
 
 ```javascript Example operation
 query Followers {
-  followers(request: { 
+  followers(request: {
              	profileId: "0x01",
               limit: 10
              }) {
@@ -112,6 +113,7 @@ query Followers {
   }
 }
 ```
+
 ```javascript Example response
 {
   "data": {
@@ -299,19 +301,16 @@ query Followers {
   }
 }
 ```
+
 ```javascript Query interface
 type Query {
   followers(request: FollowersRequest!): PaginatedFollowersResult!
 }
 ```
 
-
-
 You will see the paging result behavior repeated a lot in the API, this is to allow you to fetch a certain amount and then page it for the most optimal request speed. Every time something is wrapped in a paging result you will always get returned a `pageInfo` which holds the cursors for the previous and next alongside the total count which exists in the database. These cursors are just pointers for the server to get to the next result and do not need to be understood by your client or server. If you ever want to then page to the next result you can pass the previous and next cursor in the request cursor property.
 
-
-
-# 
+#
 
 # Using LensClient SDK
 
@@ -319,5 +318,4 @@ You will see the paging result behavior repeated a lot in the API, this is to al
 const result = await lensClient.profile.allFollowers({
   profileId: "",
 });
-
 ```

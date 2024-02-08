@@ -5,44 +5,47 @@ hidden: false
 createdAt: "2022-02-18T11:28:05.923Z"
 updatedAt: "2023-03-14T10:26:25.443Z"
 ---
+
 > 📘 Full code example
-> 
+>
 > <https://github.com/lens-protocol/api-examples/blob/master/src/follow/set-follow-module.ts>
 
 > 📘 This action can be gasless
-> 
+>
 > <https://docs.lens.xyz/docs/broadcast-transaction>) You can use the broadcast logic to send this gasless. Please note this is fully unlocked on mumbai but on polygon it is only whitelisted apps who can use it.
 
 This API call allows you to get the typed data to then call the `withSig` method to set your follow module for your profile on lens.
 
 > 🚧 This request is protected by authentication
-> 
+>
 > hint: this means it requires an x-access-token header put in the request with your authentication token.
 
 Typed data is a way to try to show the users what they are signing in a more readable format. You can read more about it [here](https://eips.ethereum.org/EIPS/eip-712).
 
-Constructing that type of data is normally difficult. On the type data, you also need to get the nonce, deadline, contract version, contract address, chain id, and the name of the contract for the signature to be able to be signed and verified. 
+Constructing that type of data is normally difficult. On the type data, you also need to get the nonce, deadline, contract version, contract address, chain id, and the name of the contract for the signature to be able to be signed and verified.
 
 When using this API the server checks every detail before it generates the typed data. For example: if you try to create typed data on an always failing transaction the server will throw an error in a human-readable form. This is great for debugging but also saves issues with users sending always failing transactions or a mismatch of a bad request.
 
-We will show you the typed data approach using ethers and the API side by side. Keep in mind that with the typed data approach you use the `withSig` methods which can be called by you with your signature or with that signature any relay could call it for you on your behalf allowing gasless transactions.  
+We will show you the typed data approach using ethers and the API side by side. Keep in mind that with the typed data approach you use the `withSig` methods which can be called by you with your signature or with that signature any relay could call it for you on your behalf allowing gasless transactions.
 
 # API Design
 
 ```graphql Example operation
 mutation CreateSetFollowModuleTypedData {
-  createSetFollowModuleTypedData(request:{
-    profileId: "0x03",
-    followModule: {
+  createSetFollowModuleTypedData(
+    request: {
+      profileId: "0x03"
+      followModule: {
         feeFollowModule: {
-            amount: {
-               currency: "0xD40282e050723Ae26Aeb0F77022dB14470f4e011",
-               value: "0.01"
-            },
-            recipient: "0xEEA0C1f5ab0159dba749Dc0BAee462E5e293daaF"
+          amount: {
+            currency: "0xD40282e050723Ae26Aeb0F77022dB14470f4e011"
+            value: "0.01"
+          }
+          recipient: "0xEEA0C1f5ab0159dba749Dc0BAee462E5e293daaF"
         }
-     }
-  }) {
+      }
+    }
+  ) {
     id
     expiresAt
     typedData {
@@ -69,6 +72,7 @@ mutation CreateSetFollowModuleTypedData {
   }
 }
 ```
+
 ```javascript Example response
 {
   "data": {
@@ -119,15 +123,13 @@ mutation CreateSetFollowModuleTypedData {
 }
 ```
 
-
-
 ## Request
 
-Let's touch on this request so it's super clear. 
+Let's touch on this request so it's super clear.
 
 ### ProfileId - required
 
-This is mandatory 
+This is mandatory
 
 ### FollowModule
 
@@ -139,12 +141,9 @@ You can unset your follow module back to nothing by using the `freeFollowModule`
 
 ```graphql
 mutation CreateSetFollowModuleTypedData {
-  createSetFollowModuleTypedData(request:{
-    profileId: "0x03",
-    followModule: {
-        freeFollowModule: true
-     }
-  }) {
+  createSetFollowModuleTypedData(
+    request: { profileId: "0x03", followModule: { freeFollowModule: true } }
+  ) {
     id
     expiresAt
     typedData {
@@ -171,8 +170,6 @@ mutation CreateSetFollowModuleTypedData {
   }
 }
 ```
-
-
 
 #### Fee follow module
 
@@ -219,9 +216,7 @@ mutation CreateSetFollowModuleTypedData {
 }
 ```
 
-
-
-As you see above we have mapped the `currency` we want to be paid in alongside the `value` which should be passed in as the normal amount not shifted to the decimal places as our server does this for you. So if you want 1 WETH you would enter 1 as a value. The final property defined is the `recipient` you want the funds to go to. 
+As you see above we have mapped the `currency` we want to be paid in alongside the `value` which should be passed in as the normal amount not shifted to the decimal places as our server does this for you. So if you want 1 WETH you would enter 1 as a value. The final property defined is the `recipient` you want the funds to go to.
 
 #### Revert follow module
 
@@ -262,8 +257,6 @@ mutation CreateSetFollowModuleTypedData {
 }
 ```
 
-
-
 #### Profile follow module
 
 You only want people with profiles to be able to follow you and only once on that profile (avoiding spam); to set this up you can do:
@@ -303,17 +296,15 @@ mutation CreateSetFollowModuleTypedData {
 }
 ```
 
-
-
 > 📘 The API will support more modules which get whitelisted as they get approved.
-> 
+>
 > as they do this doc will be updated alongside it.
 
 # Hooking in without using the type data
 
 You may not want to go down the typed data with the signature route and just send the transaction directly from the client to the blockchain without any API call to map the data for you. You will need to do the encoding and validation yourself if you go down that approach. This is out of scope for the API documentation as would have been explained and showed how to do it in the contract docs. This tries to advise the same practice as what `seaport` on OpenSea are doing alongside a lot of other projects which tries to improve the visibility of what the user is signing.
 
-# 
+#
 
 # Using LensClient SDK
 
