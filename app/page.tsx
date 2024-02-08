@@ -126,7 +126,7 @@ export default function Home() {
             <div className="hero-content text-center">
               <div className="max-w-3xl">
                 <div className="font-semibold text-white drop-shadow">
-                  <div className="flex flex-col sm:flex-row items-center justify-center">
+                  <div className="flex flex-col sm:flex-row items-center justify-center sm:mb-10">
                     <div className="flex items-center">
                       <span className="bg-blue-400 rounded -p-2">
                         <CiSearch className="text-white h-12 w-12 sm:h-16 sm:w-16" />
@@ -142,9 +142,9 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-                <p className="py-3 text-white font-thin sm:text-lg drop-shadow">
+                {/* <p className="py-3 text-white font-thin sm:text-lg drop-shadow">
                   You have questions, we have answers.
-                </p>
+                </p> */}
 
                 {/* <div className="bg-white flex gap-2 items-center border border-primary rounded">
                   <div>
