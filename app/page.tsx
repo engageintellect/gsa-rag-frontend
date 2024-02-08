@@ -174,7 +174,7 @@ export default function Home() {
         </div>
       </div>
 
-      <main className="min-h-screen h-full flex flex-col bg-gray-200 items-center max-w-3xl mx-auto border border-primary rounded shadow-lg sm:-mt-20 mb-10 p-5">
+      <main className="min-h-screen h-full flex flex-col bg-gray-200 items-center max-w-3xl mx-auto border border-primary rounded shadow-lg sm:-mt-20 mb-10 p-2 sm:p-5">
         <div className="bg-white flex gap-2 items-center border border-primary rounded w-full max-w-3xl mx-auto">
           <div>
             <FaSearch className="text-primary h-7 w-7 pl-2" />
