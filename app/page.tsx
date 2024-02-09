@@ -25,7 +25,7 @@ export default function Home() {
 
   const samplePrompts = [
     "What vendor has the lowest rate for a Program Manager and what is the rate?",
-    "Do any vendors offer discounts?",
+    "Which companies provide cloud data architects and what are the hourly rates quoted? Also provide the job descriptions.",
     "What is a sample job description for a cloud architect?",
   ];
 
