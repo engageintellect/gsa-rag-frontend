@@ -13,6 +13,9 @@ import { AiOutlineNodeIndex } from "react-icons/ai";
 import { MdOutlineGetApp } from "react-icons/md";
 import { CiSearch } from "react-icons/ci";
 import { IoIosSend } from "react-icons/io";
+import { FaUser } from "react-icons/fa";
+import { FaRobot } from "react-icons/fa";
+import { FaDatabase } from "react-icons/fa";
 
 export default function Home() {
   const inputRef = useRef<HTMLInputElement>(null); // Add type annotation for inputRef
@@ -120,7 +123,7 @@ export default function Home() {
           />
         </div>
 
-        <div className="absolute top-0 w-full h-full max-h-72 flex justify-center items-center opacity-80 bg-gradient-to-b from-gray-950 to-gray-700"></div>
+        <div className="absolute top-0 w-full h-full max-h-72 flex justify-center items-center opacity-50 bg-gradient-to-b from-gray-950 to-gray-700"></div>
 
         <div className="absolute top-0 w-full h-full flex justify-center items-center py-10">
           <div className="hero h-full">
@@ -203,31 +206,16 @@ export default function Home() {
           </div>
         </div>
 
-        {/* {result ? (
-          <div className="flex flex-col gap-2 items-center justify-center my-5">
-            <div className="text-xs">
-              <strong>Response:</strong>
-              </div>
-              <div className="">
-                {result}
-              </div>
-          </div>
-        ) : (
-          ""
-        )} */}
 
         <div className="mb-10 w-full ">
           {!loading && (
             <>
               {!result && (
-                <div className="text-xs py-5">
-                  <strong>Disclaimer:</strong>
-                  This is a demo application. The purpose of this application is
-                  to demonstrate the capabilities of large language models and
-                  their potential applications in contextual search and
-                  information retrieval.
-                </div>
-              )}
+                <>
+
+
+
+
 
               <div className="text-xs py-5">
                 <strong>Disclaimer:</strong>
@@ -237,7 +225,9 @@ export default function Home() {
                 information retrieval.
               </div>
 
-              <div className="text-xs w-full">
+                </>
+              )}
+              <div className="text-xs w-full pt-5">
                 <strong>Sample Prompts:</strong>
               </div>
 
@@ -288,28 +278,30 @@ export default function Home() {
           {result ? (
             <div className="pb-10">
               <div className="chat chat-end">
+
+                <div className="chat-image avatar">
+                  <div className="rounded-full shadow-md p-2 border border-gray-900 flex items-center justify-center">
+                    <FaUser className="w-7 h-7" />
+                  </div>
+                </div>
+
                 <div className="chat-header">Me</div>
-                <div className="chat-bubble bg-purple-500 shadow-lg p-4">
+                <div className="chat-bubble bg-gray-900 shadow-lg p-4">
                   {sentQuery}
                 </div>
               </div>
 
               <div className="chat chat-start">
                 <div className="chat-image avatar">
-                  <div className="w-10 rounded-full shadow-md">
-                    <Image
-                      src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2274&q=80"
-                      width={200}
-                      height={200}
-                      alt="avatar"
-                    />
+                  <div className="rounded-full shadow-md p-2 border border-gray-900 flex items-center justify-center">
+                    <FaRobot className="w-7 h-7" />
                   </div>
                 </div>
                 <div className="chat-header">
                   eLibrary
                   {/* <time className="text-xs opacity-50">{new Date}</time> */}
                 </div>
-                <div className="chat-bubble shadow-lg p-4">
+                <div className="chat-bubble shadow-lg bg-fuchsia-700 p-4">
                   {result && <div>{result}</div>}
                 </div>
                 <div className="chat-footer">
@@ -367,7 +359,7 @@ export default function Home() {
                 <div>About the Data</div>
 
                 <div className="sm:group-hover:scale-105 transition-all duration-200">
-                  <MdGroups className="w-6 h-6" />
+                  <FaDatabase className="w-6 h-6" />
                 </div>
               </div>
             </button>
