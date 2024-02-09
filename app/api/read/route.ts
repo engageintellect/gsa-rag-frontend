@@ -1,19 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
-// import fetch from "node-fetch";
 export const maxDuration = 60;
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-
-    // console.log("CLIENT");
-    // console.log(body);
-
-    const response = await fetch("http://18.188.196.193/generate_answer", {
+    const response = await fetch("http://18.191.61.228/generate_answer", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        // Add any additional headers if needed
       },
       body: JSON.stringify(body),
     });

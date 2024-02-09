@@ -206,25 +206,18 @@ export default function Home() {
           </div>
         </div>
 
-
         <div className="mb-10 w-full ">
           {!loading && (
             <>
               {!result && (
                 <>
-
-
-
-
-
-              <div className="text-xs py-5">
-                <strong>Disclaimer:</strong>
-                This is a demo application. The purpose of this application is
-                to demonstrate the capabilities of large language models and
-                their potential applications in contextual search and
-                information retrieval.
-              </div>
-
+                  <div className="text-xs py-5">
+                    <strong>Disclaimer:</strong>
+                    This is a demo application. The purpose of this application
+                    is to demonstrate the capabilities of large language models
+                    and their potential applications in contextual search and
+                    information retrieval.
+                  </div>
                 </>
               )}
               <div className="text-xs w-full pt-5">
@@ -278,7 +271,6 @@ export default function Home() {
           {result ? (
             <div className="pb-10">
               <div className="chat chat-end">
-
                 <div className="chat-image avatar">
                   <div className="rounded-full shadow-md p-2 border border-gray-900 flex items-center justify-center">
                     <FaUser className="w-7 h-7" />
