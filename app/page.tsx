@@ -6,19 +6,12 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import Image from "next/image";
 import path from "path";
-import { LiaCircleNotchSolid } from "react-icons/lia";
 import { FaSearch } from "react-icons/fa";
-import { MdGroups } from "react-icons/md";
-import { AiOutlineNodeIndex } from "react-icons/ai";
-import { MdOutlineGetApp } from "react-icons/md";
 import { CiSearch } from "react-icons/ci";
 import { IoIosSend } from "react-icons/io";
 import { FaUser } from "react-icons/fa";
 import { FaRobot } from "react-icons/fa";
 import { FaDatabase } from "react-icons/fa";
-import { GiAtom } from "react-icons/gi";
-import { FaGear } from "react-icons/fa6";
-import { FaSpinner } from "react-icons/fa";
 import { ImSpinner2 } from "react-icons/im";
 
 export default function Home() {
@@ -27,6 +20,8 @@ export default function Home() {
   const [sentQuery, setSentQuery] = useState("");
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
+  const [authenticated, setAuthenticated] = useState(false); // Track authentication state
+  const secretCode = "81Z70GSA"; // Define your secret code here
 
   const samplePrompts = [
     '"What vendor has the lowest rate for a Program Manager and what is the rate?"',
@@ -86,6 +81,23 @@ export default function Home() {
   //   }
   // }, [result]);
 
+
+
+
+
+  //Function to handle authentication
+  function authenticate() {
+    const userCode = prompt("Please enter the secret code:");
+    if (userCode === secretCode) {
+      setAuthenticated(true);
+    } else {
+      alert("Incorrect code. Please try again.");
+    }
+  }
+
+
+
+
   async function sendQuery() {
     if (!query) return;
     setResult("");
@@ -111,9 +123,21 @@ export default function Home() {
     }
   }
 
+
+
+
+
+
+
+
+
   return (
     <div>
+ 
+ 
       <Nav />
+
+
 
       <div className="relative -z-[1]">
         <div className="w-full object-cover h-full relative">
@@ -180,9 +204,26 @@ export default function Home() {
           </div>
         </div>
       </div>
-
       <main className="min-h-screen h-full flex flex-col bg-gray-200 items-center max-w-3xl mx-auto border border-primary sm:rounded shadow-lg sm:-mt-20 mb-10 p-2 sm:p-5">
+
+
+
         <div className="bg-white flex gap-2 items-center border border-primary rounded w-full max-w-3xl mx-auto">
+
+
+
+          {!authenticated ? (
+          // Only show authentication input when not authenticated
+          <div className="w-full flex justify-center p-2">
+            <button className="btn btn-info" onClick={authenticate}>Authenticate to use demo</button>
+          </div>
+        ) : (
+          // Show something else when authenticated
+          <>
+
+
+
+
           <div>
             <FaSearch className="text-primary h-7 w-7 pl-2" />
           </div>
@@ -199,6 +240,7 @@ export default function Home() {
                 }
               }}
             />
+
             <button
               className="btn btn-primary rounded-l-none hover:shadow group"
               onClick={sendQuery}
@@ -208,6 +250,14 @@ export default function Home() {
               </div>
             </button>
           </div>
+          </>
+
+
+
+
+        )}
+
+
         </div>
 
         <div className="mb-10 w-full ">
@@ -216,14 +266,13 @@ export default function Home() {
               {!result && (
                 <>
                   <div className="text-xs py-5">
-                    <strong>Disclaimer:</strong>
+                    <strong>Disclaimer: </strong>
                     This is a demo application. The purpose of this application
                     is to demonstrate the capabilities of large language models
                     and their potential applications in contextual search and
                     information retrieval.
                   </div>
-                </>
-              )}
+
               <div className="text-xs w-full pt-5">
                 <strong>Sample Prompts:</strong>
               </div>
@@ -255,6 +304,16 @@ export default function Home() {
                   </button>
                 </div>
               </div>
+
+
+
+                </>
+              )}
+
+
+              <div className="divider"></div>
+
+
             </>
           )}
 
@@ -271,6 +330,7 @@ export default function Home() {
                 <div className="animate-bounce flex flex-col items-center mt-5">
                   <div className="text-lg">Thinking...</div>
                 </div>
+                  <div className="text">This might take a minute.</div>
               </div>
             </>
           )}
