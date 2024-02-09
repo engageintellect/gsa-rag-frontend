@@ -81,10 +81,6 @@ export default function Home() {
   //   }
   // }, [result]);
 
-
-
-
-
   //Function to handle authentication
   function authenticate() {
     const userCode = prompt("Please enter the secret code:");
@@ -94,9 +90,6 @@ export default function Home() {
       alert("Incorrect code. Please try again.");
     }
   }
-
-
-
 
   async function sendQuery() {
     if (!query) return;
@@ -123,21 +116,9 @@ export default function Home() {
     }
   }
 
-
-
-
-
-
-
-
-
   return (
     <div>
- 
- 
       <Nav />
-
-
 
       <div className="relative -z-[1]">
         <div className="w-full object-cover h-full relative">
@@ -205,59 +186,45 @@ export default function Home() {
         </div>
       </div>
       <main className="min-h-screen h-full flex flex-col bg-gray-200 items-center max-w-3xl mx-auto border border-primary sm:rounded shadow-lg sm:-mt-20 mb-10 p-2 sm:p-5">
-
-
-
         <div className="bg-white flex gap-2 items-center border border-primary rounded w-full max-w-3xl mx-auto">
-
-
-
           {!authenticated ? (
-          // Only show authentication input when not authenticated
-          <div className="w-full flex justify-center p-2">
-            <button className="btn btn-info" onClick={authenticate}>Authenticate to use demo</button>
-          </div>
-        ) : (
-          // Show something else when authenticated
-          <>
-
-
-
-
-          <div>
-            <FaSearch className="text-primary h-7 w-7 pl-2" />
-          </div>
-          <div className="flex gap-2 w-full">
-            <input
-              ref={inputRef} // Add the ref to the input element
-              className="w-full focus:outline-none"
-              placeholder="Ask a question..."
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  sendQuery();
-                }
-              }}
-            />
-
-            <button
-              className="btn btn-primary rounded-l-none hover:shadow group"
-              onClick={sendQuery}
-            >
-              <div className="sm:group-hover:scale-105 transition-all duration-200">
-                <IoIosSend className="w-7 h-7 text-white" />
+            // Only show authentication input when not authenticated
+            <div className="w-full flex justify-center p-2">
+              <button className="btn btn-info" onClick={authenticate}>
+                Authenticate to use demo
+              </button>
+            </div>
+          ) : (
+            // Show something else when authenticated
+            <>
+              <div>
+                <FaSearch className="text-primary h-7 w-7 pl-2" />
               </div>
-            </button>
-          </div>
-          </>
+              <div className="flex gap-2 w-full">
+                <input
+                  ref={inputRef} // Add the ref to the input element
+                  className="w-full focus:outline-none"
+                  placeholder="Ask a question..."
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      sendQuery();
+                    }
+                  }}
+                />
 
-
-
-
-        )}
-
-
+                <button
+                  className="btn btn-primary rounded-l-none hover:shadow group"
+                  onClick={sendQuery}
+                >
+                  <div className="sm:group-hover:scale-105 transition-all duration-200">
+                    <IoIosSend className="w-7 h-7 text-white" />
+                  </div>
+                </button>
+              </div>
+            </>
+          )}
         </div>
 
         <div className="mb-10 w-full ">
@@ -273,47 +240,41 @@ export default function Home() {
                     information retrieval.
                   </div>
 
-              <div className="text-xs w-full pt-5">
-                <strong>Sample Prompts:</strong>
-              </div>
+                  <div className="text-xs w-full pt-5">
+                    <strong>Sample Prompts:</strong>
+                  </div>
 
-              <div className="flex flex-col sm:flex-row gap-2 sm:gap-5 w-full text-xs pb-5">
-                <div className="w-full text-left bg-base-100 border rounded-bl-none border-gray-900 rounded p-2 italic">
-                  <button
-                    className="text-left italic"
-                    onClick={() => setQuery(samplePrompts[0])}
-                  >
-                    {samplePrompts[0]}
-                  </button>
-                </div>
+                  <div className="flex flex-col sm:flex-row gap-2 sm:gap-5 w-full text-xs pb-5">
+                    <div className="w-full text-left bg-base-100 border rounded-bl-none border-gray-900 rounded p-2 italic">
+                      <button
+                        className="text-left italic"
+                        onClick={() => setQuery(samplePrompts[0])}
+                      >
+                        {samplePrompts[0]}
+                      </button>
+                    </div>
 
-                <div className="w-full text-left bg-base-100 border rounded-bl-none border-gray-900 rounded p-2 italic">
-                  <button
-                    className="text-left italic"
-                    onClick={() => setQuery(samplePrompts[1])}
-                  >
-                    {samplePrompts[1]}
-                  </button>
-                </div>
-                <div className="w-full text-left bg-base-100 border rounded-bl-none border-gray-900 rounded p-2 italic">
-                  <button
-                    className="text-left italic"
-                    onClick={() => setQuery(samplePrompts[2])}
-                  >
-                    {samplePrompts[2]}
-                  </button>
-                </div>
-              </div>
-
-
-
+                    <div className="w-full text-left bg-base-100 border rounded-bl-none border-gray-900 rounded p-2 italic">
+                      <button
+                        className="text-left italic"
+                        onClick={() => setQuery(samplePrompts[1])}
+                      >
+                        {samplePrompts[1]}
+                      </button>
+                    </div>
+                    <div className="w-full text-left bg-base-100 border rounded-bl-none border-gray-900 rounded p-2 italic">
+                      <button
+                        className="text-left italic"
+                        onClick={() => setQuery(samplePrompts[2])}
+                      >
+                        {samplePrompts[2]}
+                      </button>
+                    </div>
+                  </div>
                 </>
               )}
 
-
               <div className="divider"></div>
-
-
             </>
           )}
 
@@ -330,7 +291,7 @@ export default function Home() {
                 <div className="animate-bounce flex flex-col items-center mt-5">
                   <div className="text-lg">Thinking...</div>
                 </div>
-                  <div className="text">This might take a minute.</div>
+                <div className="text">This may take a minute.</div>
               </div>
             </>
           )}

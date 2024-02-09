@@ -4,7 +4,7 @@ export const maxDuration = 60;
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const response = await fetch("http://18.191.61.228/generate_answer", {
+    const response = await fetch("http://18.217.132.215/generate_answer", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
