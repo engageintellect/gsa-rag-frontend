@@ -16,6 +16,10 @@ import { IoIosSend } from "react-icons/io";
 import { FaUser } from "react-icons/fa";
 import { FaRobot } from "react-icons/fa";
 import { FaDatabase } from "react-icons/fa";
+import { GiAtom } from "react-icons/gi";
+import { FaGear } from "react-icons/fa6";
+import { FaSpinner } from "react-icons/fa";
+import { ImSpinner2 } from "react-icons/im";
 
 export default function Home() {
   const inputRef = useRef<HTMLInputElement>(null); // Add type annotation for inputRef
@@ -90,7 +94,7 @@ export default function Home() {
     console.log("USER QUERY:", query);
 
     try {
-      const response = await fetch("/api/read", {
+      const response = await fetch("/api/sendToClaude", {
         method: "POST",
         body: JSON.stringify({ user_question: query }),
       });
@@ -177,7 +181,7 @@ export default function Home() {
         </div>
       </div>
 
-      <main className="min-h-screen h-full flex flex-col bg-gray-200 items-center max-w-3xl mx-auto border border-primary rounded shadow-lg sm:-mt-20 mb-10 p-2 sm:p-5">
+      <main className="min-h-screen h-full flex flex-col bg-gray-200 items-center max-w-3xl mx-auto border border-primary sm:rounded shadow-lg sm:-mt-20 mb-10 p-2 sm:p-5">
         <div className="bg-white flex gap-2 items-center border border-primary rounded w-full max-w-3xl mx-auto">
           <div>
             <FaSearch className="text-primary h-7 w-7 pl-2" />
@@ -257,11 +261,14 @@ export default function Home() {
           {loading && (
             <>
               <div className="flex flex-col items-center py-10">
-                <div>
-                  <LiaCircleNotchSolid className="w-32 h-32 animate-spin" />
+                <div className="animate-pulse">
+                  {/* <LiaCircleNotchSolid className="w-40 h-40 animate-spin" /> */}
+                  <ImSpinner2 className="w-36 h-36 animate-spin" />
+                  {/* <FaGear className="w-32 h-32 animate-spin " /> */}
+                  {/* <span className="loading loading-spinner loading-lg scale-150"></span> */}
                 </div>
 
-                <div className="animate-bounce flex flex-col items-center">
+                <div className="animate-bounce flex flex-col items-center mt-5">
                   <div className="text-lg">Thinking...</div>
                 </div>
               </div>
