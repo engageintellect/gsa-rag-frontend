@@ -340,11 +340,11 @@ export default function Home() {
         <div className="flex -mt-10 flex-col sm:flex-row gap-2 sm:gap-5  w-full items-center justify-center max-w-3xl">
           <a
             href="/about"
-            className="w-full border border-gray-900 rounded group"
+            className=" border border-gray-900 rounded group"
           >
             <button className="btn btn-primary w-full">
               <div className="flex gap-2 items-center">
-                <div>About</div>
+                <div>About the Data</div>
 
                 <div className="sm:group-hover:scale-105 transition-all duration-200">
                   <MdGroups className="w-6 h-6" />
@@ -353,7 +353,7 @@ export default function Home() {
             </button>
           </a>
 
-          <a
+          {/* <a
             href="/about"
             className="w-full border border-gray-900 rounded group"
           >
@@ -369,9 +369,9 @@ export default function Home() {
                 </div>
               </div>
             </button>
-          </a>
+          </a> */}
 
-          <div className="w-full h-full flex shadow border border-gray-900 rounded group">
+          {/* <div className="w-full h-full flex shadow border border-gray-900 rounded group">
             <button className="btn btn-primary w-full" onClick={getPages}>
               <div className="flex gap-2 items-center">
                 <div>Get Pages</div>
@@ -381,7 +381,7 @@ export default function Home() {
                 </div>
               </div>
             </button>
-          </div>
+          </div> */}
         </div>
       </main>
       <Footer />
