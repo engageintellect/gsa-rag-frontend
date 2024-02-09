@@ -18,39 +18,39 @@ export default function Home() {
   const inputRef = useRef<HTMLInputElement>(null); // Add type annotation for inputRef
   const [query, setQuery] = useState("");
   const [sentQuery, setSentQuery] = useState("");
-  const [result, setResult] = useState({ text: "", link: "", source: "" });
+  const [result, setResult] = useState({ text: "" });
   const [loading, setLoading] = useState(false);
 
   const samplePrompts = [
-    '"How much wood would a woodchuck chuck if a woodchuck could chuck wood?"',
-    '"Why did the chicken cross the road?"',
-    '"A train leaves New York at 3:00 PM traveling at 60 mph. Another train leaves Chicago at 4:00 PM traveling at 80 mph. When do they meet?"',
+    '"What vendor has the lowest rate for a Program Manager and what is the rate?"',
+    '"Do any vendors offer discounts?"',
+    '"What is a sample job description for a cloud architect?"',
   ];
 
-  async function getPages() {
-    try {
-      const testing = await fetch("/api/getPages", {
-        method: "GET",
-      });
+  // async function getPages() {
+  //   try {
+  //     const testing = await fetch("/api/getPages", {
+  //       method: "GET",
+  //     });
 
-      const json = await testing.json();
-      console.log("result: ", json);
-    } catch (err) {
-      console.log("err:", err);
-    }
-  }
+  //     const json = await testing.json();
+  //     console.log("result: ", json);
+  //   } catch (err) {
+  //     console.log("err:", err);
+  //   }
+  // }
 
-  async function createIndexAndEmbeddings() {
-    try {
-      const result = await fetch("/api/setup", {
-        method: "POST",
-      });
-      const json = await result.json();
-      console.log("result: ", json);
-    } catch (err) {
-      console.log("err:", err);
-    }
-  }
+  // async function createIndexAndEmbeddings() {
+  //   try {
+  //     const result = await fetch("/api/setup", {
+  //       method: "POST",
+  //     });
+  //     const json = await result.json();
+  //     console.log("result: ", json);
+  //   } catch (err) {
+  //     console.log("err:", err);
+  //   }
+  // }
 
   useEffect(() => {
     if (inputRef.current) {
@@ -58,45 +58,47 @@ export default function Home() {
     }
   }, []);
 
-  useEffect(() => {
-    async function addToSearches() {
-      try {
-        const pb = new PocketBase("https://engage-dev.com");
-        const data = {
-          query: sentQuery,
-          result: result.text,
-        };
+  // useEffect(() => {
+  //   async function addToSearches() {
+  //     try {
+  //       const pb = new PocketBase("https://engage-dev.com");
+  //       const data = {
+  //         query: sentQuery,
+  //         result: result.text,
+  //       };
 
-        const record = await pb.collection("searches").create(data);
-        console.log("search record added to PocketBase...");
-      } catch (err) {
-        console.log("err:", err);
-      }
-    }
+  //       const record = await pb.collection("searches").create(data);
+  //       console.log("search record added to PocketBase...");
+  //     } catch (err) {
+  //       console.log("err:", err);
+  //     }
+  //   }
 
-    if (result.text) {
-      addToSearches();
-    }
-  }, [result]);
+  //   if (result.text) {
+  //     addToSearches();
+  //   }
+  // }, [result]);
 
   async function sendQuery() {
     if (!query) return;
-    setResult({ text: "", link: "", source: "" });
+    setResult({ text: "" });
     setLoading(true);
 
-    console.log("hello there world");
+    console.log("TRYING TO SEND QUERY");
 
     try {
-      const response = await fetch("/api/read", {
+      const response = await fetch("http://3.144.73.3/generate_answer", {
         method: "POST",
-        body: JSON.stringify(query),
+        body: JSON.stringify(`user_question: ${query}`),
       });
 
       const json = await response.json();
+      console.log(json)
       setResult(json.data);
       setSentQuery(query);
       setLoading(false);
       setQuery("");
+      console.log('DONE')
     } catch (err) {
       console.log("err:", err);
       setLoading(false);
