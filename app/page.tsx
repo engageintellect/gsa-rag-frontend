@@ -79,9 +79,7 @@ export default function Home() {
   //   }
   // }, [result]);
 
-
-
-    async function sendQuery() {
+  async function sendQuery() {
     if (!query) return;
     setResult("");
     setLoading(true);
@@ -91,12 +89,11 @@ export default function Home() {
     try {
       const response = await fetch("/api/read", {
         method: "POST",
-        body: JSON.stringify({"user_question": query}),
+        body: JSON.stringify({ user_question: query }),
       });
 
-
       const json = await response.json();
-      console.log('SERVER RESPONSE:', json);
+      console.log("SERVER RESPONSE:", json);
       setResult(json.data);
       setSentQuery(query);
       setLoading(false);
@@ -106,8 +103,6 @@ export default function Home() {
       setLoading(false);
     }
   }
-
-
 
   return (
     <div>
@@ -137,7 +132,6 @@ export default function Home() {
                       <span className="bg-blue-400 rounded -p-2">
                         <CiSearch className="text-white h-12 w-12 sm:h-16 sm:w-16" />
                       </span>
-                      {/* <div>Search</div> */}
 
                       <div className="font-thin text-blue-400 drop-shadow text-5xl sm:text-7xl">
                         GSA
@@ -222,14 +216,18 @@ export default function Home() {
           ""
         )} */}
 
-
-      
-
         <div className="mb-10 w-full ">
           {!loading && (
             <>
-
-
+              {!result && (
+                <div className="text-xs py-5">
+                  <strong>Disclaimer:</strong>
+                  This is a demo application. The purpose of this application is
+                  to demonstrate the capabilities of large language models and
+                  their potential applications in contextual search and
+                  information retrieval.
+                </div>
+              )}
 
               <div className="text-xs py-5">
                 <strong>Disclaimer:</strong>
@@ -308,7 +306,7 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="chat-header">
-                  Robot
+                  eLibrary
                   {/* <time className="text-xs opacity-50">{new Date}</time> */}
                 </div>
                 <div className="chat-bubble shadow-lg p-4">
@@ -363,10 +361,7 @@ export default function Home() {
 
         {/* consider removing this button from the UI once the embeddings are created ... */}
         <div className="flex -mt-10 flex-col sm:flex-row gap-2 sm:gap-5  w-full items-center justify-center max-w-3xl">
-          <a
-            href="/about"
-            className=" border border-gray-900 rounded group"
-          >
+          <a href="/about" className=" border border-gray-900 rounded group">
             <button className="btn btn-primary w-full">
               <div className="flex gap-2 items-center">
                 <div>About the Data</div>
