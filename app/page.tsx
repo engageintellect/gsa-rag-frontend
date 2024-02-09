@@ -24,9 +24,9 @@ export default function Home() {
   const secretCode = "81Z70GSA"; // Define your secret code here
 
   const samplePrompts = [
-    '"What vendor has the lowest rate for a Program Manager and what is the rate?"',
-    '"Do any vendors offer discounts?"',
-    '"What is a sample job description for a cloud architect?"',
+    "What vendor has the lowest rate for a Program Manager and what is the rate?",
+    "Do any vendors offer discounts?",
+    "What is a sample job description for a cloud architect?",
   ];
 
   // async function getPages() {
