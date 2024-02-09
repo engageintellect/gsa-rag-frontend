@@ -18,7 +18,7 @@ export default function Home() {
   const inputRef = useRef<HTMLInputElement>(null); // Add type annotation for inputRef
   const [query, setQuery] = useState("");
   const [sentQuery, setSentQuery] = useState("");
-  const [result, setResult] = useState({ text: "" });
+  const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
 
   const samplePrompts = [
@@ -83,10 +83,10 @@ export default function Home() {
 
     async function sendQuery() {
     if (!query) return;
-    setResult({ text: "" });
+    setResult("");
     setLoading(true);
 
-    console.log("this is query", query);
+    console.log("USER QUERY:", query);
 
     try {
       const response = await fetch("/api/read", {
@@ -96,7 +96,7 @@ export default function Home() {
 
 
       const json = await response.json();
-      console.log('JSON:', json);
+      console.log('SERVER RESPONSE:', json);
       setResult(json.data);
       setSentQuery(query);
       setLoading(false);
@@ -209,9 +209,28 @@ export default function Home() {
           </div>
         </div>
 
+        {/* {result ? (
+          <div className="flex flex-col gap-2 items-center justify-center my-5">
+            <div className="text-xs">
+              <strong>Response:</strong>
+              </div>
+              <div className="">
+                {result}
+              </div>
+          </div>
+        ) : (
+          ""
+        )} */}
+
+
+      
+
         <div className="mb-10 w-full ">
           {!loading && (
             <>
+
+
+
               <div className="text-xs py-5">
                 <strong>Disclaimer:</strong>
                 This is a demo application. The purpose of this application is
@@ -268,7 +287,7 @@ export default function Home() {
             </>
           )}
 
-          {result.text ? (
+          {result ? (
             <div className="pb-10">
               <div className="chat chat-end">
                 <div className="chat-header">Me</div>
@@ -293,7 +312,7 @@ export default function Home() {
                   {/* <time className="text-xs opacity-50">{new Date}</time> */}
                 </div>
                 <div className="chat-bubble shadow-lg p-4">
-                  {result.text && <div>{result.text}</div>}
+                  {result && <div>{result}</div>}
                 </div>
                 <div className="chat-footer">
                   {/* {result.link && (

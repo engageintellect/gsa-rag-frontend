@@ -1,20 +1,3 @@
-// import { NextRequest, NextResponse } from "next/server";
-
-// export async function POST(req: NextRequest) {
-
-
-//   const body = await req.json();
-  
-//   console.log("CLIENT");
-//   console.log(body)
-
-//   return NextResponse.json({
-//     // data: text,
-//     data: 'hello world',
-//   });
-// }
-
-
 import { NextRequest, NextResponse } from "next/server";
 // import fetch from "node-fetch";
 
@@ -22,8 +5,8 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
 
-    console.log("CLIENT");
-    console.log(body);
+    // console.log("CLIENT");
+    // console.log(body);
 
     const response = await fetch("http://18.188.196.193/generate_answer", {
       method: "POST",
