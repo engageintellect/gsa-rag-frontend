@@ -292,7 +292,7 @@ export default function Home() {
                   {result.text && <div>{result.text}</div>}
                 </div>
                 <div className="chat-footer">
-                  {result.link && (
+                  {/* {result.link && (
                     <div className="my-5">
                       <a
                         href={`${
@@ -305,13 +305,13 @@ export default function Home() {
                         Read More
                       </a>
                     </div>
-                  )}
+                  )} */}
                 </div>
               </div>
 
               <div className="divider"></div>
 
-              <div className="p-2 sm:px-10 text-sm">
+              {/* <div className="p-2 sm:px-10 text-sm">
                 {result.source && (
                   <>
                     <div className="border-primary p-4">
@@ -322,7 +322,7 @@ export default function Home() {
                     </div>
                   </>
                 )}
-              </div>
+              </div> */}
             </div>
           ) : (
             ""
