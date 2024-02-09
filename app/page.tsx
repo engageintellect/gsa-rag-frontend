@@ -24,9 +24,9 @@ export default function Home() {
   const secretCode = "81Z70GSA"; // Define your secret code here
 
   const samplePrompts = [
-    '"What vendor has the lowest rate for a Program Manager and what is the rate?"',
-    '"Do any vendors offer discounts?"',
-    '"What is a sample job description for a cloud architect?"',
+    'What vendor has the lowest rate for a Program Manager and what is the rate?',
+    'Do any vendors offer discounts?',
+    'What is a sample job description for a cloud architect?',
   ];
 
   // async function getPages() {
@@ -283,7 +283,7 @@ export default function Home() {
                     className="text-left italic"
                     onClick={() => setQuery(samplePrompts[0])}
                   >
-                    {samplePrompts[0]}
+                    "{samplePrompts[0]}"
                   </button>
                 </div>
 
@@ -292,7 +292,7 @@ export default function Home() {
                     className="text-left italic"
                     onClick={() => setQuery(samplePrompts[1])}
                   >
-                    {samplePrompts[1]}
+                    "{samplePrompts[1]}"
                   </button>
                 </div>
                 <div className="w-full text-left bg-base-100 border rounded-bl-none border-gray-900 rounded p-2 italic">
@@ -300,7 +300,7 @@ export default function Home() {
                     className="text-left italic"
                     onClick={() => setQuery(samplePrompts[2])}
                   >
-                    {samplePrompts[2]}
+                    "{samplePrompts[2]}"
                   </button>
                 </div>
               </div>
