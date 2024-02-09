@@ -87,16 +87,20 @@ export default function Home() {
     console.log("TRYING TO SEND QUERY");
 
     try {
-      const response = await fetch("http://3.144.73.3/generate_answer", {
+      const response = await fetch("http://18.188.196.193/generate_answer", {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*", // Replace '*' with your server's domain if possible
+        },
         body: JSON.stringify(`user_question: ${query}`),
       });
 
       const json = await response.json();
       console.log(json)
-      setResult(json.data);
-      setSentQuery(query);
-      setLoading(false);
+      // setResult(json.data);
+      // setSentQuery(query);
+      // setLoading(false);
       setQuery("");
       console.log('DONE')
     } catch (err) {

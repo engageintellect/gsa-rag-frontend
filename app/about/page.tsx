@@ -15,10 +15,15 @@ export default function About() {
         <div className="text-2xl my-2 font-semibold">About The Data:</div>
         <p className="mb-5">The demo contains a preloaded dataset featuring GSA eLibrary price lists for (insert total document count) vendors under the Multiple Award Schedule SIN 511210. This curated selection provides a realistic scenario to explore the system’s capabilities, including its ability to identify, analyze, and extract standard language from existing documents. (Provide a bulleted list after this of the vendor names)</p>
         <ul>
-          <li>Name 1</li>
-          <li>Name 2</li>
-          <li>Name 3</li>
-          <li>Name 4</li>
+          <li>
+            InductiveHealth Informatics, Inc.
+          </li>
+          <li>
+            T-Metrics, Inc
+          </li>
+          <li>
+            Aperia Solutions, Inc.
+          </li>
         </ul>
       </div>
       <Footer />
