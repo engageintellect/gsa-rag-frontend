@@ -79,35 +79,35 @@ export default function Home() {
   //   }
   // }, [result]);
 
-  async function sendQuery() {
+
+
+    async function sendQuery() {
     if (!query) return;
     setResult({ text: "" });
     setLoading(true);
 
-    console.log("TRYING TO SEND QUERY");
+    console.log("this is query", query);
 
     try {
-      const response = await fetch("http://18.188.196.193/generate_answer", {
+      const response = await fetch("/api/read", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*", // Replace '*' with your server's domain if possible
-        },
-        body: JSON.stringify(`user_question: ${query}`),
+        body: JSON.stringify({"user_question": query}),
       });
 
+
       const json = await response.json();
-      console.log(json)
-      // setResult(json.data);
-      // setSentQuery(query);
-      // setLoading(false);
+      console.log('JSON:', json);
+      setResult(json.data);
+      setSentQuery(query);
+      setLoading(false);
       setQuery("");
-      console.log('DONE')
     } catch (err) {
       console.log("err:", err);
       setLoading(false);
     }
   }
+
+
 
   return (
     <div>
