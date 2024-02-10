@@ -60,26 +60,26 @@ export default function Home() {
     }
   }, []);
 
-  // useEffect(() => {
-  //   async function addToSearches() {
-  //     try {
-  //       const pb = new PocketBase("https://engage-dev.com");
-  //       const data = {
-  //         query: sentQuery,
-  //         result: result.text,
-  //       };
+  useEffect(() => {
+    async function addToSearches() {
+      try {
+        const pb = new PocketBase("https://engage-dev.com");
+        const data = {
+          query: sentQuery,
+          result: result,
+        };
 
-  //       const record = await pb.collection("searches").create(data);
-  //       console.log("search record added to PocketBase...");
-  //     } catch (err) {
-  //       console.log("err:", err);
-  //     }
-  //   }
+        const record = await pb.collection("searches").create(data);
+        console.log("search record added to PocketBase...");
+      } catch (err) {
+        console.log("err:", err);
+      }
+    }
 
-  //   if (result.text) {
-  //     addToSearches();
-  //   }
-  // }, [result]);
+    if (result) {
+      addToSearches();
+    }
+  }, [result]);
 
   //Function to handle authentication
   function authenticate() {
