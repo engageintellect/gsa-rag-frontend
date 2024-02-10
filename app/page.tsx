@@ -1,7 +1,5 @@
 "use client";
 
-// hello world
-
 import { useEffect, useState, useRef } from "react";
 import PocketBase from "pocketbase";
 import Nav from "@/components/Nav";
