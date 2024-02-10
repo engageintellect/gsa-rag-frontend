@@ -67,6 +67,7 @@ export default function Home() {
         const data = {
           query: sentQuery,
           result: result,
+          ip: window.location.hostname,
         };
 
         const record = await pb.collection("searches").create(data);
