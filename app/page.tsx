@@ -321,8 +321,18 @@ export default function Home() {
                   eLibrary
                   {/* <time className="text-xs opacity-50">{new Date}</time> */}
                 </div>
-                <div className="chat-bubble shadow-lg bg-fuchsia-700 p-4">
+                {/* <div className="chat-bubble shadow-lg bg-fuchsia-700 p-4">
                   {result && <div>{result}</div>}
+                </div> */}
+
+                <div className="chat-bubble shadow-lg bg-fuchsia-700 p-4">
+                  {result && (
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: result.replace(/\n/g, "<br>"),
+                      }}
+                    />
+                  )}
                 </div>
                 <div className="chat-footer">
                   {/* {result.link && (
