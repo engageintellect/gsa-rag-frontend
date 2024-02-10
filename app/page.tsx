@@ -127,7 +127,7 @@ export default function Home() {
       <div className="relative -z-[1]">
         <div className="w-full object-cover h-full relative">
           <Image
-            src="/ai_network.jpeg"
+            src="/land_gradient.jpg"
             alt="logo"
             priority={true}
             className="w-full h-full max-h-48 sm:max-h-72 border border-gray-900 object-cover"
