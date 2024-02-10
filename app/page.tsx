@@ -13,6 +13,9 @@ import { FaUser } from "react-icons/fa";
 import { FaRobot } from "react-icons/fa";
 import { FaDatabase } from "react-icons/fa";
 import { ImSpinner2 } from "react-icons/im";
+import { FaLock } from "react-icons/fa";
+import { AiFillMessage } from "react-icons/ai";
+import { BiSolidMessageDetail } from "react-icons/bi";
 
 export default function Home() {
   const inputRef = useRef<HTMLInputElement>(null); // Add type annotation for inputRef
@@ -124,10 +127,10 @@ export default function Home() {
       <div className="relative -z-[1]">
         <div className="w-full object-cover h-full relative">
           <Image
-            src="/tech_network.jpg"
+            src="/ai_network.jpeg"
             alt="logo"
             priority={true}
-            className="w-full h-full max-h-72 border border-gray-900"
+            className="w-full h-full max-h-48 sm:max-h-72 border border-gray-900 object-cover"
             width={500}
             height={500}
           />
@@ -143,14 +146,14 @@ export default function Home() {
                   <div className="flex flex-col sm:flex-row items-center justify-center sm:mb-10">
                     <div className="flex items-center">
                       <span className="bg-blue-400 rounded -p-2">
-                        <CiSearch className="text-white h-12 w-12 sm:h-16 sm:w-16" />
+                        <CiSearch className="text-white h-10 w-10 sm:h-16 sm:w-16" />
                       </span>
 
-                      <div className="font-thin text-blue-400 drop-shadow text-5xl sm:text-7xl">
+                      <div className=" text-blue-400 font-light drop-shadow text-5xl sm:text-7xl">
                         GSA
                       </div>
                     </div>
-                    <div className=" text-fuchsia-700 text-2xl">
+                    <div className=" text-fuchsia-700 font-light drop-shadow text-3xl">
                       eLibrary 2.0
                     </div>
                   </div>
@@ -187,17 +190,24 @@ export default function Home() {
         </div>
       </div>
       <main className="min-h-screen h-full flex flex-col bg-gray-200 items-center max-w-3xl mx-auto border border-primary sm:rounded shadow-lg sm:-mt-20 mb-10 p-2 sm:p-5">
-        <div className="bg-white flex gap-2 items-center border border-primary rounded w-full max-w-3xl mx-auto">
-          {!authenticated ? (
-            // Only show authentication input when not authenticated
-            <div className="w-full flex justify-center p-2">
-              <button className="btn btn-info" onClick={authenticate}>
-                Authenticate to use demo
-              </button>
-            </div>
-          ) : (
-            // Show something else when authenticated
-            <>
+        {!authenticated ? (
+          // Only show authentication input when not authenticated
+          <div className="w-full flex justify-center p-2">
+            <button
+              className="btn sm:hover:brightness-110 group flex gap-2 items-center btn-error sm:hover:shadow transition-all duration-200"
+              onClick={authenticate}
+            >
+              <div>enter code to use demo</div>
+
+              <div>
+                <FaLock className="w-7 h-7 sm:group-hover:scale-[102%] transition-all duration-200" />
+              </div>
+            </button>
+          </div>
+        ) : (
+          // Show something else when authenticated
+          <>
+            <div className="bg-white flex gap-2 items-center border border-primary rounded w-full max-w-3xl mx-auto">
               <div>
                 <FaSearch className="text-primary h-7 w-7 pl-2" />
               </div>
@@ -219,21 +229,22 @@ export default function Home() {
                   className="btn btn-primary rounded-l-none hover:shadow group"
                   onClick={sendQuery}
                 >
-                  <div className="sm:group-hover:scale-105 transition-all duration-200">
+                  <div className="sm:group-hover:scale-105 sm:group-hover:animate-pulse transition-all duration-200">
                     <IoIosSend className="w-7 h-7 text-white" />
                   </div>
                 </button>
               </div>
-            </>
-          )}
-        </div>
+            </div>
+          </>
+        )}
 
-        <div className="mb-10 w-full ">
+        <div className="w-full ">
           {!loading && (
             <>
               {!result && (
                 <>
-                  <div className="text-xs py-5">
+                  <div className="divider"></div>
+                  <div className="text-xs">
                     <strong>Disclaimer: </strong>
                     This is a demo application. The purpose of this application
                     is to demonstrate the capabilities of large language models
@@ -241,12 +252,13 @@ export default function Home() {
                     information retrieval.
                   </div>
 
-                  <div className="text-xs w-full pt-5">
+                  <div className="divider"></div>
+                  <div className="text-xs w-full">
                     <strong>Sample Prompts:</strong>
                   </div>
 
                   <div className="flex flex-col sm:flex-row gap-2 sm:gap-5 w-full text-xs pb-5">
-                    <div className="w-full text-left bg-base-100 border rounded-bl-none border-gray-900 rounded p-2 italic">
+                    <div className="w-full text-left bg-base-100 border rounded-bl-none border-gray-900 rounded p-2 italic sm:hover:shadow transition-all duration-300">
                       <button
                         className="text-left italic"
                         onClick={() => setQuery(samplePrompts[0])}
@@ -255,7 +267,7 @@ export default function Home() {
                       </button>
                     </div>
 
-                    <div className="w-full text-left bg-base-100 border rounded-bl-none border-gray-900 rounded p-2 italic">
+                    <div className="w-full text-left bg-base-100 border rounded-bl-none border-gray-900 rounded p-2 italic sm:hover:shadow transition-all duration-300">
                       <button
                         className="text-left italic"
                         onClick={() => setQuery(samplePrompts[1])}
@@ -263,7 +275,7 @@ export default function Home() {
                         {samplePrompts[1]}
                       </button>
                     </div>
-                    <div className="w-full text-left bg-base-100 border rounded-bl-none border-gray-900 rounded p-2 italic">
+                    <div className="w-full text-left bg-base-100 border rounded-bl-none border-gray-900 rounded p-2 italic sm:hover:shadow transition-all duration-300">
                       <button
                         className="text-left italic"
                         onClick={() => setQuery(samplePrompts[2])}
@@ -283,22 +295,21 @@ export default function Home() {
             <>
               <div className="flex flex-col items-center py-10">
                 <div className="animate-pulse">
-                  {/* <LiaCircleNotchSolid className="w-40 h-40 animate-spin" /> */}
                   <ImSpinner2 className="w-36 h-36 animate-spin" />
-                  {/* <FaGear className="w-32 h-32 animate-spin " /> */}
-                  {/* <span className="loading loading-spinner loading-lg scale-150"></span> */}
                 </div>
 
                 <div className="animate-bounce flex flex-col items-center mt-5">
                   <div className="text-lg">Thinking...</div>
                 </div>
-                <div className="text">This may take a minute.</div>
+                <div className="text">
+                  This may take up to a minute in demo mode.
+                </div>
               </div>
             </>
           )}
 
           {result ? (
-            <div className="pb-10">
+            <div className="">
               <div className="chat chat-end">
                 <div className="chat-image avatar">
                   <div className="rounded-full shadow-md p-2 border border-gray-900 flex items-center justify-center">
@@ -318,14 +329,7 @@ export default function Home() {
                     <FaRobot className="w-7 h-7" />
                   </div>
                 </div>
-                <div className="chat-header">
-                  eLibrary
-                  {/* <time className="text-xs opacity-50">{new Date}</time> */}
-                </div>
-                {/* <div className="chat-bubble shadow-lg bg-fuchsia-700 p-4">
-                  {result && <div>{result}</div>}
-                </div> */}
-
+                <div className="chat-header">eLibrary</div>
                 <div className="chat-bubble shadow-lg bg-fuchsia-700 p-4">
                   {result && (
                     <div
@@ -373,18 +377,11 @@ export default function Home() {
           )}
         </div>
 
-        {/* {searchHistory.length > 0 ? (
-          <div className="mb-10">
-            <h2 className="text-2xl font-semibold">Search History</h2>
-            <div className="flex flex-col gap-2">{JSON.stringify(result)}</div>
-          </div>
-        ) : (
-          ""
-        )} */}
-
-        {/* consider removing this button from the UI once the embeddings are created ... */}
-        <div className="flex -mt-10 flex-col sm:flex-row gap-2 sm:gap-5  w-full items-center justify-center max-w-3xl">
-          <a href="/about" className=" border border-gray-900 rounded group">
+        <div className="flex flex-col sm:flex-row gap-2 sm:gap-5 w-full items-center justify-center max-w-lg">
+          <a
+            href="/about"
+            className=" border border-gray-900 rounded group w-full"
+          >
             <button className="btn btn-primary w-full">
               <div className="flex gap-2 items-center">
                 <div>About the Data</div>
@@ -395,36 +392,21 @@ export default function Home() {
               </div>
             </button>
           </a>
-
-          {/* <a
-            href="/about"
+          <a
+            href="mailto:info@resonantlogic.com"
+            target="_blank"
             className="w-full border border-gray-900 rounded group"
           >
-            <button
-              className="btn btn-primary w-full"
-              onClick={createIndexAndEmbeddings}
-            >
+            <button className="btn btn-primary w-full">
               <div className="flex gap-2 items-center">
-                <div>Index</div>
+                <div>Contact Us</div>
 
                 <div className="sm:group-hover:scale-105 transition-all duration-200">
-                  <AiOutlineNodeIndex className="w-6 h-6" />
+                  <BiSolidMessageDetail className="w-6 h-6" />
                 </div>
               </div>
             </button>
-          </a> */}
-
-          {/* <div className="w-full h-full flex shadow border border-gray-900 rounded group">
-            <button className="btn btn-primary w-full" onClick={getPages}>
-              <div className="flex gap-2 items-center">
-                <div>Get Pages</div>
-
-                <div className="sm:group-hover:scale-105 transition-all duration-200">
-                  <MdOutlineGetApp className="w-6 h-6" />
-                </div>
-              </div>
-            </button>
-          </div> */}
+          </a>
         </div>
       </main>
       <Footer />
