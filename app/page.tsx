@@ -150,7 +150,7 @@ export default function Home() {
                           <CiSearch className="text-white h-10 w-10" />
                         </span>
 
-                        <div className=" text-white font-light drop-shadow text-5xl sm:text-5xl uppercase">
+                        <div className=" text-white font-light drop-shadow text-4xl sm:text-5xl uppercase">
                           buy.gsa.gov
                         </div>
                       </div>

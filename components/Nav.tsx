@@ -3,7 +3,7 @@ import Image from "next/image";
 
 function Nav() {
   return (
-    <div className="bg-base-100 w-full">
+    <div className="bg-base-100 w-full shadow">
       <div className="navbar bg-base-100 max-w-3xl mx-auto">
         <div className="flex-1">
           <a className="normal-case text-xl lg:scale-125" href="/">
