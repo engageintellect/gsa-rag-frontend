@@ -27,7 +27,7 @@ export default function Home() {
   const secretCode = "81Z70GSA"; // Define your secret code here
 
   const samplePrompts = [
-    "I am planning to order laptops for my employees using GSS. What are things to be arare of?",
+    "I am planning to order laptops for my employees using GSS. What are things to be aware of?",
     "I am planning to implement a zero trust architecture. Can you provide implementation guidance? who can I contact in GSA ?",
     "I am planning to implement a zero trust architecture. Can you provide details of product and services offered by GSA to help me?",
   ];
