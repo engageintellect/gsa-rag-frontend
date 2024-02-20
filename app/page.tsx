@@ -27,9 +27,9 @@ export default function Home() {
   const secretCode = "81Z70GSA"; // Define your secret code here
 
   const samplePrompts = [
-    "What vendor has the lowest rate for a Program Manager and what is the rate?",
-    "Which companies provide cloud data architects and what are the hourly rates quoted? Also provide the job descriptions.",
-    "What is a sample job description for a cloud architect?",
+    "I am planning to order laptops for my employees using GSS. What are things to be arare of?",
+    "I am planning to implement a zero trust architecture. Can you provide implementation guidance? who can I contact in GSA ?",
+    "I am planning to implement a zero trust architecture. Can you provide details of product and services offered by GSA to help me?",
   ];
 
   // async function getPages() {
@@ -130,7 +130,7 @@ export default function Home() {
             src="/land_gradient.jpg"
             alt="logo"
             priority={true}
-            className="w-full h-full max-h-48 sm:max-h-72 border border-gray-900 object-cover"
+            className="w-full h-full max-h-48 sm:max-h-72 border border-gray-900 object-cover saturate-200"
             width={500}
             height={500}
           />
@@ -149,7 +149,7 @@ export default function Home() {
                         <CiSearch className="text-white h-10 w-10 sm:h-16 sm:w-16" />
                       </span>
 
-                      <div className=" text-blue-400 font-light drop-shadow text-5xl sm:text-7xl">
+                      <div className=" text-white font-light drop-shadow text-5xl sm:text-7xl">
                         GSA
                       </div>
                     </div>
@@ -189,7 +189,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <main className="min-h-screen h-full flex flex-col bg-gray-200 items-center max-w-3xl mx-auto border border-primary sm:rounded shadow-lg sm:-mt-20 mb-10 p-2 sm:p-5">
+      <main className="min-h-screen h-full flex flex-col bg-base-100 items-center max-w-3xl mx-auto border border-primary sm:rounded shadow-xl sm:-mt-20 mb-10 p-2 sm:p-5">
         {!authenticated ? (
           // Only show authentication input when not authenticated
           <div className="w-full flex justify-center p-2">
@@ -226,11 +226,11 @@ export default function Home() {
                 />
 
                 <button
-                  className="btn btn-primary rounded-l-none hover:shadow group"
+                  className="btn btn-primary  rounded-l-none hover:shadow group"
                   onClick={sendQuery}
                 >
                   <div className="sm:group-hover:scale-105 sm:group-hover:animate-pulse transition-all duration-200">
-                    <IoIosSend className="w-7 h-7 text-white" />
+                    <IoIosSend className="w-7 h-7 " />
                   </div>
                 </button>
               </div>
@@ -323,7 +323,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="chat chat-start">
+              <div className="chat chat-start w-full">
                 <div className="chat-image avatar">
                   <div className="rounded-full shadow-md p-2 border border-gray-900 flex items-center justify-center">
                     <FaRobot className="w-7 h-7" />
