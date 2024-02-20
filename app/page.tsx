@@ -331,7 +331,7 @@ export default function Home() {
                     <FaRobot className="w-7 h-7" />
                   </div>
                 </div>
-                <div className="chat-header">eLibrary</div>
+                <div className="chat-header">GSA</div>
                 <div className="chat-bubble shadow-lg bg-fuchsia-700 p-4">
                   {result && (
                     <div
