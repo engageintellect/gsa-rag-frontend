@@ -143,18 +143,20 @@ export default function Home() {
             <div className="hero-content text-center">
               <div className="max-w-3xl">
                 <div className="font-semibold text-white drop-shadow">
-                  <div className="flex flex-col sm:flex-row items-center justify-center sm:mb-10">
+                  <div className="flex flex-col sm:flex-row items-center justify-center sm:mb-10 gap-2">
                     <div className="flex items-center">
-                      <span className="bg-blue-400 rounded -p-2">
-                        <CiSearch className="text-white h-10 w-10 sm:h-16 sm:w-16" />
-                      </span>
+                      <div className="flex items-center">
+                        <span className="bg-blue-400 rounded">
+                          <CiSearch className="text-white h-10 w-10" />
+                        </span>
 
-                      <div className=" text-white font-light drop-shadow text-5xl sm:text-7xl">
-                        GSA
+                        <div className=" text-white font-light drop-shadow text-5xl sm:text-5xl uppercase">
+                          buy.gsa.gov
+                        </div>
                       </div>
                     </div>
-                    <div className=" text-fuchsia-700 font-light drop-shadow text-3xl">
-                      eLibrary 2.0
+                    <div className=" text-fuchsia-700 font-light drop-shadow text-2xl sm:text-3xl">
+                      2.0
                     </div>
                   </div>
                 </div>
